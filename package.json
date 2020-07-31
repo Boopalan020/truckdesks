@@ -2,6 +2,7 @@
   "name": "truckdesk",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -10,7 +11,12 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "formik": "^2.1.5",
+    "mongoose": "^5.9.26",
+    "mongoose-double": "0.0.1",
+    "morgan": "^1.10.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -26,7 +32,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"node server.js\" \"npm run start\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
   }
 }
