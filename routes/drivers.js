@@ -3,6 +3,19 @@ const driver = require('../model/driver.model')
 const bodyparser = require('body-parser')
 
 driverRoute.use(bodyparser.json())
+// This will fetch all drivers from  the dataBase
+driverRoute.get('/', (req, res) => {
+    console.log("getting the data from driver collections")
+    driver.find()
+    .then(results => {
+        console.log(results)
+        res.status(200).send(results)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+// This will insert the sriver details which is not inside the DataBase
 driverRoute.post('/adddriver', (req, res) => {
     console.log(req.body)
     driver.findOne({license : req.body.license})
@@ -37,5 +50,4 @@ driverRoute.post('/adddriver', (req, res) => {
         console.log(err)
     });
 })
-
 module.exports = driverRoute

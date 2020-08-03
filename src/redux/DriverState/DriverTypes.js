@@ -1,0 +1,1 @@
+export const DRIVER_VIEW = "DRIVER_VIEW"

@@ -1,8 +1,8 @@
-import { DRAWER_ITEMS } from './NavbarTypes'
+import { DRAWER_STATE } from './NavbarTypes'
 
 export const navbarState = () => {
     return {
-        type : DRAWER_ITEMS
+        type : DRAWER_STATE
     }
 }
 

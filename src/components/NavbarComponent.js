@@ -153,8 +153,8 @@ function NavbarComponent(props) {
 
 const mapStateToProps = (state) => {
   return {
-    navItems: state.navItems,
-    left : state.left
+    navItems: state.navbar.navItems,
+    left : state.navbar.left
   };
 };
 

@@ -3,8 +3,13 @@ import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import { Row, Col, FormGroup } from "react-bootstrap";
 import { makeStyles } from "@material-ui/core/styles";
-import { Button, Typography, TextField } from "@material-ui/core";
+import { Button, Typography, TextField, Container, IconButton } from "@material-ui/core";
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
 import Axios from "axios";
+
+import { changeDriverState } from '../redux/index'
+import { connect } from 'react-redux'
 
 const apiOrigin  = "http://localhost:3001";
 const useStyles = makeStyles((theme) => ({
@@ -42,9 +47,12 @@ function AddDriverComponent(props) {
       .then(response => {
           console.log(response)
       })
+      .catch(err => {
+          console.log(err)
+      })
   }
   return (
-      <div className={classes.alignItemsAndJustifyContent} >
+      <Container maxWidth="sm" className={classes.alignItemsAndJustifyContent} >
             <Formik 
                 initialValues = {initialValues}
                 validationSchema = {validationSchema}
@@ -53,7 +61,9 @@ function AddDriverComponent(props) {
                     <Row style={{padding:"5px"}}>
                         <Col align='center' style={{padding:"10px"}} >
                             <Typography variant="h5" >
-                            Add Driver
+                            <IconButton onClick={props.changeDriverState} variant="outlined" color="primary">
+                                <ArrowBackOutlinedIcon />
+                            </IconButton>Add Driver
                             </Typography>
                         </Col>
                     </Row>
@@ -131,15 +141,23 @@ function AddDriverComponent(props) {
                     </Row>
                     <Row style={{padding:"10px"}}>
                         <Col >
-                            <Button type="submit" variant="outlined" color="primary">
+                            <Button type="submit" startIcon={ <AddCircleIcon /> } variant="outlined" color="primary">
                                 <span align='center' style={{ padding:"2px" }}>Add</span>
                             </Button>
                         </Col>
                     </Row>
                 </Form>
             </Formik>
-        </div>
+        </Container>
   );
 }
+const mapStateToProps = (state) => {
+    return ;
+  };
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeDriverState : () => dispatch(changeDriverState())
+    }
+}
 
-export default AddDriverComponent;
+export default connect(mapStateToProps, mapDispatchToProps)(AddDriverComponent);
