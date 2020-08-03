@@ -1,10 +1,11 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+const cors = require('cors')
 
-const profiles = require('./routes/profile');
-const keys = require('./config/key');
+const driver = require('./routes/drivers')
+const keys = require('./config/key')
 const port = process.env.PORT || 3001
 // Mongoose connection
 mongoose.connect(keys.mongodb.dbURI, {useNewUrlParser: true, useUnifiedTopology: true }, (err, result) => {
@@ -14,7 +15,10 @@ mongoose.connect(keys.mongodb.dbURI, {useNewUrlParser: true, useUnifiedTopology:
         console.log('Database server connected Successfully'+ result )
 })
 app.use(morgan("dev"))
+app.use(cors({
+    origin : "http://localhost:3000"
+}))
 
-app.use('/user', profiles)
+app.use('/drivers', driver)
 
 app.listen(port, () => console.log("Server is running at PORT ===" + port))

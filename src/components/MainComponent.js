@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavbarComponent from './NavbarComponent'
+import DriverComponent from './DriverComponent'
 
 function MainComponent(props) {
     return (
@@ -9,10 +10,10 @@ function MainComponent(props) {
                 <NavbarComponent/>
                 <Switch>
                     <Route exact path='/profile' ></Route>
-                    <Route exact path='/dashboard' ></Route>
-                    <Route exact path='/viewdrivers' ></Route>
-                    <Route exact path='/viewvehicle' ></Route>
-                    <Route exact path='/memo' ></Route>
+                    <Route path='/dashboard' ></Route>
+                    <Route path='/viewdrivers' component = {DriverComponent} ></Route>
+                    <Route path='/viewvehicle' ></Route>
+                    <Route path='/memo' ></Route>
                 </Switch>
             </Router>
         </div>

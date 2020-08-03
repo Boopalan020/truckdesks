@@ -1,0 +1,41 @@
+const driverRoute = require('express').Router()
+const driver = require('../model/driver.model')
+const bodyparser = require('body-parser')
+
+driverRoute.use(bodyparser.json())
+driverRoute.post('/adddriver', (req, res) => {
+    console.log(req.body)
+    driver.findOne({license : req.body.license})
+    .then(result => {
+        if(result)
+        {
+            console.log("Driver Already exist : ", result)
+            res.status(200).end()
+        }
+        else
+        {
+            console.log("Creating driver Space ")
+            new driver({
+                drivername : req.body.drivername,
+                license : req.body.license,
+                address : req.body.address,
+                phone : req.body.phone,
+            }).save()
+            then(result => {
+                if(result)
+                {
+                    console.log("Driver Space created Successfully")
+                    res.status(200).send(result)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        }
+    })
+    .catch(err => {
+        console.log(err)
+    });
+})
+
+module.exports = driverRoute
