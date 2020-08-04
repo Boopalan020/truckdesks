@@ -15,6 +15,20 @@ driverRoute.get('/', (req, res) => {
         console.log(err)
     })
 })
+// Deleting driver from DB
+driverRoute.delete('/deletedriver', (req, res) => {
+    console.log(req.body.id)
+    driver.deleteOne({license : req.body.id})
+    .then(result => {
+        console.log(result)
+        if(result)
+            res.status(200).send({msg : "Deleted Succesfully"})
+    })
+    .catch(err => {
+        console.log(err)
+        res.send(err)
+    })
+})
 // This will insert the sriver details which is not inside the DataBase
 driverRoute.post('/adddriver', (req, res) => {
     console.log(req.body)
@@ -22,8 +36,8 @@ driverRoute.post('/adddriver', (req, res) => {
     .then(result => {
         if(result)
         {
-            console.log("Driver Already exist : ", result)
-            res.status(200).end()
+            console.log("Already exist : ", result)
+            res.send({flag : "exist", msg: "Driver Already Exist"})
         }
         else
         {
@@ -34,20 +48,22 @@ driverRoute.post('/adddriver', (req, res) => {
                 address : req.body.address,
                 phone : req.body.phone,
             }).save()
-            then(result => {
+            .then(result => {
                 if(result)
                 {
                     console.log("Driver Space created Successfully")
-                    res.status(200).send(result)
+                    res.status(200).send({flag : "new", msg :"Saved Successfully"})
                 }
             })
             .catch(err => {
                 console.log(err)
+                res.send(err);
             });
         }
     })
     .catch(err => {
         console.log(err)
+        res.send(err)
     });
 })
 module.exports = driverRoute

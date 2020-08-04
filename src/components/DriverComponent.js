@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import AddDriverComponent from './AddDriverComponent'
-import Container from '@material-ui/core/Container';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import PersonIcon from '@material-ui/icons/Person';
 import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
+import { useToasts } from 'react-toast-notifications';
 import { connect } from 'react-redux'
 
 import Grid from '@material-ui/core/Grid';
 import Axios from 'axios'
-import { Paper, Button } from '@material-ui/core';
+import { Paper, Button, IconButton, Container, Card, CardContent, Typography } from '@material-ui/core';
 
 import { changeDriverState } from '../redux/index'
 
@@ -55,8 +53,7 @@ const useStyles = makeStyles({
 function DriverComponent(props) {
     const classes = useStyles()
     const [drivers, setDrivers] = useState([])
-
-    console.log(props.showform, props.showview)
+    const { addToast } = useToasts()
 
     useEffect(() => {
         Axios.get(`${apiOrigin}/drivers`)
@@ -69,18 +66,28 @@ function DriverComponent(props) {
         })
     }, [])
 
+    const deletItem = (e) => {
+        console.log(e.target.id);
+        Axios.delete(`${apiOrigin}/drivers/deletedriver`, {data : {id : e.target.id}})
+        .then(response => {
+            console.log(response)
+            addToast( response.data.msg , { appearance : 'success',autoDismiss: true })
+        })
+        .catch(err => {
+            addToast( "Action Failed" , { appearance : 'error',autoDismiss: true })
+        })
+    }
+
     return (
         <div>
             {
                 props.showview && (
-                    <Container maxWidth ="sm">
+                    <Container maxWidth ="md">
                         <div className={classes.alignItemsAndJustifyContent} style={{padding:"10px", fontSize:"24px"}}>
                             Driver List 
-
-                            
                         </div>
                         <div >
-                            <Paper style={{maxHeight:600, overflowY:"auto", overflowX:"hidden"}} >
+                            <Paper elevation={10} style={{maxHeight:600, overflowY:"auto", overflowX:"hidden", padding:"25px"}} >
                                 <Grid container spacing={2} style={{padding: '5px'}}>
                                 {
                                     drivers.map(driver => 
@@ -88,20 +95,28 @@ function DriverComponent(props) {
                                             <Card>
                                                 <CardContent>
                                                     <Typography className={classes.title} style={{display: 'flex',alignItems: 'center'}}>
-                                                    <PersonIcon style={{paddingRight:"10px"}} /> { driver.drivername }
+                                                        <PersonIcon style={{paddingRight:"10px"}} /> { driver.drivername }
                                                     </Typography>
 
-                                                    <Typography className = {classes.subtitle} >
-                                                        { driver.license }
+                                                    <Typography className = {classes.subtitle} style={{display: 'flex',alignItems: 'center'}} >
+                                                        <ConfirmationNumberIcon style={{paddingRight:"10px"}} /> { driver.license }
                                                     </Typography>
 
-                                                    <Typography className = {classes.address}>
+                                                    <Typography className = {classes.address} style={{display: 'flex',alignItems: 'center'}}>
                                                         <ImportContactsIcon style={{paddingRight:"10px"}} /> { driver.address }
                                                     </Typography>
 
-                                                    <Typography className = {classes.phone}>
+                                                    <Typography className = {classes.phone} style={{display: 'flex',alignItems: 'center'}}>
                                                         <WhatsAppIcon style={{paddingRight:"10px"}} /> {driver.phone}
-                                                    </Typography>
+                                                    </Typography>    
+                                                        
+                                                    <input 
+                                                        type="button" 
+                                                        style={{background:"none", border:"none", cursor:"pointer"}} 
+                                                        value="Delete" 
+                                                        id = {driver.license} 
+                                                        onClick={deletItem}/>
+                                                
                                                 </CardContent>
                                             </Card>
                                     </Grid>
@@ -110,11 +125,11 @@ function DriverComponent(props) {
                                 </Grid>
                             </Paper>
                             <Button 
-                                variant="outlined" 
+                                variant="contained" 
                                 startIcon={ <PersonAddIcon/> } 
                                 color="primary" 
                                 onClick={props.changeDriverState}
-                                style={{margin:10}}
+                                style={{margin:20}}
                                 >
                                 New driver
                             </Button>

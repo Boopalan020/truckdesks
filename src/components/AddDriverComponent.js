@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Button, Typography, TextField, Container, IconButton } from "@material-ui/core";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
+import { useToasts } from 'react-toast-notifications';
 import Axios from "axios";
 
 import { changeDriverState } from '../redux/index'
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AddDriverComponent(props) {
   const classes = useStyles();
+  const { addToast } = useToasts()
   // INITIAL VALUES OF THE FORM
   const initialValues = {
     drivername: "",
@@ -45,10 +47,18 @@ function AddDriverComponent(props) {
   const onSubmit = values => {
       Axios.post(`${apiOrigin}/drivers/adddriver`, values)
       .then(response => {
-          console.log(response)
+          if(response)
+          {
+            console.log(response)
+            if(response.data.flag === "exist")
+                addToast( response.data.msg , { appearance : 'warning',autoDismiss: true })
+            if(response.data.flag === "new") 
+                addToast( response.data.msg , { appearance : 'success',autoDismiss: true })
+          }
       })
       .catch(err => {
           console.log(err)
+          addToast('Failed..! Try again later', { appearance : 'error',autoDismiss: true })
       })
   }
   return (
@@ -152,7 +162,7 @@ function AddDriverComponent(props) {
   );
 }
 const mapStateToProps = (state) => {
-    return ;
+    return {};
   };
 const mapDispatchToProps = (dispatch) => {
     return {
