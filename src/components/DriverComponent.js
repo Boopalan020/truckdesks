@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 
 import Grid from '@material-ui/core/Grid';
 import Axios from 'axios'
-import { Paper, Button, IconButton, Container, Card, CardContent, Typography } from '@material-ui/core';
+import { Paper, Button, Container, Card, CardContent, Typography } from '@material-ui/core';
 
 import { changeDriverState } from '../redux/index'
 
@@ -53,25 +53,34 @@ const useStyles = makeStyles({
 function DriverComponent(props) {
     const classes = useStyles()
     const [drivers, setDrivers] = useState([])
+    const [length, setLength] = useState(0)
     const { addToast } = useToasts()
 
     useEffect(() => {
-        Axios.get(`${apiOrigin}/drivers`)
-        .then(result => {
-            console.log(result)
-            setDrivers(result.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }, [])
+        function FetchDriver() {
+            Axios.get(`${apiOrigin}/drivers`)
+            .then(result => {
+                console.log(result)
+                setDrivers(result.data)
+                setLength(result.data.length)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }
+        FetchDriver()
+    }, [props.showview, length])
 
     const deletItem = (e) => {
         console.log(e.target.id);
         Axios.delete(`${apiOrigin}/drivers/deletedriver`, {data : {id : e.target.id}})
         .then(response => {
-            console.log(response)
-            addToast( response.data.msg , { appearance : 'success',autoDismiss: true })
+            if(response)
+            {
+                addToast( response.data.msg , { appearance : 'success',autoDismiss: true })
+                setLength(length-1)
+            }
+            
         })
         .catch(err => {
             addToast( "Action Failed" , { appearance : 'error',autoDismiss: true })
