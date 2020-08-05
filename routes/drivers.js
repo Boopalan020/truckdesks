@@ -22,7 +22,11 @@ driverRoute.delete('/deletedriver', (req, res) => {
     .then(result => {
         console.log(result)
         if(result)
+        {
+            console.log("Deleted Succesfully")
             res.status(200).send({msg : "Deleted Succesfully"})
+        }
+            
     })
     .catch(err => {
         console.log(err)
@@ -36,7 +40,7 @@ driverRoute.post('/adddriver', (req, res) => {
     .then(result => {
         if(result)
         {
-            console.log("Already exist : ", result)
+            console.log("Already exist : ")
             res.send({flag : "exist", msg: "Driver Already Exist"})
         }
         else

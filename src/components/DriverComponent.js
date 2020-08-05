@@ -60,7 +60,6 @@ function DriverComponent(props) {
         function FetchDriver() {
             Axios.get(`${apiOrigin}/drivers`)
             .then(result => {
-                console.log(result)
                 setDrivers(result.data)
                 setLength(result.data.length)
             })
@@ -97,6 +96,10 @@ function DriverComponent(props) {
                         </div>
                         <div >
                             <Paper elevation={10} style={{maxHeight:600, overflowY:"auto", overflowX:"hidden", padding:"25px"}} >
+                                {
+                                    length === 0 ? <div>NO records found</div> :null
+                                }
+                                
                                 <Grid container spacing={2} style={{padding: '5px'}}>
                                 {
                                     drivers.map(driver => 
