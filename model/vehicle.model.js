@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const vehicleSchema = new mongoose.Schema({
+    vehicle_no : String,
     basic_info :
     {
-        vehicle_no : String,
         chasis_no  : String,
         vehicle_model : String,
         engine_no : String,
