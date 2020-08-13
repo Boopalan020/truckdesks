@@ -7,6 +7,7 @@ const yearlySchema = new mongoose.Schema({
             insurance : Number,
             rto : Number,
             fc : Number,
+            fc_date : String,
             quarter_tax : Number,
             year : Number,
             status : String

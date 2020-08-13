@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 
 const driver = require('./routes/drivers')
+const vehicle = require('./routes/vehicles')
+
 const keys = require('./config/key')
 const port = process.env.PORT || 3001
 // Mongoose connection
@@ -12,7 +14,7 @@ mongoose.connect(keys.mongodb.dbURI, {useNewUrlParser: true, useUnifiedTopology:
     if(err)
         console.log('Database server not connected Successfully' + err)
     else
-        console.log('Database server connected Successfully'+ result )
+        console.log('Database server connected Successfully' )
 })
 app.use(morgan("dev"))
 app.use(cors({
@@ -20,5 +22,6 @@ app.use(cors({
 }))
 
 app.use('/drivers', driver)
+app.use('/vehicle', vehicle)
 
 app.listen(port, () => console.log("Server is running at PORT ===" + port))

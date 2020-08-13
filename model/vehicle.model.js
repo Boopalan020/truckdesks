@@ -6,11 +6,8 @@ const vehicleSchema = new mongoose.Schema({
         chasis_no  : String,
         vehicle_model : String,
         engine_no : String,
-        due_details :
-        {
-            total_due : Number,
-            completed_due : Number
-        }
+        total_due : Number,
+        completed_due : Number
     }
 });
 const vehicle = mongoose.model("vehicle", vehicleSchema)

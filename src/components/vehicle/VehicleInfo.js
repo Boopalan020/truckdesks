@@ -3,14 +3,16 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Formik, Form, Field } from "formik";
 // import { useToasts } from 'react-toast-notifications'
 import { Row, Col, FormGroup } from "react-bootstrap";
-import { TextField, Container, Button } from "@material-ui/core";
+import { TextField, Container, Button, Typography } from "@material-ui/core";
 import { connect } from "react-redux";
+import { useToasts } from 'react-toast-notifications';
 import * as yup from "yup";
 
 import SaveIcon from "@material-ui/icons/Save";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
-import { toggleNextButton, saveVehicleData } from "../../redux";
+import { toggleNextButton } from "../../redux";
+import Axios from "axios";
 
+const apiOrigin  = "http://localhost:3001";
 const useStyles = makeStyles((theme) => ({
   alignItemsAndJustifyContent: {
     display: "flex",
@@ -21,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 function VehicleInfo(props) {
   const classes = useStyles();
+  const { addToast } = useToasts()
 
   // INITIAL VALUES
   const initialValues = {
@@ -55,12 +58,25 @@ function VehicleInfo(props) {
       .required("Required"),
   });
   // ONSUBMITTING FORM
-  const onSubmit = (values) => {};  
-  //Saving data
-  const saveData = datas => {
-      props.saveVehicleInfo(datas)
-      console.log(props.savedData)
-  }
+  const onSubmit = (values) => {
+    Axios.post(`${apiOrigin}/vehicle/savevehicle`, values)
+      .then(response => {
+        if(response)
+        {
+          if(response)
+          {
+            if(response.data.flag === "exist")
+                addToast( response.data.msg , { appearance : 'warning',autoDismiss: true })
+            if(response.data.flag === "new") 
+                addToast( response.data.msg , { appearance : 'success',autoDismiss: true })
+          }
+        }
+      })
+      .catch(err => {
+        console.log(err)
+        addToast('Failed..! Try again later', { appearance : 'error',autoDismiss: true })
+      })
+  };  
   return (
     <div>
       <Container maxWidth="md" className={classes.alignItemsAndJustifyContent}>
@@ -178,8 +194,8 @@ function VehicleInfo(props) {
 
                 <Row style={{ padding: "5px" }}>
                   <Col md>
-                    <span style={{ padding: "10px" }}>Due Info</span>
-                    <Field name="total">
+                    <Typography style={{padding:'10px'}}>Due Date</Typography>
+                    <Field name="total" >
                       {(props) => {
                         const { field, meta } = props;
                         return (
@@ -233,23 +249,13 @@ function VehicleInfo(props) {
 
                 <Button
                   style={{ margin: "4px" }}
-                  onClick={props.togglenext}
+                  type="submit"
                   disabled={!(formik.isValid && formik.dirty)}
                   startIcon={<SaveIcon />}
                   variant="contained"
                   color="secondary"
                 >
                   <span align="center">Save</span>
-                </Button>
-
-                <Button
-                  style={{ margin: "4px" }}
-                  disabled={ saveData(formik.values) }
-                  startIcon={<NavigateNextIcon />}
-                  variant="contained"
-                  color="primary"
-                >
-                  <span align="center">Next</span>
                 </Button>
               </Form>
             );
@@ -268,8 +274,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    togglenext: () => dispatch(toggleNextButton()),
-    saveVehicleInfo : (datas) => dispatch(saveVehicleData(datas))
+    togglenext: () => dispatch(toggleNextButton())
   };
 };
 
