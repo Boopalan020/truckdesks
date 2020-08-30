@@ -4,15 +4,9 @@ import { Formik, Form, Field } from "formik";
 // import { useToasts } from 'react-toast-notifications'
 import { Row, Col, FormGroup } from "react-bootstrap";
 import { TextField, Container, Button, Typography } from "@material-ui/core";
-import { connect } from "react-redux";
-import { useToasts } from 'react-toast-notifications';
+import PropTypes from 'prop-types'
 import * as yup from "yup";
 
-import SaveIcon from "@material-ui/icons/Save";
-import { toggleNextButton } from "../../redux";
-import Axios from "axios";
-
-const apiOrigin  = "http://localhost:3001";
 const useStyles = makeStyles((theme) => ({
   alignItemsAndJustifyContent: {
     display: "flex",
@@ -21,19 +15,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function VehicleInfo(props) {
+function VehicleInfoComponent({formData, setFormData, nextStep}) {
   const classes = useStyles();
-  const { addToast } = useToasts()
 
-  // INITIAL VALUES
-  const initialValues = {
-    vehicle_no: "",
-    chasis_no: "",
-    engine_no: "",
-    vehicle_model: "",
-    total: null,
-    completed: null,
-  };
   const validationSchema = yup.object({
     vehicle_no: yup
       .string()
@@ -48,40 +32,23 @@ function VehicleInfo(props) {
       .required("Required"),
     engine_no: yup.string().required("Required"),
     vehicle_model: yup.string().required("Required"),
-    total: yup
-      .number("Must be number")
-      .positive("Positive digit")
-      .required("Required"),
-    completed: yup
-      .number("Must be number")
-      .positive("Positive digit")
-      .required("Required"),
+    total_due: yup.string()
+      .matches(/^[0-9]*$/, "Must be digit")
+      .required("Required").nullable(),
+    completed_due: yup.string()
+      .matches(/^[0-9]*$/, "Must be digit")
+      .required("Required").nullable(),
   });
   // ONSUBMITTING FORM
   const onSubmit = (values) => {
-    Axios.post(`${apiOrigin}/vehicle/savevehicle`, values)
-      .then(response => {
-        if(response)
-        {
-          if(response)
-          {
-            if(response.data.flag === "exist")
-                addToast( response.data.msg , { appearance : 'warning',autoDismiss: true })
-            if(response.data.flag === "new") 
-                addToast( response.data.msg , { appearance : 'success',autoDismiss: true })
-          }
-        }
-      })
-      .catch(err => {
-        console.log(err)
-        addToast('Failed..! Try again later', { appearance : 'error',autoDismiss: true })
-      })
+    setFormData(values)
+    nextStep()
   };  
   return (
     <div>
       <Container maxWidth="md" className={classes.alignItemsAndJustifyContent}>
         <Formik
-          initialValues={initialValues}
+          initialValues={formData}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
@@ -195,14 +162,13 @@ function VehicleInfo(props) {
                 <Row style={{ padding: "5px" }}>
                   <Col md>
                     <Typography style={{padding:'10px'}}>Due Date</Typography>
-                    <Field name="total" >
+                    <Field name="total_due" >
                       {(props) => {
                         const { field, meta } = props;
                         return (
                           <FormGroup>
                             <TextField
-                              type="number"
-                              name="total"
+                              name="total_due"
                               size="small"
                               label="Total Due"
                               variant="outlined"
@@ -222,14 +188,13 @@ function VehicleInfo(props) {
 
                 <Row style={{ padding: "5px" }}>
                   <Col md>
-                    <Field name="completed">
+                    <Field name="completed_due">
                       {(props) => {
                         const { field, meta } = props;
                         return (
                           <FormGroup>
                             <TextField
-                              type="number"
-                              name="completed"
+                              name="completed_due"
                               size="small"
                               label="Complted Due"
                               variant="outlined"
@@ -250,12 +215,10 @@ function VehicleInfo(props) {
                 <Button
                   style={{ margin: "4px" }}
                   type="submit"
-                  disabled={!(formik.isValid && formik.dirty)}
-                  startIcon={<SaveIcon />}
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                 >
-                  <span align="center">Save</span>
+                  <span align="center">Next</span>
                 </Button>
               </Form>
             );
@@ -266,16 +229,11 @@ function VehicleInfo(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    vehiclenext: state.vehicleinfo.enablenext,
-    savedData : state.vehicleinfo.vehicleDatas
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    togglenext: () => dispatch(toggleNextButton())
-  };
-};
 
-export default connect(mapStateToProps, mapDispatchToProps)(VehicleInfo);
+export default VehicleInfoComponent;
+
+VehicleInfoComponent.propTypes = {
+    formdata: PropTypes.object.isRequired,
+    setFormdata: PropTypes.func.isRequired,
+    nextStep: PropTypes.func.isRequired
+  };

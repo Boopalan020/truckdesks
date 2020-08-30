@@ -1,5 +1,5 @@
 const driverRoute = require('express').Router()
-const driver = require('../model/driver.model')
+const driver = require('../model/driver_model')
 const bodyparser = require('body-parser')
 
 driverRoute.use(bodyparser.json())
@@ -8,7 +8,6 @@ driverRoute.get('/', (req, res) => {
     console.log("getting the data from driver collections")
     driver.find()
     .then(results => {
-        console.log(results)
         res.status(200).send(results)
     })
     .catch(err => {

@@ -5,14 +5,14 @@ const yearlySchema = new mongoose.Schema({
     [
         {
             insurance : Number,
+            insurance_date : String,
             rto : Number,
             fc : Number,
             fc_date : String,
             quarter_tax : Number,
-            year : Number,
             status : String
         }
     ],
 });
-const yearly = mongoose.model("vehicle", yearlySchema)
+const yearly = mongoose.model("yearly", yearlySchema)
 module.exports = yearly
