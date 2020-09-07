@@ -8,7 +8,7 @@ import Axios from 'axios'
 import { Typography } from '@material-ui/core'
 
 const apiOrigin = "http://localhost:3001"
-function FormSubmitionComponent({ formData, prevStep }) {
+function FormSubmitionComponent({ formData, prevStep, firstStep }) {
     const { addToast } = useToasts()
     const saveDataToServer = () => {
         Axios.post(`${apiOrigin}/vehicle/savevehicle`, formData)
@@ -20,6 +20,8 @@ function FormSubmitionComponent({ formData, prevStep }) {
                 addToast( response.data.msg , { appearance : 'warning',autoDismiss: true })
             if(response.data.flag === "new") 
                 addToast( response.data.msg , { appearance : 'success',autoDismiss: true })
+
+            firstStep();
           }
       })
       .catch(err => {

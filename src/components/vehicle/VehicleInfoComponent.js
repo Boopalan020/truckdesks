@@ -161,7 +161,7 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
 
                 <Row style={{ padding: "5px" }}>
                   <Col md>
-                    <Typography style={{padding:'10px'}}>Due Date</Typography>
+                    <Typography style={{padding:'10px'}}>Due detail</Typography>
                     <Field name="total_due" >
                       {(props) => {
                         const { field, meta } = props;
@@ -213,6 +213,15 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
                 </Row>
 
                 <Button
+                  type = 'reset'
+                  style={{ margin: "4px" }}
+                  variant="outlined"
+                  color="primary"
+                >
+                  <span align="center">Clear</span>
+                </Button>
+
+                <Button
                   style={{ margin: "4px" }}
                   type="submit"
                   variant="contained"
@@ -220,6 +229,7 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
                 >
                   <span align="center">Next</span>
                 </Button>
+
               </Form>
             );
           }}

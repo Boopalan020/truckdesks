@@ -96,7 +96,6 @@ function YearlyComponent({formData, setFormData, nextStep, prevStep}) {
                                 }}  
                             </Field>
 
-                            
                         </Col>
                         </Row>
 
@@ -234,19 +233,29 @@ function YearlyComponent({formData, setFormData, nextStep, prevStep}) {
                         </Row>
 
                         <Row md style={{ padding : "5px" }} >
-                            <Col md style={{ padding : "10px" }} >
+                            <Col md = {4} >
                                 <Button
-                                    type='submit'
-                                    variant='contained'
+                                    variant='outlined'
                                     color='primary'
                                     className={classes.button}
-                                    onClick={() => setDirection('back')}
+                                    onClick={() => prevStep() }
                                     >
                                     Back
                                 </Button>
                             </Col>
 
-                            <Col md = {6} style={{ padding : "10px" }} >
+                            <Col md = {4} >
+                                <Button
+                                    type='reset'
+                                    variant='outlined'
+                                    color='primary'
+                                    className={classes.button}
+                                    >
+                                    Clear
+                                </Button>
+                            </Col>
+
+                            <Col md = {4} >
                                 <Button
                                     type='submit'
                                     variant='contained'

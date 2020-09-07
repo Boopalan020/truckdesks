@@ -32,6 +32,7 @@ function MultistepComponent(props) {
     });
     const nextStep = () => setStep(prev => prev + 1);
     const prevStep = () => setStep(prev => prev - 1); 
+    const firstStep = () => setStep(1);
 
     switch (step) {
         case 1:
@@ -66,6 +67,7 @@ function MultistepComponent(props) {
               <FormSubmitionComponent 
                 formData={formdata}
                 prevStep={prevStep}
+                firstStep={firstStep}
               />
             </div>
           );
