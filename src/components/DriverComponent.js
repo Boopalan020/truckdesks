@@ -107,7 +107,7 @@ function DriverComponent(props) {
                             Driver List 
                         </div>
                         <div >
-                            <Paper elevation={5} className={classes.paperStyle} >
+                            <Paper elevation={3} className={classes.paperStyle} >
                                 {
                                     length === 0 ? 
                                     <Row>
@@ -121,16 +121,16 @@ function DriverComponent(props) {
                                 <Grid container spacing={2} style={{padding: '5px'}}>
                                 {
                                     drivers.map(driver => 
-                                        <Grid className = {classes.root} key={driver.license} item xs={12} sm={6} md={4} lg={4} xl={3}>
+                                        <Grid className = {classes.root} key={driver.license} item xs={12} sm={6} md={6} lg={6} xl={6}>
                                             <Card>
                                                 <CardContent>
                                                     <Row>
-                                                        <Col sm={6}>
+                                                        <Col sm={7}>
                                                             <Typography className={classes.title} style={{display: 'flex',alignItems: 'center'}}>
                                                                 <PersonIcon fontSize = "small" style={{paddingRight : "3px"}} /> { driver.drivername }
                                                             </Typography>
                                                         </Col>
-                                                        <Col sm = {6}>
+                                                        <Col sm = {5}>
                                                             <Typography className={classes.title} style={{display: 'flex',alignItems: 'center'}}>
                                                                 Blood : { driver.blood }
                                                             </Typography>

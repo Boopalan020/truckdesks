@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 // import { useToasts } from 'react-toast-notifications'
 import { Row, Col, FormGroup } from "react-bootstrap";
-import { TextField, Container, Button, Divider, Typography } from "@material-ui/core";
+import { TextField, Container, Button, Divider, Typography, FormHelperText } from "@material-ui/core";
 import * as yup from "yup";
 
 import Radio from '@material-ui/core/Radio';
@@ -37,6 +37,7 @@ function YearlyComponent({formData, setFormData, nextStep, prevStep}) {
         quarter_tax_date : yup.string().required('Required'),
         quarter_tax : yup.string().matches(/^[0-9]*$/, "Must be in Digits").required("Required").nullable(),
         rto : yup.string().matches(/^[0-9]*$/, "Must be in Digits").required("Required").nullable(),
+        status : yup.string().required("Required")
     });
 
     const onSubmit = (values) => {
@@ -302,6 +303,7 @@ function YearlyComponent({formData, setFormData, nextStep, prevStep}) {
                                         <div>
                                             <Radio color = "primary" id = "paid" {...field} value = "Paid" checked = { field.value === "Paid" } />Paid
                                             <Radio color = "primary" id = "unpaid" {...field} value = "Unpaid" checked = { field.value === "Unpaid" } />Unpaid
+                                            <FormHelperText error = {meta.touched && meta.error}> { <ErrorMessage name = "status" /> } </FormHelperText>
                                         </div>
                                     </FormControl>
                                 );

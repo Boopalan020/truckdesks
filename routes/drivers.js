@@ -34,7 +34,6 @@ driverRoute.delete('/deletedriver', (req, res) => {
 })
 // This will insert the sriver details which is not inside the DataBase
 driverRoute.post('/adddriver', (req, res) => {
-    console.log(req.body)
     driver.findOne({license : req.body.license})
     .then(result => {
         if(result)

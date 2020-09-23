@@ -52,7 +52,7 @@ function AddDriverComponent(props) {
       .matches(/^\d{10}$/i, "10 - Digit Number")
       .required("Required"),
   });
-  const onSubmit = values => {
+  const onSubmit = (values, onSubmitProps) => {
       console.log(values)
       Axios.post(`${apiOrigin}/drivers/adddriver`, values)
       .then(response => {
@@ -63,6 +63,8 @@ function AddDriverComponent(props) {
                 addToast( response.data.msg , { appearance : 'warning',autoDismiss: true })
             if(response.data.flag === "new") 
                 addToast( response.data.msg , { appearance : 'success',autoDismiss: true })
+
+            onSubmitProps.resetForm()
           }
       })
       .catch(err => {

@@ -25,6 +25,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';           //Dashboard
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';       //Add driver
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';   //Add vehicle
 import MemoryIcon from '@material-ui/icons/Memory';                 // memo Icon
+import UpdateIcon from '@material-ui/icons/Update';                 // Due option
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';           // Logout icon
 import { Link } from "react-router-dom";
 
@@ -83,7 +84,8 @@ function NavbarComponent(props) {
               {index === 2 && ( <EmojiPeopleIcon /> )}
               {index === 3 && ( <LocalShippingIcon /> )}
               {index === 4 && ( <MemoryIcon /> )}
-              {index === 5 && ( <ExitToAppIcon /> )}
+              {index === 5 && ( <UpdateIcon /> )}
+              {index === 6 && ( <ExitToAppIcon /> )}
             </ListItemIcon>
             {index === 0 && (
                 <Link to='/profile' style={{textDecoration:'none', color:"black"}}>
@@ -111,6 +113,11 @@ function NavbarComponent(props) {
                 </Link>
             )}
             {index === 5 && (
+                <Link to='/dueOption' style={{textDecoration:'none', color:"black"}}>
+                    <ListItemText primary={text} />
+                </Link>
+            )}
+            {index === 6 && (
                 <ListItemText primary={text} />
             )}
           </ListItem>

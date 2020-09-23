@@ -8,7 +8,7 @@ import Axios from 'axios'
 import { Typography } from '@material-ui/core'
 
 const apiOrigin = "http://localhost:3001"
-function FormSubmitionComponent({ formData, prevStep, firstStep }) {
+function FormSubmitionComponent({ formData, setFormData, prevStep, firstStep }) {
     const { addToast } = useToasts()
     const saveDataToServer = () => {
         Axios.post(`${apiOrigin}/vehicle/savevehicle`, formData)
@@ -20,7 +20,11 @@ function FormSubmitionComponent({ formData, prevStep, firstStep }) {
                 addToast( response.data.msg , { appearance : 'warning', autoDismiss: true })
             if(response.data.flag === "new")
                 addToast( response.data.msg , { appearance : 'success', autoDismiss: true })
-
+            setFormData({
+                vehicle_no : '',reg_date : '',engine_no : '',chasis_no:'',vehicle_model : '',total_due_amount: '',due_interest : '',
+                total_months : '',completed_month: '',national_date : '',national_cost : '',insurance : '',insurance_date : '',
+                fc : '',fc_date : '',quarter_tax_date : '',quarter_tax : '',rto : '',status : ''
+            })
             firstStep();
           }
       })
@@ -30,25 +34,9 @@ function FormSubmitionComponent({ formData, prevStep, firstStep }) {
       })
     }
     const { 
-        vehicle_no, 
-        engine_no, 
-        chasis_no, 
-        reg_date,
-        vehicle_model, 
-        total_due_amount, 
-        due_interest,
-        total_months,
-        completed_month,
-        national_date,
-        national_cost,
-        insurance,
-        insurance_date,
-        rto,
-        fc,
-        fc_date,
-        quarter_tax_date,
-        quarter_tax,
-        status } = formData
+        vehicle_no, engine_no, chasis_no, reg_date,vehicle_model, total_due_amount, due_interest,total_months,completed_month,
+        national_date,national_cost,insurance,insurance_date,rto,fc,fc_date,quarter_tax_date,quarter_tax,status 
+    } = formData
     return (
         <Container maxWidth="md" >
             <Card>
@@ -88,7 +76,7 @@ function FormSubmitionComponent({ formData, prevStep, firstStep }) {
                                 style={{backgroundColor : 'white', color: 'black',border: '2px solid #008CBA'}} 
                             >Back</Button>
                             <Button 
-                                variant="contained" 
+                                variant="contained"
                                 onClick={saveDataToServer}
                                 style={{ marginLeft :"3px" ,backgroundColor : 'white', color: 'black',border: '2px solid #4CAF50'}}
                             >Add Info</Button>

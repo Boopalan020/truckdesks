@@ -6,7 +6,6 @@ const bodyparser = require('body-parser')
 vehicleRoute.use(bodyparser.json())
 
 vehicleRoute.post('/savevehicle', (req, res) => {
-    console.log(req.body)
     vehicle.findOne({vehicle_no : req.body.vehicle_no})
         .then(result => {
             if(result)
@@ -21,14 +20,16 @@ vehicleRoute.post('/savevehicle', (req, res) => {
                     vehicle_no : req.body.vehicle_no,
                     basic_info :
                     {
-                        chasis_no  : req.body.vehicle_no,
+                        reg_date : req.body.reg_date,
+                        chasis_no  : req.body.chasis_no,
                         vehicle_model : req.body.vehicle_model,
                         engine_no : req.body.engine_no,
-                        total_due : req.body.total_due,
-                        completed_due : req.body.completed_due
+                        total_due_amount : req.body.total_due_amount,
+                        due_interest : req.body.due_interest,
+                        total_months : req.body.total_months,
+                        completed_month : req.body.completed_month
                     }
                 }).save()
-
 
                 save_Vehicle.then(ress => {
                     if(ress)
@@ -38,11 +39,14 @@ vehicleRoute.post('/savevehicle', (req, res) => {
                             vehicle_id : ress._id,
                             yearly_Det : [
                                 {
-                                    insurance : req.body.insurance,
+                                    national_date : req.body.national_date,
+                                    national_cost : req.body.national_cost,
                                     insurance_date : req.body.insurance_date,
+                                    insurance : req.body.insurance,
                                     rto : req.body.rto,
-                                    fc : req.body.fc,
                                     fc_date : req.body.fc_date,
+                                    fc : req.body.fc,
+                                    quarter_tax_date : req.body.quarter_tax_date,
                                     quarter_tax : req.body.quarter_tax,
                                     status : req.body.status
                                 }

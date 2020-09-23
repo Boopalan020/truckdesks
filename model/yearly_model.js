@@ -4,11 +4,14 @@ const yearlySchema = new mongoose.Schema({
     yearly_Det:
     [
         {
-            insurance : Number,
+            national_date : String,
+            national_cost : Number,
             insurance_date : String,
+            insurance : Number,
             rto : Number,
-            fc : Number,
             fc_date : String,
+            fc : Number,
+            quarter_tax_date : String,
             quarter_tax : Number,
             status : String
         }
