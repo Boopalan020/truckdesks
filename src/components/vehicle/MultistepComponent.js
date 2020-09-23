@@ -16,19 +16,24 @@ function MultistepComponent(props) {
     const [step, setStep] = useState(1);
     const [formdata, setFormdata] = useState({
         vehicle_no : '',
+        reg_date : '',
         engine_no : '',
         chasis_no:'',
         vehicle_model : '',
-        total_due: null,
-        completed_due: null,
-        insurance : null,
-        insurance_date : new Date(),
-        rto : null,
-        fc : String,
-        fc_date : new Date(),
-        quarter_tax : String,
+        total_due_amount: '',
+        due_interest : '',
+        total_months : '',
+        completed_month: '',
+        national_date : '',
+        national_cost : '',
+        insurance : '',
+        insurance_date : '',
+        fc : '',
+        fc_date : '',
+        quarter_tax_date : '',
+        quarter_tax : '',
+        rto : '',
         status : ''
-
     });
     const nextStep = () => setStep(prev => prev + 1);
     const prevStep = () => setStep(prev => prev - 1); 
@@ -77,7 +82,7 @@ function MultistepComponent(props) {
 const TitleComponent = () => {
   const classes = useStyles();
   return(
-    <div maxWidth="md" className={classes.alignItemsAndJustifyContent}>
+    <div className={classes.alignItemsAndJustifyContent}>
       <Typography variant="h5">
         Add vehicle  
       </Typography> 

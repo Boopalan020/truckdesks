@@ -1,9 +1,9 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Row, Col, FormGroup } from "react-bootstrap";
 import { makeStyles } from "@material-ui/core/styles";
 import { useToasts } from 'react-toast-notifications';
-import { Button, Typography, TextField, Container, IconButton } from "@material-ui/core";
+import { Button, Typography, TextField, Container, IconButton, MenuItem } from "@material-ui/core";
 import * as yup from "yup";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       justifyContent: "center",
     },
+    selectControlWidth : {
+        // margin: theme.spacing(1),
+        minWidth: 245,
+    }
   }));
 
 function AddDriverComponent(props) {
@@ -28,8 +32,11 @@ function AddDriverComponent(props) {
   const initialValues = {
     drivername: "",
     license: "",
+    blood : "",
+    age : "",
     address: "",
     phone: "",
+    insure_no : "-"
   };
   //FORM VALIDATION USING YUP PACKAGE
   const validationSchema = yup.object({
@@ -38,6 +45,7 @@ function AddDriverComponent(props) {
       .required("Required")
       .min(7, "Atleast 7 character length"),
     license: yup.string().required("Required"),
+    age : yup.string().matches(/^\d{2}$/i, "Invalid Format").required("Required"),
     address: yup.string().required("Required"),
     phone: yup
       .string()
@@ -45,6 +53,7 @@ function AddDriverComponent(props) {
       .required("Required"),
   });
   const onSubmit = values => {
+      console.log(values)
       Axios.post(`${apiOrigin}/drivers/adddriver`, values)
       .then(response => {
           if(response)
@@ -84,10 +93,14 @@ function AddDriverComponent(props) {
                                     const {field, meta} = props
                                     return(
                                     <FormGroup>
-                                        <TextField name = "drivername" size="small" label="Driver Name" variant="outlined" {...field}  />
-                                        {
-                                            meta.touched && meta.error ? <div style={{color:"red", padding:"2px"}}>{meta.error}</div> : null
-                                        }
+                                        <TextField 
+                                            name = "drivername" 
+                                            size="small" 
+                                            label="Driver Name" 
+                                            variant="outlined" {...field} 
+                                            error = {Boolean(meta.touched && meta.error)} 
+                                            helperText ={<ErrorMessage name = "drivername"></ErrorMessage>} 
+                                        />
                                     </FormGroup>
                                     )
                                 }}
@@ -102,10 +115,14 @@ function AddDriverComponent(props) {
                                     const { field, meta} = props
                                     return ( 
                                     <FormGroup>
-                                        <TextField name="license" size="small" label="License.no" variant="outlined" {...field} />
-                                        {
-                                            meta.touched && meta.error ? <div style={{color:"red", padding:"2px"}}>{meta.error}</div> : null
-                                        }
+                                        <TextField 
+                                            name="license" 
+                                            size="small" 
+                                            label="License.no" 
+                                            variant="outlined" {...field} 
+                                            error = {Boolean(meta.touched && meta.error)} 
+                                            helperText ={<ErrorMessage name = "license"></ErrorMessage>} 
+                                        />
                                     </FormGroup>)
                                 }
                             }                                
@@ -114,16 +131,80 @@ function AddDriverComponent(props) {
                     </Row>
                     <Row style={{padding:"10px"}}>
                         <Col sm >
+                            <Field name = "blood" >
+                                {
+                                    (props) => {
+                                        const { field } = props
+                                        return (
+                                            <FormGroup >
+                                                <TextField 
+                                                    className = {classes.selectControlWidth}
+                                                    select
+                                                    name = "blood"
+                                                    label = "Blood Group"
+                                                    variant = "outlined"
+                                                    size = "small"
+                                                    {...field}
+                                                >
+                                                    <MenuItem value = "-">None</MenuItem>
+                                                    <MenuItem value = "A+">A+</MenuItem>
+                                                    <MenuItem value = "A-">A-</MenuItem>
+                                                    <MenuItem value="B+">B+</MenuItem>
+                                                    <MenuItem value="B-">B-</MenuItem>
+                                                    <MenuItem value="O+">O+</MenuItem>
+                                                    <MenuItem value="O-">O-</MenuItem>
+                                                    <MenuItem value="AB+">AB+</MenuItem>
+                                                    <MenuItem value="AB-">AB-</MenuItem>
+                                                </TextField>
+                                            </FormGroup>
+                                        )
+                                    }
+                                }
+                            </Field>
+                        </Col>
+                    </Row>
+
+                    <Row style={{padding:"10px"}}>
+                        <Col sm >
+                            <Field name = "age">
+                                {
+                                    (props) => {
+                                        const {field, meta} = props
+                                        return (
+                                            <FormGroup>
+                                                <TextField 
+                                                    type = "number" 
+                                                    label = "Age"
+                                                    variant = "outlined" 
+                                                    name = "age"
+                                                    size = "small" {...field}
+                                                    error = {Boolean(meta.touched && meta.error)} 
+                                                    helperText ={<ErrorMessage name = "age"></ErrorMessage>} 
+                                                />
+                                            </FormGroup>
+                                        )
+                                    }
+                                }
+                            </Field>
+                        </Col>
+                    </Row>
+
+                    <Row style={{padding:"10px"}}>
+                        <Col sm >
                             <FormGroup>
                                 <Field name="address">
                                 {(props) => {
                                     const { field, meta} = props
                                     return ( 
                                     <FormGroup>
-                                        <TextField name="address" size="small" label="Address" variant="outlined" {...field} />
-                                        {
-                                            meta.touched && meta.error ? <div style={{color:"red", padding:"2px"}}>{meta.error}</div> : null
-                                        }
+                                        <TextField 
+                                            name="address" 
+                                            size="small" 
+                                            label="Address" 
+                                            variant="outlined" {...field} 
+                                            error = {Boolean(meta.touched && meta.error)} 
+                                            helperText ={<ErrorMessage name = "address"></ErrorMessage>} 
+                                        />
                                     </FormGroup>)
                                 }}
                                 </Field>    
@@ -138,10 +219,14 @@ function AddDriverComponent(props) {
                                     const {field, meta} = props
                                     return (
                                     <FormGroup>
-                                        <TextField name="phone" size="small" label="Phone.no" variant="outlined" {...field} />
-                                        {
-                                            meta.touched && meta.error ? <div style={{color:"red", padding:"2px"}}>{meta.error}</div> : null
-                                        }
+                                        <TextField 
+                                            name="phone" 
+                                            size="small" 
+                                            label="Phone.no" 
+                                            variant="outlined" {...field} 
+                                            error = {Boolean(meta.touched && meta.error)} 
+                                            helperText ={<ErrorMessage name = "phone"></ErrorMessage>} 
+                                        />
                                     </FormGroup>
                                     )
                                 }
@@ -149,6 +234,31 @@ function AddDriverComponent(props) {
                             </Field>
                         </Col>
                     </Row>
+
+                    <Row style = {{padding : "10px"}}>
+                            <Col sm>
+                                <Field name = "insure_no">
+                                {
+                                    (props) => {
+                                        const { field, meta } = props
+                                        return (
+                                            <FormGroup>
+                                                <TextField 
+                                                    label = "Driver Insurance"
+                                                    variant = "outlined" 
+                                                    name = "insure_no"
+                                                    size = "small" {...field}
+                                                    error = {Boolean(meta.touched && meta.error)} 
+                                                    helperText ={<ErrorMessage name = "insure_no" />} 
+                                                />
+                                            </FormGroup>
+                                        )
+                                    }
+                                }
+                                </Field>
+                            </Col>
+                    </Row>
+
                     <Row style={{padding:"10px"}}>
                         <Col >
                             <Button type="submit" startIcon={ <AddCircleIcon /> } variant="outlined" color="primary">

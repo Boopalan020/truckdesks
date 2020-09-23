@@ -48,8 +48,11 @@ driverRoute.post('/adddriver', (req, res) => {
             new driver({
                 drivername : req.body.drivername,
                 license : req.body.license,
+                blood : req.body.blood,
                 address : req.body.address,
+                age : req.body.age,
                 phone : req.body.phone,
+                insure_no  : req.body.insure_no,
             }).save()
             .then(result => {
                 if(result)

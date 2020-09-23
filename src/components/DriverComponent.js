@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import AddDriverComponent from './AddDriverComponent'
 import { makeStyles } from '@material-ui/core/styles';
 import PersonIcon from '@material-ui/icons/Person';
-import ImportContactsIcon from '@material-ui/icons/ImportContacts';
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import { useToasts } from 'react-toast-notifications';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from 'react-redux'
 
 import Grid from '@material-ui/core/Grid';
@@ -14,6 +13,7 @@ import Axios from 'axios'
 import { Paper, Button, Container, Card, CardContent, Typography } from '@material-ui/core';
 
 import { changeDriverState } from '../redux/index'
+import { Col, Row } from 'react-bootstrap';
 
 const apiOrigin  = "http://localhost:3001";
 const useStyles = makeStyles({
@@ -25,6 +25,12 @@ const useStyles = makeStyles({
       marginBottom: 5,
       fontSize: 17,
       color : '#3f51b5'
+    },
+    paperStyle : {
+        maxHeight:600, 
+        overflowY:"auto", 
+        overflowX:"hidden", 
+        padding:"25px"
     },
     subtitle : {
         color : '#616161',
@@ -43,6 +49,12 @@ const useStyles = makeStyles({
         padding : 5,
         display: 'flex',
         alignItems: 'center'
+    },
+    age : {
+        color : "#ff5722",
+        padding : 5,
+        display : 'flex',
+        alignItems : 'center'
     },
     alignItemsAndJustifyContent: {
         display: "flex",
@@ -95,9 +107,15 @@ function DriverComponent(props) {
                             Driver List 
                         </div>
                         <div >
-                            <Paper elevation={10} style={{maxHeight:600, overflowY:"auto", overflowX:"hidden", padding:"25px"}} >
+                            <Paper elevation={5} className={classes.paperStyle} >
                                 {
-                                    length === 0 ? <div>NO records found</div> :null
+                                    length === 0 ? 
+                                    <Row>
+                                        <Col sm style={{textAlign : "center"}} >
+                                            No records found
+                                        </Col>
+                                    </Row> :
+                                    null
                                 }
                                 
                                 <Grid container spacing={2} style={{padding: '5px'}}>
@@ -106,28 +124,56 @@ function DriverComponent(props) {
                                         <Grid className = {classes.root} key={driver.license} item xs={12} sm={6} md={4} lg={4} xl={3}>
                                             <Card>
                                                 <CardContent>
-                                                    <Typography className={classes.title} style={{display: 'flex',alignItems: 'center'}}>
-                                                        <PersonIcon style={{paddingRight:"10px"}} /> { driver.drivername }
-                                                    </Typography>
+                                                    <Row>
+                                                        <Col sm={6}>
+                                                            <Typography className={classes.title} style={{display: 'flex',alignItems: 'center'}}>
+                                                                <PersonIcon fontSize = "small" style={{paddingRight : "3px"}} /> { driver.drivername }
+                                                            </Typography>
+                                                        </Col>
+                                                        <Col sm = {6}>
+                                                            <Typography className={classes.title} style={{display: 'flex',alignItems: 'center'}}>
+                                                                Blood : { driver.blood }
+                                                            </Typography>
+                                                        </Col>
+                                                    </Row>
 
                                                     <Typography className = {classes.subtitle} style={{display: 'flex',alignItems: 'center'}} >
-                                                        <ConfirmationNumberIcon style={{paddingRight:"10px"}} /> { driver.license }
+                                                        Liscense.no : { driver.license }
+                                                    </Typography>
+
+                                                    <Typography className = {classes.age} style={{display: 'flex',alignItems: 'center'}}>
+                                                        Age : {driver.age}
                                                     </Typography>
 
                                                     <Typography className = {classes.address} style={{display: 'flex',alignItems: 'center'}}>
-                                                        <ImportContactsIcon style={{paddingRight:"10px"}} /> { driver.address }
+                                                        Address :  { driver.address }
                                                     </Typography>
 
                                                     <Typography className = {classes.phone} style={{display: 'flex',alignItems: 'center'}}>
-                                                        <WhatsAppIcon style={{paddingRight:"10px"}} /> {driver.phone}
-                                                    </Typography>    
-                                                        
-                                                    <input 
-                                                        type="button" 
-                                                        style={{background:"none", border:"none", cursor:"pointer"}} 
-                                                        value="Delete" 
-                                                        id = {driver.license} 
-                                                        onClick={deletItem}/>
+                                                        Mobile : {driver.phone}
+                                                    </Typography>       
+                                                    
+                                                    <Row>
+                                                        <Col sm = {6}>
+                                                            <EditIcon fontSize="small" />
+                                                            <input 
+                                                                type="button" 
+                                                                style={{background:"none", border:"none", cursor:"pointer"}} 
+                                                                value="Edit" 
+                                                                id = {driver.license} 
+                                                            />
+                                                        </Col>
+                                                        <Col sm = {6}>
+                                                            <DeleteIcon fontSize = "small" />
+                                                            <input 
+                                                                type="button" 
+                                                                style={{background:"none", border:"none", cursor:"pointer"}} 
+                                                                value="Delete" 
+                                                                id = {driver.license} 
+                                                                onClick={deletItem}
+                                                            />
+                                                        </Col>
+                                                    </Row>
                                                 
                                                 </CardContent>
                                             </Card>

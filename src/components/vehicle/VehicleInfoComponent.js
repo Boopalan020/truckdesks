@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Formik, Form, Field } from "formik";
-// import { useToasts } from 'react-toast-notifications'
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Row, Col, FormGroup } from "react-bootstrap";
 import { TextField, Container, Button, Typography } from "@material-ui/core";
 import PropTypes from 'prop-types'
@@ -26,16 +25,24 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
         "Ex : TN 00 AB 1234"
       )
       .required("Required"),
+    reg_date : yup
+      .string().required('Required'),
     chasis_no: yup
       .string()
       .length(17, "Length Must be 17")
       .required("Required"),
     engine_no: yup.string().required("Required"),
     vehicle_model: yup.string().required("Required"),
-    total_due: yup.string()
+    total_due_amount: yup.string()
       .matches(/^[0-9]*$/, "Must be digit")
       .required("Required").nullable(),
-    completed_due: yup.string()
+    due_interest : yup.string()
+      .matches(/^[0-9]*$/, "Must be digit")
+      .required("Required").nullable(),
+    total_months : yup.string()
+    .matches(/^[0-9]*$/, "Must be digit")
+    .required("Required").nullable(),
+    completed_month: yup.string()
       .matches(/^[0-9]*$/, "Must be digit")
       .required("Required").nullable(),
   });
@@ -68,12 +75,37 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
                               label="Vehicle Number"
                               variant="outlined"
                               {...field}
+                              error = { Boolean(meta.touched && meta.error) }
+                              helperText = { <ErrorMessage name = "vehicle_no" /> }
                             />
-                            {meta.touched && meta.error ? (
-                              <div style={{ color: "red", padding: "2px" }}>
-                                {meta.error}
-                              </div>
-                            ) : null}
+                          </FormGroup>
+                        );
+                      }}
+                    </Field>
+                  </Col>
+                </Row>
+
+                <Row style={{ padding: "5px" }}>
+                  <Col md>
+                    <Field name="reg_date">
+                      {(props) => {
+                        const { field, meta } = props;
+                        return (
+                          <FormGroup>
+                            <TextField
+                                id="date"
+                                label="Registration date"
+                                type="date"
+                                name = "reg_date"
+                                variant = "outlined"
+                                size = "small"
+                                error = { Boolean(meta.touched && meta.error) }
+                                helperText = { <ErrorMessage name = "reg_date" /> }
+                                {...field}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
                           </FormGroup>
                         );
                       }}
@@ -94,12 +126,9 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
                               label="Chasis Number"
                               variant="outlined"
                               {...field}
+                              error = {Boolean(meta.touched && meta.error)}
+                              helperText = { <ErrorMessage name = "chasis_no" /> }
                             />
-                            {meta.touched && meta.error ? (
-                              <div style={{ color: "red", padding: "2px" }}>
-                                {meta.error}
-                              </div>
-                            ) : null}
                           </FormGroup>
                         );
                       }}
@@ -120,12 +149,9 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
                               label="Engine Number"
                               variant="outlined"
                               {...field}
+                              error = {Boolean(meta.touched && meta.error)}
+                              helperText = { <ErrorMessage name = "engine_no" /> }
                             />
-                            {meta.touched && meta.error ? (
-                              <div style={{ color: "red", padding: "2px" }}>
-                                {meta.error}
-                              </div>
-                            ) : null}
                           </FormGroup>
                         );
                       }}
@@ -146,12 +172,9 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
                               label="Vehicle Model"
                               variant="outlined"
                               {...field}
+                              error = {Boolean(meta.touched && meta.error)}
+                              helperText = { <ErrorMessage name = "vehicle_model" /> }
                             />
-                            {meta.touched && meta.error ? (
-                              <div style={{ color: "red", padding: "2px" }}>
-                                {meta.error}
-                              </div>
-                            ) : null}
                           </FormGroup>
                         );
                       }}
@@ -162,23 +185,20 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
                 <Row style={{ padding: "5px" }}>
                   <Col md>
                     <Typography style={{padding:'10px'}}>Due detail</Typography>
-                    <Field name="total_due" >
+                    <Field name="total_due_amount" >
                       {(props) => {
                         const { field, meta } = props;
                         return (
                           <FormGroup>
                             <TextField
-                              name="total_due"
+                              name="total_due_amount"
                               size="small"
-                              label="Total Due"
+                              label="Total Due Amount"
                               variant="outlined"
                               {...field}
+                              error = {Boolean(meta.touched && meta.error)}
+                              helperText = { <ErrorMessage name = "total_due_amount" /> }
                             />
-                            {meta.touched && meta.error ? (
-                              <div style={{ color: "red", padding: "2px" }}>
-                                {meta.error}
-                              </div>
-                            ) : null}
                           </FormGroup>
                         );
                       }}
@@ -188,23 +208,20 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
 
                 <Row style={{ padding: "5px" }}>
                   <Col md>
-                    <Field name="completed_due">
+                    <Field name = "due_interest" >
                       {(props) => {
                         const { field, meta } = props;
                         return (
                           <FormGroup>
                             <TextField
-                              name="completed_due"
+                              name="due_interest"
                               size="small"
-                              label="Complted Due"
+                              label="Due Interest"
                               variant="outlined"
                               {...field}
+                              error = {Boolean(meta.touched && meta.error)}
+                              helperText = { <ErrorMessage name = "due_interest" /> }
                             />
-                            {meta.touched && meta.error ? (
-                              <div style={{ color: "red", padding: "2px" }}>
-                                {meta.error}
-                              </div>
-                            ) : null}
                           </FormGroup>
                         );
                       }}
@@ -212,22 +229,58 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
                   </Col>
                 </Row>
 
-                <Button
-                  type = 'reset'
-                  style={{ margin: "4px" }}
-                  variant="outlined"
-                  color="primary"
-                >
-                  <span align="center">Clear</span>
-                </Button>
+                <Row style={{ padding: "5px" }}>
+                  <Col md>
+                    <Field name = "total_months" >
+                      {(props) => {
+                        const { field, meta } = props;
+                        return (
+                          <FormGroup>
+                            <TextField
+                              name="total_months"
+                              size="small"
+                              label="Total Due Month"
+                              variant="outlined"
+                              {...field}
+                              error = {Boolean(meta.touched && meta.error)}
+                              helperText = { <ErrorMessage name = "total_months" /> }
+                            />
+                          </FormGroup>
+                        );
+                      }}
+                    </Field>
+                  </Col>
+                </Row>
 
+                <Row style={{ padding: "5px" }}>
+                  <Col md>
+                    <Field name="completed_month">
+                      {(props) => {
+                        const { field, meta } = props;
+                        return (
+                          <FormGroup>
+                            <TextField
+                              name="completed_month"
+                              size="small"
+                              label="Completed Due month"
+                              variant="outlined"
+                              {...field}
+                              error = {Boolean(meta.touched && meta.error)}
+                              helperText = { <ErrorMessage name = "completed_month" /> }
+                            />
+                          </FormGroup>
+                        );
+                      }}
+                    </Field>
+                  </Col>
+                </Row>
                 <Button
                   style={{ margin: "4px" }}
                   type="submit"
                   variant="contained"
                   color="primary"
                 >
-                  <span align="center">Next</span>
+                <span align="center">Next</span>
                 </Button>
 
               </Form>
@@ -243,7 +296,7 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
 export default VehicleInfoComponent;
 
 VehicleInfoComponent.propTypes = {
-    formdata: PropTypes.object.isRequired,
-    setFormdata: PropTypes.func.isRequired,
+    formData: PropTypes.object.isRequired,
+    setFormData: PropTypes.func.isRequired,
     nextStep: PropTypes.func.isRequired
   };
