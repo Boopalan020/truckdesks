@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import Axios from 'axios'
 import { Paper, Button, Container, Card, CardContent, Typography } from '@material-ui/core';
 
-import { changeDriverState } from '../redux/index'
+import { changeDriverState } from '../../redux/index'
 import { Col, Row } from 'react-bootstrap';
 
 const apiOrigin  = "http://localhost:3001";

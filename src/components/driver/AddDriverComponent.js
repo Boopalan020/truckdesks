@@ -9,7 +9,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
 import Axios from "axios";
 
-import { changeDriverState } from '../redux/index'
+import { changeDriverState } from '../../redux/index'
 import { connect } from 'react-redux'
 
 const apiOrigin  = "http://localhost:3001";

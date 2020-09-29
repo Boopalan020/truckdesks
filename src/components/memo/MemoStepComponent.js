@@ -1,0 +1,259 @@
+import React, { useState } from 'react'
+import { makeStyles } from "@material-ui/core/styles"
+import { Typography } from '@material-ui/core'
+import Stepper from 'react-js-stepper'
+
+const useStyles = makeStyles((theme) => ({
+  alignItemsAndJustifyContent: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding : "10px"
+  },
+}));
+
+const steps = [{title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}]
+function MemoStepComponent() {
+    const [step, setStep] = useState(1)
+    const [formdata, setFormdata] = useState({
+        vehicle_no : '',
+        calc_date : '',
+        from : '',
+        to : '',
+        driver_name : '',
+        cleaner_name : '',
+        advance_amount : '',
+        start_km : '',
+        end_km : '',
+        total_km : '',
+        milege : '',
+        Loads : [
+            {
+                date : '',
+                origin : '',
+                end_point : '',
+                type : '',
+                weight : '',
+                rent : '',
+                loading_cost : '',
+                unloading_cost : '',
+                commission : ''
+            }
+        ],
+        total_commission : '',
+        new_tyre : '',
+        old_tyre : '',
+        expense_details : [
+            {
+                reason : '',
+                amount : ''
+            }
+        ],
+        diesel : [
+            {
+                filled_date : '',
+                litre : '',
+                rate : '',
+                rate_on_day : '',
+                place : ''
+            }
+        ],
+        total_diesel_amount : '',
+        rto_details : 
+        [
+            {
+                place : '',
+                amount : ''
+            }
+        ],
+        total_rto : '',
+        over_all : {
+            diesel : '',
+            commission : '',
+            loading : '',
+            unloading : '',
+            others : '',
+            driver_salary : '',
+            cleaner_salary : '',
+            pathayam : '',
+            rto_pc : '',
+            workshop : '',
+            toll_gate : ''
+        },
+        final_balance : {
+            income : '',
+            expense : '',
+            hands_on : '',
+            income_day : '',
+            income_km : '',
+            expense_km : ''
+        }
+    })
+
+    const nextStep = () => setStep(prev => prev + 1)
+    const prevStep = () => setStep(prev => prev - 1)
+    const firstStep = () => setStep(1)
+
+    switch(step) {
+        case 1 : 
+            return (
+                <div>
+                    <Steppers 
+                        steps = { steps }
+                        activeState = { step }
+                    />
+                    <VehicleTitle />
+                    <h5>here comes vehicle form</h5>
+                </div>
+            );
+        
+        case 2 : 
+                return (
+                    <div>
+                        <Steppers 
+                            steps = { steps }
+                            activeState = { step }
+                        />
+                        <TripTitle />
+                        <h5> Here comes Trip form</h5>
+                    </div>
+                )
+        case 3 : 
+                return (
+                    <div>
+                        <Steppers 
+                            steps = { steps }
+                            activeState = { step }
+                        />
+                        <LoadingTitle />
+                        <h5> Here comes Loading form</h5>
+                    </div>
+                )
+        case 4 : 
+                return (
+                    <div>
+                        <Steppers 
+                            steps = { steps }
+                            activeState = { step }
+                        />
+                        <OtherTitle />
+                        <h5> Here comes Other Expense form</h5>
+                    </div>
+                )
+        case 5 : 
+                return (
+                    <div>
+                        <Steppers 
+                            steps = { steps }
+                            activeState = { step }
+                        />
+                        <DieselTitle />
+                        <h5> Here comes Diesel form</h5>
+                    </div>
+                )
+        case 6 : 
+                return (
+                    <div>
+                        <Steppers 
+                            steps = { steps }
+                            activeState = { step }
+                        />
+                        <RtoTitle />
+                        <h5> Here comes RTO - PC form</h5>
+                    </div>
+                )
+        case 7 : 
+                return (
+                    <div>
+                        <Steppers 
+                            steps = { steps }
+                            activeState = { step }
+                        />
+                        <MainTitle />
+                        <h5> Here comes Main form</h5>
+                    </div>
+                )
+    }
+}
+const VehicleTitle = () => {
+    const classes = useStyles()
+    return (
+        <div className = { classes.alignItemsAndJustifyContent }>
+            <Typography style={{color:"#3498db"}} variant = "h5">
+                Vehicle Info
+            </Typography>
+        </div>
+    )
+}
+const TripTitle = () => {
+    const classes = useStyles()
+    return (
+        <div className = { classes.alignItemsAndJustifyContent }>
+            <Typography style={{color:"#3498db"}} variant = "h5">
+                Trip Info
+            </Typography>
+        </div>
+    )
+}
+const LoadingTitle = () => {
+    const classes = useStyles()
+    return (
+        <div className = { classes.alignItemsAndJustifyContent }>
+            <Typography style={{color:"#3498db"}} variant = "h5">
+                Loading Info
+            </Typography>
+        </div>
+    )
+}
+const OtherTitle = () => {
+    const classes = useStyles()
+    return (
+        <div className = { classes.alignItemsAndJustifyContent }>
+            <Typography style={{color:"#3498db"}} variant = "h5">
+                Other Expense
+            </Typography>
+        </div>
+    )
+}
+const DieselTitle = () => {
+    const classes = useStyles()
+    return (
+        <div className = { classes.alignItemsAndJustifyContent }>
+            <Typography style={{color:"#3498db"}} variant = "h5">
+                Diesel Info
+            </Typography>
+        </div>
+    )
+}
+const RtoTitle = () => {
+    const classes = useStyles()
+    return (
+        <div className = { classes.alignItemsAndJustifyContent }>
+            <Typography style={{color:"#3498db"}} variant = "h5">
+                RTO-PC
+            </Typography>
+        </div>
+    )
+}
+const MainTitle = () => {
+    const classes = useStyles()
+    return (
+        <div className = { classes.alignItemsAndJustifyContent }>
+            <Typography style = {{color : "#3498db"}} variant = "h5">
+                Overall
+            </Typography>
+        </div>
+    )
+}
+function Steppers({steps, activeState }) {
+    return (
+        <>
+            <Stepper
+                steps = { steps }
+                activeStep = { activeState }
+                showNumber = { true }
+            />
+        </> 
+    )
+}
+export default MemoStepComponent
