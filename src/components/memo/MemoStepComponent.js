@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { makeStyles } from "@material-ui/core/styles"
-import { Typography } from '@material-ui/core'
+import { Container, Typography } from '@material-ui/core'
 import Stepper from 'react-js-stepper'
+import VechinfoComponent from './VechinfoComponent'
+import TripComponent from './TripComponent'
 
 const useStyles = makeStyles((theme) => ({
   alignItemsAndJustifyContent: {
@@ -14,20 +16,21 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = [{title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}]
 function MemoStepComponent() {
-    const [step, setStep] = useState(1)
+    const [step, setStep] = useState(2)
     const [formdata, setFormdata] = useState({
         vehicle_no : '',
-        calc_date : '',
         from : '',
         to : '',
         driver_name : '',
         cleaner_name : '',
+        calc_date : '',
         advance_amount : '',
         start_km : '',
         end_km : '',
-        total_km : '',
+        total_km : '0',
         milege : '',
-        Loads : [
+        Loads : 
+        [
             {
                 date : '',
                 origin : '',
@@ -43,13 +46,15 @@ function MemoStepComponent() {
         total_commission : '',
         new_tyre : '',
         old_tyre : '',
-        expense_details : [
+        expense_details : 
+        [
             {
                 reason : '',
                 amount : ''
             }
         ],
-        diesel : [
+        diesel : 
+        [
             {
                 filled_date : '',
                 litre : '',
@@ -67,7 +72,8 @@ function MemoStepComponent() {
             }
         ],
         total_rto : '',
-        over_all : {
+        over_all : 
+        {
             diesel : '',
             commission : '',
             loading : '',
@@ -80,7 +86,8 @@ function MemoStepComponent() {
             workshop : '',
             toll_gate : ''
         },
-        final_balance : {
+        final_balance : 
+        {
             income : '',
             expense : '',
             hands_on : '',
@@ -103,7 +110,11 @@ function MemoStepComponent() {
                         activeState = { step }
                     />
                     <VehicleTitle />
-                    <h5>here comes vehicle form</h5>
+                    <VechinfoComponent 
+                        formdata = { formdata }
+                        setFormdata = { setFormdata }
+                        nextStep = { nextStep }
+                    />
                 </div>
             );
         
@@ -115,7 +126,12 @@ function MemoStepComponent() {
                             activeState = { step }
                         />
                         <TripTitle />
-                        <h5> Here comes Trip form</h5>
+                        <TripComponent 
+                            formdata = { formdata }
+                            setFormdata = { setFormdata }
+                            nextStep = { nextStep }
+                            prevStep = { prevStep }
+                        />
                     </div>
                 )
         case 3 : 
@@ -179,7 +195,7 @@ const VehicleTitle = () => {
     const classes = useStyles()
     return (
         <div className = { classes.alignItemsAndJustifyContent }>
-            <Typography style={{color:"#3498db"}} variant = "h5">
+            <Typography style={{color:"#2980b9"}} variant = "h5">
                 Vehicle Info
             </Typography>
         </div>
@@ -189,8 +205,8 @@ const TripTitle = () => {
     const classes = useStyles()
     return (
         <div className = { classes.alignItemsAndJustifyContent }>
-            <Typography style={{color:"#3498db"}} variant = "h5">
-                Trip Info
+            <Typography style={{color:"#2980b9"}} variant = "h5">
+                Trip details
             </Typography>
         </div>
     )
@@ -199,7 +215,7 @@ const LoadingTitle = () => {
     const classes = useStyles()
     return (
         <div className = { classes.alignItemsAndJustifyContent }>
-            <Typography style={{color:"#3498db"}} variant = "h5">
+            <Typography style={{color:"#2980b9"}} variant = "h5">
                 Loading Info
             </Typography>
         </div>
@@ -209,7 +225,7 @@ const OtherTitle = () => {
     const classes = useStyles()
     return (
         <div className = { classes.alignItemsAndJustifyContent }>
-            <Typography style={{color:"#3498db"}} variant = "h5">
+            <Typography style={{color:"#2980b9"}} variant = "h5">
                 Other Expense
             </Typography>
         </div>
@@ -219,7 +235,7 @@ const DieselTitle = () => {
     const classes = useStyles()
     return (
         <div className = { classes.alignItemsAndJustifyContent }>
-            <Typography style={{color:"#3498db"}} variant = "h5">
+            <Typography style={{color:"#2980b9"}} variant = "h5">
                 Diesel Info
             </Typography>
         </div>
@@ -229,7 +245,7 @@ const RtoTitle = () => {
     const classes = useStyles()
     return (
         <div className = { classes.alignItemsAndJustifyContent }>
-            <Typography style={{color:"#3498db"}} variant = "h5">
+            <Typography style={{color:"#2980b9"}} variant = "h5">
                 RTO-PC
             </Typography>
         </div>
@@ -239,7 +255,7 @@ const MainTitle = () => {
     const classes = useStyles()
     return (
         <div className = { classes.alignItemsAndJustifyContent }>
-            <Typography style = {{color : "#3498db"}} variant = "h5">
+            <Typography style = {{color : "#2980b9"}} variant = "h5">
                 Overall
             </Typography>
         </div>
@@ -248,11 +264,13 @@ const MainTitle = () => {
 function Steppers({steps, activeState }) {
     return (
         <>
-            <Stepper
-                steps = { steps }
-                activeStep = { activeState }
-                showNumber = { true }
-            />
+            <Container maxWidth="sm">
+                <Stepper
+                    steps = { steps }
+                    activeStep = { activeState }
+                    showNumber = { true }
+                />
+            </Container>
         </> 
     )
 }

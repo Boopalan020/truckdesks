@@ -22,7 +22,7 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
       .string()
       .matches(
         /^[a-z]{2}\s[0-9]{2}\s[a-z]{1,2}\s[0-9]{4}$/i,
-        "Ex : TN 00 AB 1234"
+        "Ex : TN 12 AB 1234"
       )
       .required("Required"),
     reg_date : yup
@@ -291,7 +291,6 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
     </div>
   );
 }
-
 
 export default VehicleInfoComponent;
 
