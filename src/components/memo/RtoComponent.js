@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import { Row, Col, FormGroup } from "react-bootstrap";
-import { TextField, Container, Button, Typography, Divider } from "@material-ui/core";
+import { TextField, Container, Button, Typography, Divider, InputAdornment } from "@material-ui/core";
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -100,6 +100,13 @@ function RtoComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                                 name = { `rto_details[${index}].amount` }
                                                                 type = 'number'
                                                                 label = "Amount"
+                                                                InputProps={{
+                                                                    startAdornment: (
+                                                                      <InputAdornment position="start">
+                                                                        <span>&#8377;</span> 
+                                                                      </InputAdornment>
+                                                                    ),
+                                                                }}
                                                                 onBlur = {(ev) => totalRTO(ev, formik.handleBlur, form.values, form.setFieldValue)}
                                                             />
                                                         </Col>
@@ -142,7 +149,7 @@ function RtoComponent({formdata, setFormdata, nextStep, prevStep}) {
                                 </Col>
                                 <Col md = {5}>
                                     <Typography color="secondary">
-                                        : Rs. { formik.values.total_rto }
+                                        : <span>&#8377;</span> { formik.values.total_rto }
                                     </Typography>
                                 </Col>
                             </Row>

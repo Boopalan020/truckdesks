@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import { Row, Col, FormGroup } from "react-bootstrap";
-import { TextField, Container, Button, Typography, Divider } from "@material-ui/core";
+import { TextField, Container, Button, Typography, Divider, InputAdornment } from "@material-ui/core";
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -199,6 +199,13 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                                 name = { `Loads[${index}].rent` }
                                                                 type = 'number'
                                                                 label = "Load Rent"
+                                                                InputProps={{
+                                                                    startAdornment: (
+                                                                      <InputAdornment position="start">
+                                                                        <span>&#8377;</span> 
+                                                                      </InputAdornment>
+                                                                    ),
+                                                                }}
                                                                 onBlur = {
                                                                     (ev) => totalRent(ev, formik.handleBlur, form.values, form.setFieldValue)
                                                                 }
@@ -211,6 +218,13 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                                 name = { `Loads[${index}].loading_cost` }
                                                                 type = 'number'
                                                                 label = "Loading Cost"
+                                                                InputProps={{
+                                                                    startAdornment: (
+                                                                      <InputAdornment position="start">
+                                                                        <span>&#8377;</span> 
+                                                                      </InputAdornment>
+                                                                    ),
+                                                                }}
                                                                 onBlur = {
                                                                     (ev) => totalLoadingCost(ev, formik.handleBlur, form.values, form.setFieldValue)
                                                                 }
@@ -223,6 +237,13 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                                 name = { `Loads[${index}].unloading_cost` }
                                                                 type = 'number'
                                                                 label = "Unloading Cost"
+                                                                InputProps={{
+                                                                    startAdornment: (
+                                                                      <InputAdornment position="start">
+                                                                        <span>&#8377;</span> 
+                                                                      </InputAdornment>
+                                                                    ),
+                                                                }}
                                                                 onBlur = {
                                                                     (ev) => totalUnloadingCost(ev, formik.handleBlur, form.values, form.setFieldValue)
                                                                 }
@@ -235,6 +256,13 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                                 name = { `Loads[${index}].commission` }
                                                                 type = 'number'
                                                                 label = "Commission"
+                                                                InputProps={{
+                                                                    startAdornment: (
+                                                                      <InputAdornment position="start">
+                                                                        <span>&#8377;</span> 
+                                                                      </InputAdornment>
+                                                                    ),
+                                                                }}
                                                                 onBlur = {
                                                                     (ev) => totalCommission(ev, formik.handleBlur, form.values, form.setFieldValue)
                                                                 }
@@ -253,7 +281,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                             </Col>
                                             <Col md = {5}>
                                                 <Typography color = "secondary">
-                                                    : Rs. { formik.values.total_rent }
+                                                    : <span>&#8377;</span> { formik.values.total_rent }
                                                 </Typography>
                                             </Col>
                                         </Row>
@@ -266,7 +294,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                             </Col>
                                             <Col md = {5}>
                                                 <Typography style={{color : "#16a085"}}>
-                                                    : Rs. { formik.values.total_loading }
+                                                    : <span>&#8377;</span> { formik.values.total_loading }
                                                 </Typography>
                                             </Col>
                                         </Row>
@@ -279,7 +307,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                             </Col>
                                             <Col md = {5}>
                                                 <Typography style={{color:"#e67e22"}}>
-                                                    : Rs. { formik.values.total_unloading }
+                                                    : <span>&#8377;</span> { formik.values.total_unloading }
                                                 </Typography>
                                             </Col>
                                         </Row>
@@ -292,7 +320,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                             </Col>
                                             <Col md = {5}>
                                                 <Typography style={{color:"#9b59b6"}}>
-                                                    : Rs. { formik.values.total_commission }
+                                                    : <span>&#8377;</span> { formik.values.total_commission }
                                                 </Typography>
                                             </Col>
                                         </Row>

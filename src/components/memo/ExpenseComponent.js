@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import { Row, Col, FormGroup } from "react-bootstrap";
-import { TextField, Container, Button, Typography, Divider } from "@material-ui/core";
+import { TextField, Container, Button, Typography, Divider, InputAdornment } from "@material-ui/core";
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
@@ -84,6 +84,13 @@ function ExpenseComponent({formdata, setFormdata, nextStep, prevStep}) {
                                         name = 'new_tyre'
                                         type = 'number'
                                         label = 'New Tyre Rate'
+                                        InputProps={{
+                                            startAdornment: (
+                                              <InputAdornment position="start">
+                                                <span>&#8377;</span> 
+                                              </InputAdornment>
+                                            ),
+                                        }}
                                     />
                                 </Col>
                             </Row>
@@ -94,6 +101,13 @@ function ExpenseComponent({formdata, setFormdata, nextStep, prevStep}) {
                                         name = 'old_tyre'
                                         type = 'number'
                                         label = 'Old Tyre Rate'
+                                        InputProps={{
+                                            startAdornment: (
+                                              <InputAdornment position="start">
+                                                <span>&#8377;</span> 
+                                              </InputAdornment>
+                                            ),
+                                        }}
                                     />
                                 </Col>
                             </Row>
@@ -126,6 +140,13 @@ function ExpenseComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                             name = { `expense_details[${index}].amount` }
                                                             type = 'number'
                                                             label = "Amount"
+                                                            InputProps={{
+                                                                startAdornment: (
+                                                                  <InputAdornment position="start">
+                                                                    <span>&#8377;</span> 
+                                                                  </InputAdornment>
+                                                                ),
+                                                            }}
                                                             onBlur = {(ev) => totalExpense(ev, formik.handleBlur, form.values, form.setFieldValue)}
                                                         />
                                                     </Col>
@@ -168,7 +189,7 @@ function ExpenseComponent({formdata, setFormdata, nextStep, prevStep}) {
                                 </Col>
                                 <Col md = {5}>
                                     <Typography color="secondary">
-                                        : Rs. { formik.values.total_expense }
+                                        : <span>&#8377;</span> { formik.values.total_expense }
                                     </Typography>
                                 </Col>
                             </Row>

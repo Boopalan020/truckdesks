@@ -7,7 +7,7 @@ import {
   Container,
   Button,
   Typography,
-  Divider, Paper
+  Divider, Paper, InputAdornment
 } from "@material-ui/core"
 import SaveIcon from "@material-ui/icons/Save"
 import ArrowBackIcon from "@material-ui/icons/ArrowBack"
@@ -104,6 +104,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="total_diesel_amount"
                                 label="Diesel"
                                 type="text"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <span>&#8377;</span> 
+                                      </InputAdornment>
+                                    ),
+                                }}
                                 disabled="true"
                                 />
                             </Col>
@@ -114,6 +121,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="total_commission"
                                 label="Commission"
                                 type="text"
+                                InputProps={{
+                                  startAdornment: (
+                                    <InputAdornment position="start">
+                                      <span>&#8377;</span> 
+                                    </InputAdornment>
+                                  ),
+                              }}
                                 disabled="true"
                                 />
                             </Col>
@@ -124,6 +138,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="total_loading"
                                 label="Loading"
                                 type="text"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <span>&#8377;</span> 
+                                      </InputAdornment>
+                                    ),
+                                }}
                                 disabled="true"
                                 />
                             </Col>
@@ -134,6 +155,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="total_unloading"
                                 label="Unloading"
                                 type="text"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <span>&#8377;</span> 
+                                      </InputAdornment>
+                                    ),
+                                }}
                                 disabled="true"
                                 />
                             </Col>
@@ -144,6 +172,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="total_expense"
                                 label="Other Expense"
                                 type="text"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <span>&#8377;</span> 
+                                      </InputAdornment>
+                                    ),
+                                }}
                                 disabled="true"
                                 />
                             </Col>
@@ -154,6 +189,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="driver_salary"
                                 label="Driver salary"
                                 type="number"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <span>&#8377;</span> 
+                                      </InputAdornment>
+                                    ),
+                                }}
                                 onBlur = {(ev) => totalExpense (ev, formik.handleBlur, formik.values, formik.setFieldValue)}
                                 />
                             </Col>
@@ -164,6 +206,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="cleaner_salary"
                                 label="Cleaner salary"
                                 type="number"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <span>&#8377;</span> 
+                                      </InputAdornment>
+                                    ),
+                                }}
                                 onBlur = {(ev) => totalExpense (ev, formik.handleBlur, formik.values, formik.setFieldValue)}
                                 />
                             </Col>
@@ -174,6 +223,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="pathayam"
                                 label="Pathayam"
                                 type="number"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <span>&#8377;</span> 
+                                      </InputAdornment>
+                                    ),
+                                }}
                                 onBlur = {(ev) => totalExpense (ev, formik.handleBlur, formik.values, formik.setFieldValue)}
                                 />
                             </Col>
@@ -185,6 +241,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="workshop"
                                 label="workshop"
                                 type="number"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <span>&#8377;</span> 
+                                      </InputAdornment>
+                                    ),
+                                }}
                                 onBlur = {(ev) => totalExpense (ev, formik.handleBlur, formik.values, formik.setFieldValue)}
                                 />
                             </Col>
@@ -196,6 +259,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="total_rto"
                                 label="RTO & PC"
                                 type="text"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <span>&#8377;</span> 
+                                      </InputAdornment>
+                                    ),
+                                }}
                                 disabled="true"
                                 />
                             </Col>
@@ -207,6 +277,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="toll_gate"
                                 label="Toll gate"
                                 type="number"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <span>&#8377;</span> 
+                                      </InputAdornment>
+                                    ),
+                                }}
                                 onBlur = {(ev) => totalExpense (ev, formik.handleBlur, formik.values, formik.setFieldValue)}
                                 />
                             </Col>
@@ -218,6 +295,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="bill_padi"
                                 label="Bill Padi"
                                 type="number"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <span>&#8377;</span> 
+                                      </InputAdornment>
+                                    ),
+                                }}
                                 onBlur = {(ev) => totalExpense (ev, formik.handleBlur, formik.values, formik.setFieldValue)}
                                 />
                             </Col>
@@ -229,6 +313,13 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                                 name="total_rent"
                                 label="Collection"
                                 type="text"
+                                InputProps={{
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        <span>&#8377;</span> 
+                                      </InputAdornment>
+                                    ),
+                                }}
                                 disabled="true"
                                 />
                             </Col>
@@ -239,41 +330,41 @@ function OverallComponent({formdata, setFormdata, prevStep, firstStep }) {
                     <Col md = {6} style={{padding:"10px"}} >
                         <Row className = { classes.rowStyles }>
                             <Col md>
-                                Trip Expense : Rs. { formik.values.trip_expense }
+                                Trip Expense : <span>&#8377;</span> { formik.values.trip_expense }
                             </Col>
                         </Row>
                         <Row className = { classes.rowStyles }>
                             <Col>
-                                Total Collection : Rs. { formik.values.total_rent }
+                                Total Collection : <span>&#8377;</span> { formik.values.total_rent }
                             </Col>
                         </Row>
                         <Row className = { classes.rowStyles }>
                             <Col>
-                                Trip Duration : Rs. { formik.values.trip_duration } Day(s)
+                                Trip Duration : { formik.values.trip_duration } Day(s)
                             </Col>
                         </Row>
                         <Divider variant = "middle"/>
                         <Row className = { classes.rowStyles } style={{textAlign : "center"}} >
                             <Col>
                                 <Typography variant = "h5" color="secondary" >
-                                  <b>On Hand Amount : Rs. { formik.values.final_balance.hands_on }</b>
+                                  <b>On Hand Amount : <span>&#8377;</span> { formik.values.final_balance.hands_on }</b>
                                 </Typography>
                             </Col>
                         </Row>
                         <Divider variant = "middle"/>
                         <Row className = { classes.rowStyles }>
                             <Col style = {{color : "#27ae60",textAlign : "center"}}>
-                                Income/day : Rs. { formik.values.final_balance.income_day }
+                                Income/day : <span>&#8377;</span> { formik.values.final_balance.income_day }
                             </Col>
                         </Row>
                         <Row className = { classes.rowStyles }>
                             <Col style = {{color : "#e67e22", textAlign : "center"}}>
-                                Income/km : Rs. { formik.values.final_balance.income_km }
+                                Income/km : <span>&#8377;</span> { formik.values.final_balance.income_km }
                             </Col>
                         </Row>
                         <Row className = { classes.rowStyles }>
                             <Col style = {{color : "#8e44ad", textAlign : "center"}}>
-                                Expense/km : Rs. { formik.values.final_balance.expense_km }
+                                Expense/km : <span>&#8377;</span> { formik.values.final_balance.expense_km }
                             </Col>
                         </Row>
                         <Row className = { classes.rowStyles }>

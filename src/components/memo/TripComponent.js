@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Row, Col, FormGroup } from "react-bootstrap";
-import { TextField, Container, Button, Typography, Divider } from "@material-ui/core";
+import { TextField, Container, Button, Typography, Divider, InputAdornment } from "@material-ui/core";
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PropTypes from 'prop-types'
@@ -82,6 +82,13 @@ function TripComponent({formdata, setFormdata, nextStep, prevStep }) {
                                         name = "advance_amount"
                                         label = "Advance Amount"
                                         type = 'number'
+                                        InputProps={{
+                                            startAdornment: (
+                                              <InputAdornment position="start">
+                                                <span>&#8377;</span> 
+                                              </InputAdornment>
+                                            ),
+                                        }}
                                     />
                                 </Col>
                             </Row>
