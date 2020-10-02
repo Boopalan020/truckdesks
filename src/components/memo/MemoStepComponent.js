@@ -7,6 +7,8 @@ import TripComponent from './TripComponent'
 import LoadComponent from './LoadComponent'
 import DieselComponent from './DieselComponent'
 import ExpenseComponent from './ExpenseComponent'
+import RtoComponent from './RtoComponent'
+import OverallComponent from './OverallComponent'
 
 const useStyles = makeStyles((theme) => ({
   alignItemsAndJustifyContent: {
@@ -19,19 +21,19 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = [{title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}]
 function MemoStepComponent() {
-    const [step, setStep] = useState(6)
+    const [step, setStep] = useState(1)
     const [formdata, setFormdata] = useState({
         vehicle_no : '',
-        from : '',
-        to : '',
+        from : '2020-10-12',
+        to : '2020-10-21',
         driver_name : '',
         cleaner_name : '',
         calc_date : '',
         advance_amount : '',
-        start_km : '',
-        end_km : '',
-        total_km : '0',
-        milege : '',
+        start_km : '0',
+        end_km : '0',
+        total_km : '2214',
+        milege : '0',
         Loads : 
         [
             {
@@ -39,62 +41,61 @@ function MemoStepComponent() {
                 origin : '',
                 end_point : '',
                 type : '',
-                weight : '',
-                rent : '',
-                loading_cost : '',
-                unloading_cost : '',
-                commission : ''
+                weight : '0',
+                rent : '0',
+                loading_cost : '0',
+                unloading_cost : '0',
+                commission : '0'
             }
         ],
-        total_commission : '',
         diesel : 
         [
             {
                 filled_date : '',
-                litre : '',
-                rate : '',
-                rate_on_day : '',
+                litre : '0',
+                rate : '0',
+                rate_on_day : '0',
                 place : ''
             }
         ],
-        total_diesel_litre : '',
-        new_tyre : '',
-        old_tyre : '',
+        total_diesel_litre : '0',
+        new_tyre : '0',
+        old_tyre : '0',
         expense_details : 
         [
             {
                 reason : '',
-                amount : ''
+                amount : '0'
             }
         ],
         rto_details : 
         [
             {
                 place : '',
-                amount : ''
+                amount : '0'
             }
         ],
-        total_rto : '',
-
-        total_diesel_amount : '',
-        total_loading : '',
-        total_unloading : '',
-        total_expense : '',
-        driver_salary : '',
-        cleaner_salary : '',
-        pathayam : '',
-        workshop : '',
-        toll_gate : '',
-        total_rent : '',
-
+        trip_duration : '0',
+        total_diesel_amount : '30000',
+        total_commission : '10000',
+        total_loading : '2500',
+        total_unloading : '2500',
+        total_expense : '6000',
+        driver_salary : '0',
+        cleaner_salary : '0',
+        pathayam : '0',
+        workshop : '0',
+        total_rto : '8000',
+        toll_gate : '0',
+        total_rent : '105500',
+        bill_padi : '0',
+        trip_expense : '0',
         final_balance : 
         {
-            income : '',
-            expense : '',
-            hands_on : '',
-            income_day : '',
-            income_km : '',
-            expense_km : ''
+            hands_on : '0',
+            income_day : '0',
+            income_km : '0',
+            expense_km : '0'
         }
     })
 
@@ -191,7 +192,12 @@ function MemoStepComponent() {
                             activeState = { step }
                         />
                         <RtoTitle />
-                        <h5> Here comes RTO - PC form</h5>
+                        <RtoComponent 
+                            formdata = { formdata }
+                            setFormdata = { setFormdata }
+                            nextStep = { nextStep }
+                            prevStep = { prevStep }
+                        />
                     </div>
                 )
         case 7 : 
@@ -202,7 +208,12 @@ function MemoStepComponent() {
                             activeState = { step }
                         />
                         <MainTitle />
-                        <h5> Here comes Main form</h5>
+                        <OverallComponent 
+                            formdata = { formdata }
+                            setFormdata = { setFormdata }
+                            prevStep = { prevStep }
+                            firstStep = { firstStep }
+                        />
                     </div>
                 )
         default :
