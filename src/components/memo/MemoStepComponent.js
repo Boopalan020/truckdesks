@@ -4,6 +4,9 @@ import { Container, Typography } from '@material-ui/core'
 import Stepper from 'react-js-stepper'
 import VechinfoComponent from './VechinfoComponent'
 import TripComponent from './TripComponent'
+import LoadComponent from './LoadComponent'
+import DieselComponent from './DieselComponent'
+import ExpenseComponent from './ExpenseComponent'
 
 const useStyles = makeStyles((theme) => ({
   alignItemsAndJustifyContent: {
@@ -16,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = [{title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}]
 function MemoStepComponent() {
-    const [step, setStep] = useState(2)
+    const [step, setStep] = useState(6)
     const [formdata, setFormdata] = useState({
         vehicle_no : '',
         from : '',
@@ -44,15 +47,6 @@ function MemoStepComponent() {
             }
         ],
         total_commission : '',
-        new_tyre : '',
-        old_tyre : '',
-        expense_details : 
-        [
-            {
-                reason : '',
-                amount : ''
-            }
-        ],
         diesel : 
         [
             {
@@ -63,7 +57,16 @@ function MemoStepComponent() {
                 place : ''
             }
         ],
-        total_diesel_amount : '',
+        total_diesel_litre : '',
+        new_tyre : '',
+        old_tyre : '',
+        expense_details : 
+        [
+            {
+                reason : '',
+                amount : ''
+            }
+        ],
         rto_details : 
         [
             {
@@ -72,20 +75,18 @@ function MemoStepComponent() {
             }
         ],
         total_rto : '',
-        over_all : 
-        {
-            diesel : '',
-            commission : '',
-            loading : '',
-            unloading : '',
-            others : '',
-            driver_salary : '',
-            cleaner_salary : '',
-            pathayam : '',
-            rto_pc : '',
-            workshop : '',
-            toll_gate : ''
-        },
+
+        total_diesel_amount : '',
+        total_loading : '',
+        total_unloading : '',
+        total_expense : '',
+        driver_salary : '',
+        cleaner_salary : '',
+        pathayam : '',
+        workshop : '',
+        toll_gate : '',
+        total_rent : '',
+
         final_balance : 
         {
             income : '',
@@ -142,7 +143,12 @@ function MemoStepComponent() {
                             activeState = { step }
                         />
                         <LoadingTitle />
-                        <h5> Here comes Loading form</h5>
+                        <LoadComponent 
+                            formdata = { formdata }
+                            setFormdata = { setFormdata }
+                            nextStep = { nextStep }
+                            prevStep = { prevStep }
+                        />
                     </div>
                 )
         case 4 : 
@@ -152,8 +158,13 @@ function MemoStepComponent() {
                             steps = { steps }
                             activeState = { step }
                         />
-                        <OtherTitle />
-                        <h5> Here comes Other Expense form</h5>
+                        <DieselTitle />
+                        <DieselComponent 
+                            formdata = { formdata }
+                            setFormdata = { setFormdata }
+                            nextStep = { nextStep }
+                            prevStep = { prevStep }
+                        />
                     </div>
                 )
         case 5 : 
@@ -163,8 +174,13 @@ function MemoStepComponent() {
                             steps = { steps }
                             activeState = { step }
                         />
-                        <DieselTitle />
-                        <h5> Here comes Diesel form</h5>
+                        <OtherTitle />
+                        <ExpenseComponent 
+                            formdata = { formdata }
+                            setFormdata = { setFormdata }
+                            nextStep = { nextStep }
+                            prevStep = { prevStep }
+                        />
                     </div>
                 )
         case 6 : 
@@ -188,6 +204,10 @@ function MemoStepComponent() {
                         <MainTitle />
                         <h5> Here comes Main form</h5>
                     </div>
+                )
+        default :
+                return (
+                    <div></div>
                 )
     }
 }

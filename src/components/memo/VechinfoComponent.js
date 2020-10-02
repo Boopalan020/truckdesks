@@ -109,11 +109,9 @@ function VechinfoComponent({ formdata, setFormdata, nextStep }) {
                                 <Button
                                     style={{ margin: "4px", }}
                                     type="submit"
-                                    variant="contained"
-                                    color="primary"
                                 >
                                     Trip Details
-                                    <ArrowForwardOutlinedIcon />
+                                    <ArrowForwardOutlinedIcon style={{margin:"5px"}}/>
                                 </Button>
                             </Col>
                         </Row>

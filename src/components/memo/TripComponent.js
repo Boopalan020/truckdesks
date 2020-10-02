@@ -35,16 +35,17 @@ function TripComponent({formdata, setFormdata, nextStep, prevStep }) {
         calc_date : yup
         .string().required('Required'),
         advance_amount : yup
-        .string().matches(/^[0-9]*$/, "Must be in Digits").required('Required'),
+        .string().matches(/^[0-9]*$/, "Enter Amount").required('Required'),
         start_km : yup
-        .string().matches(/^[0-9]*$/, "Must be in Digits").required('Required'),
+        .string().matches(/^[0-9]*$/, "Enter Kilo Meter (km)").required('Required'),
         end_km : yup
-        .string().matches(/^[0-9]*$/, "Must be in Digits").required('Required'),
+        .string().matches(/^[0-9]*$/, "Enter Kilo Meter (km)").required('Required'),
         milege : yup
-        .string().matches(/^[0-9]*\.?[0-9]*$/, "Must be in Digits").required('Required'),
+        .string().matches(/^[0-9]*\.?[0-9]*$/, "Mileage in Number").required('Required'),
     })
 
-    const calculateTotalKm = (values, setFieldValue) => {
+    const calculateTotalKm = (values, setFieldValue, handleBlur, ev) => {
+        handleBlur(ev)
         let totalkm = Math.abs(parseInt(values.start_km) - parseInt(values.end_km))
         console.log(values)
         console.log(totalkm)
@@ -99,7 +100,7 @@ function TripComponent({formdata, setFormdata, nextStep, prevStep }) {
                                         name = "start_km"
                                         label = "Start KM"
                                         type = 'number'
-                                        onBlur = {() => calculateTotalKm(formik.values, formik.setFieldValue)}
+                                        onBlur = {(ev) => calculateTotalKm(formik.values, formik.setFieldValue, formik.handleBlur, ev)}
                                     />
                                 </Col>
                             </Row>
@@ -110,7 +111,7 @@ function TripComponent({formdata, setFormdata, nextStep, prevStep }) {
                                         name = "end_km"
                                         label = "End KM"
                                         type = 'number'
-                                        onBlur = {() => calculateTotalKm(formik.values, formik.setFieldValue)}
+                                        onBlur = {(ev) => calculateTotalKm(formik.values, formik.setFieldValue, formik.handleBlur, ev)}
                                     />
                                 </Col>
                             </Row>
@@ -134,23 +135,19 @@ function TripComponent({formdata, setFormdata, nextStep, prevStep }) {
                             </Row>
 
                             <Row className = { classes.submitStyle }>
-                                <Col md >
+                                <Col md style={{textAlign:"center"}} >
                                     <Button
                                         style={{ margin: "4px", }}
-                                        variant="contained"
-                                        color="primary"
                                         onClick = {() => prevStep() }
                                     >
-                                        <ArrowBackIcon />Vehicle
+                                        <ArrowBackIcon style={{margin:"5px"}} />Vehicle
                                     </Button>
                                     <Button
                                         style={{ margin: "4px", }}
                                         type="submit"
-                                        variant="contained"
-                                        color="primary"
                                     >
                                         Load
-                                        <ArrowForwardOutlinedIcon />
+                                        <ArrowForwardOutlinedIcon style={{margin:"5px"}} />
                                     </Button>
                                 </Col>
                             </Row>
