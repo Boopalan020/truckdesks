@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const { number } = require('yup');
+const mongoose = require('mongoose')
 const vehicleSchema = new mongoose.Schema({
     vehicle_no : String,
     basic_info :

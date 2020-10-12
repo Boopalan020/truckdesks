@@ -5,86 +5,83 @@ const memoSchema = new mongoose.Schema({
     Memo :
     [
         {
-            Calc_Date : { type : Date, default : Date.now },
-            Trip_Date : 
-            {
-                From : String,
-                To : String
-            },
-            Driver_name : String,
-            Kilo_Meter : 
-            {
-                Start : Number,
-                end : Number,
-                Total_km : Number
-            },
-            Milege : String ,
+            calc_date : String,
+            from : String,
+            to : String,
+            driver_name : String,
+            cleaner_name : String,
+            advance_amount : String,
+            start_km : Number,
+            end_km : Number,
+            total_km : Number,
+            milege : String ,
             Loads : 
             [
                 {
-                    Load_date : String,
-                    Place : 
-                    {
-                        Source : String,
-                        Destination : String
-                    },
-                    Load_type : String,
-                    Load_weight : Number,
-                    Load_rent : Number,
-                    Loading_cost : Number,
-                    Unloading_cost : Number,
-                    Commission : Number
-                }
+                    date : String,
+                    origin : String,
+                    end_point : String,
+                    type : String,
+                    weight : String,
+                    rent : String,
+                    loading_cost : String,
+                    unloading_cost : String,
+                    commission : String
+                },
             ],
-            Other_expense : 
-            {
-                New_tyre : Number,
-                Old_tyre : Number,
-                Reason : [],
-                Amount : []
-            },
-            Diesel :
+            new_tyre : String,
+            old_tyre : String,
+            expense_details : 
             [
                 {
-                    Filled_date : "13-Mar-20",
-                    Litre : Number,
-                    Amount : Number,
-                    Current_rate : String,
-                    Place : String
+                    reason : String,
+                    amount : String,
+                },
+            ],
+            diesel :
+            [
+                {
+                    filled_date : String,
+                    litre : Number,
+                    rate : Number,
+                    rate_on_day : String,
+                    place : String
+                },
+            ],
+            total_diesel_litre : String,
+            rto_details : 
+            [
+                {
+                    place : String,
+                    amount : String
                 }
             ],
-            RTO_PC :
+            trip_duration : String,
+            total_diesel_amount : String,
+            total_commission : String,
+            total_loading : String,
+            total_unloading : String,
+            total_expense : String,
+            driver_salary :	String,
+            cleaner_salary : String,
+            pathayam : String,
+            total_rto : String,
+            workshop : String,
+            toll_gate : String,
+            total_rent : String,
+            bill_padi : String,
+            trip_expense : String,
+
+            final_balance :
             {
-                Place : [],
-                Amount : [],
-                Total : 1200
-            },
-            Over_all :
-            {
-                Diesel : Number,
-                Commission : Number,
-                Loading : Number,
-                Unloading : Number,
-                Others : Number,
-                Driver_Salary :	Number,
-                Cleaner_Salary : Number,
-                Pathayam : Number,
-                RTO_PC : Number,
-                Workshop : Number,
-                Toll_gate : Number
-            },
-            Final_Balance :
-            {
-                Income : Number,
-                Expense : Number,
-                Hands_on : Number,
-                Income_day : Number,
-                Income_km : Number,
-                Expense_km : String
+                hands_on : Number,
+                income_day : Number,
+                income_km : Number,
+                expense_km : String
             }
         }
     ],
 })
 
-const memo = mongoose.model("vehicle", memoSchema)
+const memo = mongoose.model("memo", memoSchema)
 module.exports = memo

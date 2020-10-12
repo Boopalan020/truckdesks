@@ -6,6 +6,7 @@ const cors = require('cors')
 
 const driver = require('./routes/drivers')
 const vehicle = require('./routes/vehicles')
+const memo = require('./routes/memo')
 
 const keys = require('./config/key')
 const port = process.env.PORT || 3001
@@ -23,5 +24,6 @@ app.use(cors({
 
 app.use('/drivers', driver)
 app.use('/vehicle', vehicle)
+app.use('/memo', memo)
 
 app.listen(port, () => console.log("Server is running at PORT ===" + port))

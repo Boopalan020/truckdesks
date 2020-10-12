@@ -23,7 +23,7 @@ const steps = [{title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : 
 function MemoStepComponent() {
     const [step, setStep] = useState(7)
     const [formdata, setFormdata] = useState({
-        vehicle_no : '',
+        vehicle_no : 'TN 00 AB 1234',
         from : '2020-10-12',
         to : '2020-10-21',
         driver_name : '',
@@ -90,6 +90,7 @@ function MemoStepComponent() {
         total_rent : '105500',
         bill_padi : '0',
         trip_expense : '0',
+        
         final_balance : 
         {
             hands_on : '0',
@@ -97,7 +98,7 @@ function MemoStepComponent() {
             income_km : '0',
             expense_km : '0'
         }
-    })
+    }) 
 
     const nextStep = () => setStep(prev => prev + 1)
     const prevStep = () => setStep(prev => prev - 1)
