@@ -26,27 +26,27 @@ function MemoStepComponent() {
         vehicle_no : 'TN 00 AB 1234',
         from : '2020-10-12',
         to : '2020-10-21',
-        driver_name : '',
-        cleaner_name : '',
-        calc_date : '',
-        advance_amount : '',
-        start_km : '0',
-        end_km : '0',
+        driver_name : 'saravanan',
+        cleaner_name : '-',
+        calc_date : '2020-09-12',
+        advance_amount : '450000',
+        start_km : '45298',
+        end_km : '49028',
         total_km : '2214',
-        milege : '0',
+        milege : '3.5',
         Loads : 
         [
             {
-                date : '',
-                origin : '',
-                end_point : '',
-                type : '',
-                weight : '0',
-                rent : '0',
-                loading_cost : '0',
-                unloading_cost : '0',
-                commission : '0'
-            }
+                date : '2020-10-10',
+                origin : 'sankgairi',
+                end_point : 'pollachi',
+                type : 'soap',
+                weight : '24',
+                rent : '45000',
+                loading_cost : '1400',
+                unloading_cost : '1500',
+                commission : '2550'
+            },
         ],
         diesel : 
         [
@@ -59,13 +59,13 @@ function MemoStepComponent() {
             }
         ],
         total_diesel_litre : '0',
-        new_tyre : '0',
-        old_tyre : '0',
+        new_tyre : '40000',
+        old_tyre : '10000',
         expense_details : 
         [
             {
-                reason : '',
-                amount : '0'
+                reason : 'saamy',
+                amount : '350'
             }
         ],
         rto_details : 
@@ -75,21 +75,21 @@ function MemoStepComponent() {
                 amount : '0'
             }
         ],
-        trip_duration : '0',
+        trip_duration : '5',
         total_diesel_amount : '30000',
         total_commission : '10000',
         total_loading : '2500',
         total_unloading : '2500',
         total_expense : '6000',
-        driver_salary : '0',
-        cleaner_salary : '0',
+        driver_salary : '8400',
+        cleaner_salary : '3250',
         pathayam : '0',
         workshop : '0',
         total_rto : '8000',
-        toll_gate : '0',
+        toll_gate : '8970',
         total_rent : '105500',
         bill_padi : '0',
-        trip_expense : '0',
+        trip_expense : '49000',
         
         final_balance : 
         {
