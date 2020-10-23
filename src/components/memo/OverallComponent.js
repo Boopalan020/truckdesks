@@ -208,44 +208,44 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
       var xval = 34;
       var yval = 470;
       var printable = "";
-      for (i = 0; i < memoData.Loads.length; i++) {
-        console.log("i-Value", memoData.Loads.length);
+      for (i = 0; i < memoData.loads.length; i++) {
+        console.log("i-Value", memoData.loads.length);
         xval = 34;
         for (var col = 1; col <= 8; col++) {
           printable = "";
           switch (col) {
             case 1:
-              d = new Date(memoData.Loads[i].date);
+              d = new Date(memoData.loads[i].date);
               printable +=
                 d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
               break;
             case 2:
               printable +=
-                memoData.Loads[i].origin + " to " + memoData.Loads[i].end_point;
+                memoData.loads[i].origin + " to " + memoData.loads[i].end_point;
               xval = 95;
               break;
             case 3:
-              printable += memoData.Loads[i].type;
+              printable += memoData.loads[i].type;
               xval = 287;
               break;
             case 4:
-              printable += memoData.Loads[i].weight;
+              printable += memoData.loads[i].weight;
               xval = 345;
               break;
             case 5:
-              printable += memoData.Loads[i].rent;
+              printable += memoData.loads[i].rent;
               xval = 368;
               break;
             case 6:
-              printable += memoData.Loads[i].commission;
+              printable += memoData.loads[i].commission;
               xval = 420;
               break;
             case 7:
-              printable += memoData.Loads[i].loading_cost;
+              printable += memoData.loads[i].loading_cost;
               xval = 500;
               break;
             case 8:
-              printable += memoData.Loads[i].unloading_cost;
+              printable += memoData.loads[i].unloading_cost;
               xval = 580;
               break;
             default:

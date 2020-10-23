@@ -15,28 +15,14 @@ const memoSchema = new mongoose.Schema({
             end_km : Number,
             total_km : Number,
             milege : String ,
-            Loads : 
-            [
-                {
-                    date : String,
-                    origin : String,
-                    end_point : String,
-                    type : String,
-                    weight : String,
-                    rent : String,
-                    loading_cost : String,
-                    unloading_cost : String,
-                    commission : String
-                },
-            ],
+            loads : [],
             new_tyre : String,
             old_tyre : String,
-            expense_details : 
-            [
+            expense_details : [
                 {
                     reason : String,
-                    amount : String,
-                },
+                    amount : String
+                }
             ],
             diesel :
             [

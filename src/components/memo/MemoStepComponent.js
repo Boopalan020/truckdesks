@@ -28,13 +28,13 @@ function MemoStepComponent() {
         to : '2020-10-21',
         driver_name : 'saravanan',
         cleaner_name : '-',
-        calc_date : '2020-09-12',
+        calc_date : '2020-09-25',
         advance_amount : '450000',
         start_km : '45298',
         end_km : '49028',
         total_km : '2214',
         milege : '3.5',
-        Loads : 
+        loads : 
         [
             {
                 date : '2020-10-10',
@@ -46,17 +46,31 @@ function MemoStepComponent() {
                 loading_cost : '1400',
                 unloading_cost : '1500',
                 commission : '2550'
-            },
+            }
         ],
         diesel : 
         [
             {
-                filled_date : '',
-                litre : '0',
-                rate : '0',
-                rate_on_day : '0',
-                place : ''
-            }
+                filled_date : '2020-10-26',
+                litre : '120',
+                rate : '34564',
+                rate_on_day : '40.8',
+                place : 'North India'
+            },
+            {
+                filled_date : '2020-10-19',
+                litre : '245',
+                rate : '1564',
+                rate_on_day : '60.8',
+                place : 'South India'
+            },
+            {
+                filled_date : '2020-12-19',
+                litre : '245',
+                rate : '1564',
+                rate_on_day : '60.8',
+                place : 'South India'
+            },
         ],
         total_diesel_litre : '0',
         new_tyre : '40000',
@@ -65,8 +79,16 @@ function MemoStepComponent() {
         [
             {
                 reason : 'saamy',
-                amount : '350'
-            }
+                amount : '35.0'
+            },
+            {
+                reason : 'new bies',
+                amount : '120'
+            },
+            {
+                reason : 'Bolts',
+                amount : '40'
+            },
         ],
         rto_details : 
         [

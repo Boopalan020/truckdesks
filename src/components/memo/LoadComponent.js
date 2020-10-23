@@ -46,7 +46,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
     }; 
 
     const validationSchema = yup.object({
-       Loads : yup
+       loads : yup
        .array().of(
            yup.object().shape({
                 date : yup.string().required('Required'),
@@ -64,8 +64,8 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
     const totalRent = (ev, handleBlur, values, setFieldValue) => {
         handleBlur(ev)
         let fullRent = 0
-        for (let i = 0; i < values.Loads.length; i++) {
-            fullRent += parseInt(values.Loads[i].rent)
+        for (let i = 0; i < values.loads.length; i++) {
+            fullRent += parseInt(values.loads[i].rent)
         }
         console.log(fullRent)
         if(!isNaN(fullRent))
@@ -74,8 +74,8 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
     const totalLoadingCost = (ev, handleBlur, values, setFieldValue) => {
         handleBlur(ev)
         let fullLoadingRent = 0
-        for (let i = 0; i < values.Loads.length; i++) {
-            fullLoadingRent += parseInt(values.Loads[i].loading_cost)
+        for (let i = 0; i < values.loads.length; i++) {
+            fullLoadingRent += parseInt(values.loads[i].loading_cost)
         }
         console.log(fullLoadingRent)
         if(!isNaN(fullLoadingRent))
@@ -85,8 +85,8 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
         handleBlur(ev)
 
         let fullunLoadingRent = 0
-        for (let i = 0; i < values.Loads.length; i++) {
-            fullunLoadingRent += parseInt(values.Loads[i].unloading_cost)
+        for (let i = 0; i < values.loads.length; i++) {
+            fullunLoadingRent += parseInt(values.loads[i].unloading_cost)
         }
         console.log(fullunLoadingRent)
         if(!isNaN(fullunLoadingRent))
@@ -95,8 +95,8 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
     const totalCommission = (ev, handleBlur, values, setFieldValue) => {
         handleBlur(ev)
         let fullCommission = 0
-        for (let i = 0; i < values.Loads.length; i++) {
-            fullCommission += parseInt(values.Loads[i].commission)
+        for (let i = 0; i < values.loads.length; i++) {
+            fullCommission += parseInt(values.loads[i].commission)
         }
         console.log(fullCommission)
         if(!isNaN(fullCommission))
@@ -107,12 +107,12 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
         let fullLoading = 0
         let fullunLoading = 0
         let fullCommission = 0
-        for (let i = 0; i < values.Loads.length-1; i++) 
+        for (let i = 0; i < values.loads.length-1; i++) 
         {
-            fullRent += parseInt(values.Loads[i].rent)
-            fullLoading += parseInt(values.Loads[i].loading_cost)
-            fullunLoading += parseInt(values.Loads[i].unloading_cost)
-            fullCommission += parseInt(values.Loads[i].commission)
+            fullRent += parseInt(values.loads[i].rent)
+            fullLoading += parseInt(values.loads[i].loading_cost)
+            fullunLoading += parseInt(values.loads[i].unloading_cost)
+            fullCommission += parseInt(values.loads[i].commission)
         }
         setFieldValue('total_rent', String(fullRent))
         setFieldValue('total_loading', String(fullLoading))
@@ -131,16 +131,16 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                 {(formik) => {
                     return (
                         <Form >
-                            <FieldArray name = "Loads">
+                            <FieldArray name = "loads">
                             {
                                 (fieldArrayprops) => {
                                     const { form, push, remove } = fieldArrayprops
                                     const { values } = form
-                                    const { Loads } = values
+                                    const { loads } = values
                                     return (
                                     <div>
                                         {
-                                            Loads.map((loadObj, index) => (
+                                            loads.map((loadObj, index) => (
                                                 <div key = { index }>
                                                     <Typography className = { classes.rowStyles } color="primary" variant = "h6">
                                                         LOAD : { index+1 }
@@ -148,7 +148,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                     <Row className = { classes.rowStyles }>
                                                         <Col md >
                                                             <TextFieldComponent 
-                                                                name = { `Loads[${index}].date` }
+                                                                name = { `loads[${index}].date` }
                                                                 type = 'date'
                                                                 label = "Loaded Date"
                                                                 InputLabelProps={{
@@ -160,7 +160,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                     <Row className = { classes.rowStyles }>
                                                         <Col md >
                                                             <TextFieldComponent 
-                                                                name = { `Loads[${index}].origin` }
+                                                                name = { `loads[${index}].origin` }
                                                                 type = 'text'
                                                                 label = "From place"
                                                             />
@@ -169,7 +169,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                     <Row className = { classes.rowStyles }>
                                                         <Col md >
                                                             <TextFieldComponent 
-                                                                name = { `Loads[${index}].end_point` }
+                                                                name = { `loads[${index}].end_point` }
                                                                 type = 'text'
                                                                 label = "Destination"
                                                             />
@@ -178,7 +178,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                     <Row className = { classes.rowStyles }>
                                                         <Col md >
                                                             <TextFieldComponent 
-                                                                name = { `Loads[${index}].type` }
+                                                                name = { `loads[${index}].type` }
                                                                 type = 'text'
                                                                 label = "Load Type"
                                                             />
@@ -187,7 +187,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                     <Row className = { classes.rowStyles }>
                                                         <Col md >
                                                             <TextFieldComponent 
-                                                                name = { `Loads[${index}].weight` }
+                                                                name = { `loads[${index}].weight` }
                                                                 type = 'number'
                                                                 label = "Weight Ton(s)"
                                                             />
@@ -196,7 +196,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                     <Row className = { classes.rowStyles }>
                                                         <Col md >
                                                             <TextFieldComponent 
-                                                                name = { `Loads[${index}].rent` }
+                                                                name = { `loads[${index}].rent` }
                                                                 type = 'number'
                                                                 label = "Load Rent"
                                                                 InputProps={{
@@ -215,7 +215,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                     <Row className = { classes.rowStyles }>
                                                         <Col md >
                                                             <TextFieldComponent 
-                                                                name = { `Loads[${index}].loading_cost` }
+                                                                name = { `loads[${index}].loading_cost` }
                                                                 type = 'number'
                                                                 label = "Loading Cost"
                                                                 InputProps={{
@@ -234,7 +234,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                     <Row className = { classes.rowStyles }>
                                                         <Col md >
                                                             <TextFieldComponent 
-                                                                name = { `Loads[${index}].unloading_cost` }
+                                                                name = { `loads[${index}].unloading_cost` }
                                                                 type = 'number'
                                                                 label = "Unloading Cost"
                                                                 InputProps={{
@@ -253,7 +253,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                     <Row className = { classes.rowStyles }>
                                                         <Col md >
                                                             <TextFieldComponent 
-                                                                name = { `Loads[${index}].commission` }
+                                                                name = { `loads[${index}].commission` }
                                                                 type = 'number'
                                                                 label = "Commission"
                                                                 InputProps={{
@@ -333,11 +333,11 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                 <AddCircleIcon color="primary" style={{margin:'3px'}} />
                                             </Button>
                                             {
-                                                form.values.Loads.length !== 1 ?
+                                                form.values.loads.length !== 1 ?
                                                 
                                                 <Button
                                                     onClick={() => { 
-                                                        remove(form.values.Loads.length-1)
+                                                        remove(form.values.loads.length-1)
                                                         OnRemoveArray( form.values, form.setFieldValue) 
                                                     }}
                                                 >
