@@ -41,10 +41,10 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
     setFormdata(values);
     Axios.post("http://localhost:3001/memo/savememo", {data : values})
     .then(res => {
-      if(res.status === 200)
+      if(res.status === 200 && res.data.flags === true)
       {
         toast.notify(
-          <Alert variant="outlined" size="small" severity="success">
+          <Alert size="small" severity="success">
             Memo Saved successfully
           </Alert>,
           {
@@ -56,7 +56,7 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
       else
       {
         toast.notify(
-          <Alert variant="outlined" size="small" severity="error">
+          <Alert size="small" severity="error">
             Error occured on saving Memo
           </Alert>,
           {
@@ -67,7 +67,15 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
       }
     })
     .catch(err => {
-      console.log(err)
+      toast.notify(
+        <Alert size="small" severity="error">
+          Connection Error
+        </Alert>,
+        {
+          position : "top",
+          duration : "4000"
+        }
+      )
     })
     firstStep()
   };

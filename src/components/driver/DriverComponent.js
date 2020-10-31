@@ -89,7 +89,7 @@ function DriverComponent(props) {
             if(response)
             {
                 toast.notify(
-                    <Alert variant="outlined" size="small" severity="success">
+                    <Alert size="small" severity="success">
                       {response.data.msg }
                     </Alert>,
                     {
@@ -103,7 +103,7 @@ function DriverComponent(props) {
         })
         .catch(err => {
             toast.notify(
-                    <Alert variant="outlined" size="small" severity="error">
+                    <Alert size="small" severity="error">
                       Action Failed
                     </Alert>,
                     {

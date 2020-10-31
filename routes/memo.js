@@ -135,7 +135,16 @@ memoRoute.post('/savememo', (req, res) => {
                                 }
                             }
                         }
-                        memo.save().then(upds => console.log(upds))
+                        memo.save().then(upds => {
+                            if(upds)
+                            {
+                                res.status(200).send({msg : "Memo saved successfully", flags : true})
+                            }
+                        })
+                        .catch(err => {
+                            console.log("Error in saving memo")
+                            res.status(401).send({msg : "Error on saving Memo", flags : false})
+                        })
                     }
                 })
             }).catch(err => {

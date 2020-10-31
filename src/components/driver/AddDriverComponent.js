@@ -62,7 +62,7 @@ function AddDriverComponent(props) {
             if(response.data.flag === "exist")
             {
                 toast.notify(
-                    <Alert variant="outlined" size="small" severity="warning">
+                    <Alert size="small" severity="warning">
                       {response.data.msg }
                     </Alert>,
                     {
@@ -74,7 +74,7 @@ function AddDriverComponent(props) {
             if(response.data.flag === "new")
             {
                 toast.notify(
-                    <Alert variant="outlined" size="small" severity="success">
+                    <Alert size="small" severity="success">
                       {response.data.msg }
                     </Alert>,
                     {
@@ -89,7 +89,7 @@ function AddDriverComponent(props) {
       .catch(err => {
           console.log(err)
           toast.notify(
-            <Alert variant="outlined" size="small" severity="info">
+            <Alert size="small" severity="info">
               Try again later
             </Alert>,
             {
