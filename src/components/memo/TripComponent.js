@@ -47,8 +47,6 @@ function TripComponent({formdata, setFormdata, nextStep, prevStep }) {
     const calculateTotalKm = (values, setFieldValue, handleBlur, ev) => {
         handleBlur(ev)
         let totalkm = Math.abs(parseInt(values.start_km) - parseInt(values.end_km))
-        console.log(values)
-        console.log(totalkm)
         if(!isNaN(totalkm))
             setFieldValue('total_km', String(totalkm))
     }
@@ -81,7 +79,7 @@ function TripComponent({formdata, setFormdata, nextStep, prevStep }) {
                                     <TextFieldComponent 
                                         name = "advance_amount"
                                         label = "Advance Amount"
-                                        type = 'number'
+                                        type = 'text'
                                         InputProps={{
                                             startAdornment: (
                                               <InputAdornment position="start">
@@ -106,7 +104,7 @@ function TripComponent({formdata, setFormdata, nextStep, prevStep }) {
                                     <TextFieldComponent 
                                         name = "start_km"
                                         label = "Start KM"
-                                        type = 'number'
+                                        type = 'text'
                                         onBlur = {(ev) => calculateTotalKm(formik.values, formik.setFieldValue, formik.handleBlur, ev)}
                                     />
                                 </Col>
@@ -117,7 +115,7 @@ function TripComponent({formdata, setFormdata, nextStep, prevStep }) {
                                     <TextFieldComponent 
                                         name = "end_km"
                                         label = "End KM"
-                                        type = 'number'
+                                        type = 'text'
                                         onBlur = {(ev) => calculateTotalKm(formik.values, formik.setFieldValue, formik.handleBlur, ev)}
                                     />
                                 </Col>
@@ -136,7 +134,7 @@ function TripComponent({formdata, setFormdata, nextStep, prevStep }) {
                                     <TextFieldComponent 
                                         name = "milege"
                                         label = "Mileage"
-                                        type = 'number'
+                                        type = 'text'
                                     />
                                 </Col>
                             </Row>

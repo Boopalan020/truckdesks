@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Row, Col, FormGroup } from "react-bootstrap";
@@ -6,7 +6,9 @@ import { TextField, Container, Button } from "@material-ui/core";
 import ArrowForwardOutlinedIcon from '@material-ui/icons/ArrowForwardOutlined';
 import PropTypes from 'prop-types'
 import * as yup from "yup";
+import Axios from 'axios';
 
+const apiOrigin  = "http://localhost:3001";
 const useStyles = makeStyles((theme) => ({
     alignItemsAndJustifyContent: {
       display: "flex",
@@ -20,14 +22,33 @@ const useStyles = makeStyles((theme) => ({
 
 function VechinfoComponent({ formdata, setFormdata, nextStep }) {
     const classes = useStyles();
+    const [vech_no, setVech_no] = useState([])
+    const [dr_name, setDr_name] = useState([])
+    const depend = 0
+
+    useEffect(() => {
+        function FetchVehicleNumber() {
+            Axios.get(`${apiOrigin}/vehicle/fetchnumbers`)
+            .then(res => {
+                setVech_no(res.data.v_no)
+                setDr_name(res.data.d_name)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }
+        FetchVehicleNumber()
+    }, [depend])
 
     const onSubmit = (values) => {
         setFormdata(values)
         console.log(values)
         nextStep()
-    };  
+    };
 
     const validationSchema = yup.object({
+        vehicle_no : yup
+        .string().required("Required"),
         from : yup
         .string().required('Required'),
         to : yup
@@ -50,11 +71,42 @@ function VechinfoComponent({ formdata, setFormdata, nextStep }) {
                     <Form>
                         <Row className = { classes.rowStyles }>
                             <Col md>
-                                <TextFieldComponent 
-                                    name = "vehicle_no"
-                                    label = "vehicle number"
-                                    type = 'text'        
-                                />
+                            <Field name = "vehicle_no">
+                            {
+                                (fieldprops) => {
+                                    const { field, meta } = fieldprops
+                                    return (
+                                        <FormGroup>
+                                            <TextField 
+                                                {...field}
+                                                name = "vehicle_no"
+                                                type = "text"
+                                                select
+                                                size = 'small'
+                                                label = "Vehicel Number"
+                                                variant = "outlined"
+                                                SelectProps={{
+                                                    native: true,
+                                                }}
+                                                error = { Boolean(meta.touched && meta.error) }
+                                                helperText = { <ErrorMessage name = "vehicle_no" /> }
+                                            >
+                                                <option value = ""> </option>
+                                               {
+                                                    vech_no.map(numb => {
+                                                        return(
+                                                            <option key={ numb.vehicle_no } value={ numb.vehicle_no }>
+                                                            { numb.vehicle_no }
+                                                            </option>
+                                                        )
+                                                    })
+                                                }
+                                            </TextField>
+                                        </FormGroup>
+                                    )
+                                }
+                            }
+                            </Field>
                             </Col>
                         </Row>
 
@@ -86,11 +138,42 @@ function VechinfoComponent({ formdata, setFormdata, nextStep }) {
 
                         <Row className = { classes.rowStyles } >
                             <Col md>
-                                <TextFieldComponent
-                                    name = 'driver_name'
-                                    label = "Driver Name"
-                                    type = "text"
-                                />
+                            <Field name = "driver_name">
+                            {
+                                (fieldprops) => {
+                                    const { field, meta } = fieldprops
+                                    return (
+                                        <FormGroup>
+                                            <TextField 
+                                                {...field}
+                                                name = "driver_name"
+                                                type = "text"
+                                                select
+                                                size = 'small'
+                                                label = "Driver Name"
+                                                variant = "outlined"
+                                                SelectProps={{
+                                                    native: true,
+                                                }}
+                                                error = { Boolean(meta.touched && meta.error) }
+                                                helperText = { <ErrorMessage name = "driver_name" /> }
+                                            >
+                                                <option value = ""> </option>
+                                               {
+                                                    dr_name.map(dname => {
+                                                        return(
+                                                            <option key={ dname.drivername } value={ dname.drivername }>
+                                                            { dname.drivername }
+                                                            </option>
+                                                        )
+                                                    })
+                                                }
+                                            </TextField>
+                                        </FormGroup>
+                                    )
+                                }
+                            }
+                            </Field>
                             </Col>
                         </Row>
 

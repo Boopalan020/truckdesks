@@ -1,9 +1,28 @@
 const vehicleRoute = require('express').Router()
 const vehicle = require('../model/vehicle_model')
-const yearly = require('../model/yearly_model');
+const driver = require("../model/driver_model")
+const yearly = require('../model/yearly_model')
 const bodyparser = require('body-parser')
 
 vehicleRoute.use(bodyparser.json())
+
+vehicleRoute.get('/fetchnumbers', (req, res) => {
+    vehicle.find({},{ vehicle_no : 1, _id : 0 })
+    .then(vres => {
+        console.log(vres)
+        driver.find({}, {drivername : 1, _id : 0})
+        .then(dres => {
+            console.log(dres)
+            res.status(200).send({v_no:vres, d_name:dres})
+        })
+        .catch(err => {
+            console.log("Error in Fetching Driver Name :\n", err)
+        })
+    })
+    .catch(err => {
+        console.log("Error in fetching vehicle Number :\n",err)
+    })
+})
 
 vehicleRoute.post('/savevehicle', (req, res) => {
     vehicle.findOne({vehicle_no : req.body.vehicle_no})

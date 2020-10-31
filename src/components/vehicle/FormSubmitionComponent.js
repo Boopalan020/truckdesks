@@ -3,13 +3,13 @@ import { Container } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { Button } from '@material-ui/core/'
 import { Card, Col, Row } from 'react-bootstrap'
-import { useToasts } from 'react-toast-notifications'
 import Axios from 'axios'
 import { Typography } from '@material-ui/core'
+import toast from 'toasted-notes' 
+import Alert from '@material-ui/lab/Alert'
 
 const apiOrigin = "http://localhost:3001"
 function FormSubmitionComponent({ formData, setFormData, prevStep, firstStep }) {
-    const { addToast } = useToasts()
     const saveDataToServer = () => {
         Axios.post(`${apiOrigin}/vehicle/savevehicle`, formData)
       .then(response => {
@@ -17,9 +17,29 @@ function FormSubmitionComponent({ formData, setFormData, prevStep, firstStep }) 
           {
             console.log(response)
             if(response.data.flag === "exist")
-                addToast( response.data.msg , { appearance : 'warning', autoDismiss: true })
+            {
+                toast.notify(
+                    <Alert variant="outlined" size="small" severity="warning">
+                      {response.data.msg }
+                    </Alert>,
+                    {
+                      position : "top",
+                      duration : "4000"
+                    }
+                  )
+            }
             if(response.data.flag === "new")
-                addToast( response.data.msg , { appearance : 'success', autoDismiss: true })
+            {
+                toast.notify(
+                    <Alert variant="outlined" size="small" severity="success">
+                      {response.data.msg }
+                    </Alert>,
+                    {
+                      position : "top",
+                      duration : "4000"
+                    }
+                  )
+            }
             setFormData({
                 vehicle_no : '',reg_date : '',engine_no : '',chasis_no:'',vehicle_model : '',total_due_amount: '',due_interest : '',
                 total_months : '',completed_month: '',national_date : '',national_cost : '',insurance : '',insurance_date : '',
@@ -30,7 +50,15 @@ function FormSubmitionComponent({ formData, setFormData, prevStep, firstStep }) 
       })
       .catch(err => {
           console.log(err)
-          addToast('Failed..! Try again later', { appearance : 'error',autoDismiss: true })
+          toast.notify(
+            <Alert variant="outlined" size="small" severity="info">
+              Try again later
+            </Alert>,
+            {
+              position : "top",
+              duration : "4000"
+            }
+          )
       })
     }
     const { 

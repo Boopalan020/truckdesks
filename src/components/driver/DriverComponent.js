@@ -3,10 +3,11 @@ import AddDriverComponent from './AddDriverComponent'
 import { makeStyles } from '@material-ui/core/styles';
 import PersonIcon from '@material-ui/icons/Person';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import { useToasts } from 'react-toast-notifications';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { connect } from 'react-redux'
+import toast from 'toasted-notes' 
+import Alert from '@material-ui/lab/Alert'
 
 import Grid from '@material-ui/core/Grid';
 import Axios from 'axios'
@@ -66,7 +67,6 @@ function DriverComponent(props) {
     const classes = useStyles()
     const [drivers, setDrivers] = useState([])
     const [length, setLength] = useState(0)
-    const { addToast } = useToasts()
 
     useEffect(() => {
         function FetchDriver() {
@@ -88,13 +88,29 @@ function DriverComponent(props) {
         .then(response => {
             if(response)
             {
-                addToast( response.data.msg , { appearance : 'success',autoDismiss: true })
+                toast.notify(
+                    <Alert variant="outlined" size="small" severity="success">
+                      {response.data.msg }
+                    </Alert>,
+                    {
+                      position : "top",
+                      duration : "4000"
+                    }
+                  )
                 setLength(length-1)
             }
             
         })
         .catch(err => {
-            addToast( "Action Failed" , { appearance : 'error',autoDismiss: true })
+            toast.notify(
+                    <Alert variant="outlined" size="small" severity="error">
+                      Action Failed
+                    </Alert>,
+                    {
+                      position : "top",
+                      duration : "4000"
+                    }
+                  )
         })
     }
 

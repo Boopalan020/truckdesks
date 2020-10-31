@@ -66,7 +66,6 @@ function DieselComponent({formdata, setFormdata, nextStep, prevStep}) {
         for (let i = 0; i < values.diesel.length; i++) {
             fullAmount += parseInt(values.diesel[i].rate)
         }
-        console.log(fullAmount)
         if(!isNaN(fullAmount))
             setFieldValue('total_diesel_amount', String(fullAmount))
     }
@@ -124,7 +123,7 @@ function DieselComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                         <Col md >
                                                             <TextFieldComponent 
                                                                 name = { `diesel[${index}].litre` }
-                                                                type = 'number'
+                                                                type = 'text'
                                                                 label = "Litres Filled"
                                                                 onBlur = {(ev) => totalLitres(ev, formik.handleBlur, form.values, form.setFieldValue)}
                                                             />
@@ -134,7 +133,7 @@ function DieselComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                         <Col md >
                                                             <TextFieldComponent 
                                                                 name = { `diesel[${index}].rate` }
-                                                                type = 'number'
+                                                                type = 'text'
                                                                 label = "Amount"
                                                                 InputProps={{
                                                                     startAdornment: (
@@ -151,7 +150,7 @@ function DieselComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                         <Col md >
                                                             <TextFieldComponent 
                                                                 name = { `diesel[${index}].rate_on_day` }
-                                                                type = 'number'
+                                                                type = 'text'
                                                                 InputProps={{
                                                                     startAdornment: (
                                                                       <InputAdornment position="start">

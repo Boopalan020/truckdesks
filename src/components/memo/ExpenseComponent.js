@@ -51,8 +51,6 @@ function ExpenseComponent({formdata, setFormdata, nextStep, prevStep}) {
         let fullExpense = 0
         for (let i = 0; i < values.expense_details.length; i++)
             fullExpense += parseInt(values.expense_details[i].amount);
-
-        console.log(fullExpense)
         if(!isNaN(fullExpense))
             setFieldValue('total_expense', String(fullExpense))
     }
@@ -62,7 +60,6 @@ function ExpenseComponent({formdata, setFormdata, nextStep, prevStep}) {
         for (let i = 0; i < values.expense_details.length-1 ; i++)
             fullExpense += parseInt(values.expense_details[i].amount);
 
-        console.log(fullExpense)
         if(!isNaN(fullExpense))
             setFieldValue('total_expense', String(fullExpense))
     }
@@ -82,7 +79,7 @@ function ExpenseComponent({formdata, setFormdata, nextStep, prevStep}) {
                                 <Col md>
                                     <TextFieldComponent 
                                         name = 'new_tyre'
-                                        type = 'number'
+                                        type = 'text'
                                         label = 'New Tyre Rate'
                                         InputProps={{
                                             startAdornment: (
@@ -91,6 +88,7 @@ function ExpenseComponent({formdata, setFormdata, nextStep, prevStep}) {
                                               </InputAdornment>
                                             ),
                                         }}
+                                       
                                     />
                                 </Col>
                             </Row>
@@ -99,7 +97,7 @@ function ExpenseComponent({formdata, setFormdata, nextStep, prevStep}) {
                                 <Col md>
                                     <TextFieldComponent 
                                         name = 'old_tyre'
-                                        type = 'number'
+                                        type = 'text'
                                         label = 'Old Tyre Rate'
                                         InputProps={{
                                             startAdornment: (
@@ -138,7 +136,7 @@ function ExpenseComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                     <Col md >
                                                         <TextFieldComponent 
                                                             name = { `expense_details[${index}].amount` }
-                                                            type = 'number'
+                                                            type = 'text'
                                                             label = "Amount"
                                                             InputProps={{
                                                                 startAdornment: (

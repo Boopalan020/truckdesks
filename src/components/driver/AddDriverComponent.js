@@ -2,12 +2,13 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Row, Col, FormGroup } from "react-bootstrap";
 import { makeStyles } from "@material-ui/core/styles";
-import { useToasts } from 'react-toast-notifications';
 import { Button, Typography, TextField, Container, IconButton, MenuItem } from "@material-ui/core";
 import * as yup from "yup";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
 import Axios from "axios";
+import toast from 'toasted-notes' 
+import Alert from '@material-ui/lab/Alert'
 
 import { changeDriverState } from '../../redux/index'
 import { connect } from 'react-redux'
@@ -27,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 function AddDriverComponent(props) {
   const classes = useStyles();
-  const { addToast } = useToasts()
   // INITIAL VALUES OF THE FORM
   const initialValues = {
     drivername: "",
@@ -60,16 +60,43 @@ function AddDriverComponent(props) {
           {
             console.log(response)
             if(response.data.flag === "exist")
-                addToast( response.data.msg , { appearance : 'warning',autoDismiss: true })
-            if(response.data.flag === "new") 
-                addToast( response.data.msg , { appearance : 'success',autoDismiss: true })
-
+            {
+                toast.notify(
+                    <Alert variant="outlined" size="small" severity="warning">
+                      {response.data.msg }
+                    </Alert>,
+                    {
+                      position : "top",
+                      duration : "4000"
+                    }
+                  )
+            }
+            if(response.data.flag === "new")
+            {
+                toast.notify(
+                    <Alert variant="outlined" size="small" severity="success">
+                      {response.data.msg }
+                    </Alert>,
+                    {
+                      position : "top",
+                      duration : "4000"
+                    }
+                  )
+            }
             onSubmitProps.resetForm()
           }
       })
       .catch(err => {
           console.log(err)
-          addToast('Failed..! Try again later', { appearance : 'error',autoDismiss: true })
+          toast.notify(
+            <Alert variant="outlined" size="small" severity="info">
+              Try again later
+            </Alert>,
+            {
+              position : "top",
+              duration : "4000"
+            }
+          )
       })
   }
   return (

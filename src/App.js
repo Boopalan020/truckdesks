@@ -2,17 +2,15 @@ import React from 'react';
 import { Provider } from 'react-redux'
 import store from './redux/store';
 import MainComponent from './components/MainComponent';
-import { ToastProvider } from 'react-toast-notifications';
+import 'toasted-notes/src/styles.css';
 
 function App() {
   return (
-      <ToastProvider>
-        <Provider store = { store }>
-          <div>
-            <MainComponent/>
-          </div>
-        </Provider>
-      </ToastProvider>
+      <Provider store = { store }>
+        <div>
+          <MainComponent/>
+        </div>
+      </Provider>
   );
 }
 

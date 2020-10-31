@@ -48,7 +48,6 @@ function RtoComponent({formdata, setFormdata, nextStep, prevStep}) {
         let fullRTO = 0
         for (let i = 0; i < values.rto_details.length; i++)
             fullRTO += parseInt(values.rto_details[i].amount);
-        console.log(fullRTO)
         if(!isNaN(fullRTO))
             setFieldValue('total_rto', String(fullRTO))
     }
@@ -56,7 +55,6 @@ function RtoComponent({formdata, setFormdata, nextStep, prevStep}) {
         let fullRTO = 0
         for (let i = 0; i < values.rto_details.length-1; i++)
             fullRTO += parseInt(values.rto_details[i].amount);
-        console.log(fullRTO)
         if(!isNaN(fullRTO))
             setFieldValue('total_rto', String(fullRTO))
     }
@@ -98,7 +96,7 @@ function RtoComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                         <Col md >
                                                             <TextFieldComponent 
                                                                 name = { `rto_details[${index}].amount` }
-                                                                type = 'number'
+                                                                type = 'text'
                                                                 label = "Amount"
                                                                 InputProps={{
                                                                     startAdornment: (

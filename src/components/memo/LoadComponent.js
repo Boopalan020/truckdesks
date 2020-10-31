@@ -61,26 +61,27 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
            })
        )
     })
+    // Total Rent calculation
     const totalRent = (ev, handleBlur, values, setFieldValue) => {
         handleBlur(ev)
         let fullRent = 0
         for (let i = 0; i < values.loads.length; i++) {
             fullRent += parseInt(values.loads[i].rent)
         }
-        console.log(fullRent)
         if(!isNaN(fullRent))
             setFieldValue('total_rent', String(fullRent))
     }
+    // Total Loading calculation
     const totalLoadingCost = (ev, handleBlur, values, setFieldValue) => {
         handleBlur(ev)
         let fullLoadingRent = 0
         for (let i = 0; i < values.loads.length; i++) {
             fullLoadingRent += parseInt(values.loads[i].loading_cost)
         }
-        console.log(fullLoadingRent)
         if(!isNaN(fullLoadingRent))
             setFieldValue('total_loading', String(fullLoadingRent))
     }
+    // total Unloading calculation
     const totalUnloadingCost = (ev, handleBlur, values, setFieldValue) => {
         handleBlur(ev)
 
@@ -88,20 +89,20 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
         for (let i = 0; i < values.loads.length; i++) {
             fullunLoadingRent += parseInt(values.loads[i].unloading_cost)
         }
-        console.log(fullunLoadingRent)
         if(!isNaN(fullunLoadingRent))
             setFieldValue('total_unloading', String(fullunLoadingRent))
     }
+    // Total commission calculation
     const totalCommission = (ev, handleBlur, values, setFieldValue) => {
         handleBlur(ev)
         let fullCommission = 0
         for (let i = 0; i < values.loads.length; i++) {
             fullCommission += parseInt(values.loads[i].commission)
         }
-        console.log(fullCommission)
         if(!isNaN(fullCommission))
             setFieldValue('total_commission', String(fullCommission))
     }
+    // On removing field from array
     const OnRemoveArray = ( values, setFieldValue) => {
         let fullRent = 0
         let fullLoading = 0
@@ -188,7 +189,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                         <Col md >
                                                             <TextFieldComponent 
                                                                 name = { `loads[${index}].weight` }
-                                                                type = 'number'
+                                                                type = 'text'
                                                                 label = "Weight Ton(s)"
                                                             />
                                                         </Col>
@@ -197,7 +198,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                         <Col md >
                                                             <TextFieldComponent 
                                                                 name = { `loads[${index}].rent` }
-                                                                type = 'number'
+                                                                type = 'text'
                                                                 label = "Load Rent"
                                                                 InputProps={{
                                                                     startAdornment: (
@@ -216,7 +217,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                         <Col md >
                                                             <TextFieldComponent 
                                                                 name = { `loads[${index}].loading_cost` }
-                                                                type = 'number'
+                                                                type = 'text'
                                                                 label = "Loading Cost"
                                                                 InputProps={{
                                                                     startAdornment: (
@@ -235,7 +236,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                         <Col md >
                                                             <TextFieldComponent 
                                                                 name = { `loads[${index}].unloading_cost` }
-                                                                type = 'number'
+                                                                type = 'text'
                                                                 label = "Unloading Cost"
                                                                 InputProps={{
                                                                     startAdornment: (
@@ -254,7 +255,7 @@ function LoadComponent({formdata, setFormdata, nextStep, prevStep}) {
                                                         <Col md >
                                                             <TextFieldComponent 
                                                                 name = { `loads[${index}].commission` }
-                                                                type = 'number'
+                                                                type = 'text'
                                                                 label = "Commission"
                                                                 InputProps={{
                                                                     startAdornment: (

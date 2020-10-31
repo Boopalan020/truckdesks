@@ -1,15 +1,17 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Row, Col, FormGroup } from "react-bootstrap";
-import { TextField, Container, Button, Typography, Divider, Paper, InputAdornment } from "@material-ui/core";
-import SaveIcon from "@material-ui/icons/Save";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import PropTypes from "prop-types";
-import * as yup from "yup";
+import React, { useState } from "react"
+import { makeStyles } from "@material-ui/core/styles"
+import { Formik, Form, Field, ErrorMessage } from "formik"
+import { Row, Col, FormGroup } from "react-bootstrap"
+import { TextField, Container, Button, Typography, Divider, Paper, InputAdornment } from "@material-ui/core"
+import SaveIcon from "@material-ui/icons/Save"
+import ArrowBackIcon from "@material-ui/icons/ArrowBack"
+import PropTypes from "prop-types"
+import * as yup from "yup"
 import { PDFDocument } from 'pdf-lib'
 import { saveAs } from 'file-saver'
 import Axios from 'axios'
+import toast from 'toasted-notes' 
+import Alert from '@material-ui/lab/Alert'
 
 const useStyles = makeStyles((theme) => ({
   alignItemsAndJustifyContent: {
@@ -39,18 +41,42 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
     setFormdata(values);
     Axios.post("http://localhost:3001/memo/savememo", {data : values})
     .then(res => {
-      console.log(res)
+      if(res.status === 200)
+      {
+        toast.notify(
+          <Alert variant="outlined" size="small" severity="success">
+            Memo Saved successfully
+          </Alert>,
+          {
+            position : "top",
+            duration : "4000"
+          }
+        )
+      }
+      else
+      {
+        toast.notify(
+          <Alert variant="outlined" size="small" severity="error">
+            Error occured on saving Memo
+          </Alert>,
+          {
+            position : "top",
+            duration : "4000"
+          }
+        )
+      }
     })
     .catch(err => {
       console.log(err)
     })
-    console.log(values);
+    firstStep()
   };
   const validationSchema = yup.object({});
   const totalExpense = (ev, handleBlur, values, setFieldValue) => {
     handleBlur(ev);
     totalExpenseOnClick(values, setFieldValue);
   };
+  // Total Expense Calculation
   const totalExpenseOnClick = (values, setFieldValue) => {
     let fullExpenses = 0;
     fullExpenses +=
@@ -66,11 +92,10 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
       parseInt(values.total_rto) +
       parseInt(values.bill_padi) +
       parseInt(values.toll_gate);
-    console.log(fullExpenses);
     if (!isNaN(fullExpenses))
       setFieldValue("trip_expense", String(fullExpenses));
   };
-
+  //Final Amount calculation 
   const finalAmountCalc = (values, setFieldValue) => {
     let handOn = 0;
     let iperkm = 0;
@@ -85,7 +110,6 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
     const date2 = new Date(values.to);
     const diffDays = Math.ceil(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
     iperday += parseInt(handOn) / diffDays;
-    console.log("Days", diffDays);
 
     setFieldValue("trip_duration", String(diffDays));
     setFieldValue("final_balance.hands_on", String(handOn));
@@ -95,6 +119,7 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
 
     setPreviewstate(0)
   };
+  // Generating PDF function
   const getPDFfunction = (memoData) => {
     var buf;
     Axios.get("http://localhost:3001/memo/getpdf", {
@@ -609,7 +634,7 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
                           <TextFieldComponent
                             name="driver_salary"
                             label="Driver salary"
-                            type="number"
+                            type="text"
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">
@@ -633,7 +658,7 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
                           <TextFieldComponent
                             name="cleaner_salary"
                             label="Cleaner salary"
-                            type="number"
+                            type="text"
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">
@@ -657,7 +682,7 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
                           <TextFieldComponent
                             name="pathayam"
                             label="Pathayam"
-                            type="number"
+                            type="text"
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">
@@ -682,7 +707,7 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
                           <TextFieldComponent
                             name="workshop"
                             label="workshop"
-                            type="number"
+                            type="text"
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">
@@ -725,7 +750,7 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
                           <TextFieldComponent
                             name="toll_gate"
                             label="Toll gate"
-                            type="number"
+                            type="text"
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">
@@ -750,7 +775,7 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
                           <TextFieldComponent
                             name="bill_padi"
                             label="Bill Padi"
-                            type="number"
+                            type="text"
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">

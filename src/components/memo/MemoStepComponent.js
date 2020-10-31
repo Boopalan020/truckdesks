@@ -23,72 +23,50 @@ const steps = [{title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : 
 function MemoStepComponent() {
     const [step, setStep] = useState(7)
     const [formdata, setFormdata] = useState({
-        vehicle_no : 'TN 00 AB 1234',
-        from : '2020-10-12',
-        to : '2020-10-21',
-        driver_name : 'saravanan',
-        cleaner_name : '-',
-        calc_date : '2020-09-25',
-        advance_amount : '450000',
-        start_km : '45298',
-        end_km : '49028',
-        total_km : '2214',
-        milege : '3.5',
+        vehicle_no : '',
+        from : '',
+        to : '',
+        driver_name : '',
+        cleaner_name : '',
+        calc_date : '',
+        advance_amount : '',
+        start_km : '',
+        end_km : '',
+        total_km : '',
+        milege : '',
         loads : 
         [
             {
-                date : '2020-10-10',
-                origin : 'sankgairi',
-                end_point : 'pollachi',
-                type : 'soap',
-                weight : '24',
-                rent : '45000',
-                loading_cost : '1400',
-                unloading_cost : '1500',
-                commission : '2550'
+                date : '',
+                origin : '',
+                end_point : '',
+                type : '',
+                weight : '',
+                rent : '',
+                loading_cost : '',
+                unloading_cost : '',
+                commission : ''
             }
         ],
         diesel : 
         [
             {
-                filled_date : '2020-10-26',
-                litre : '120',
-                rate : '34564',
-                rate_on_day : '40.8',
-                place : 'North India'
-            },
-            {
-                filled_date : '2020-10-19',
-                litre : '245',
-                rate : '1564',
-                rate_on_day : '60.8',
-                place : 'South India'
-            },
-            {
-                filled_date : '2020-12-19',
-                litre : '245',
-                rate : '1564',
-                rate_on_day : '60.8',
-                place : 'South India'
-            },
+                filled_date : '',
+                litre : '',
+                rate : '0',
+                rate_on_day : '0',
+                place : ''
+            }
         ],
         total_diesel_litre : '0',
-        new_tyre : '40000',
-        old_tyre : '10000',
+        new_tyre : '0',
+        old_tyre : '0',
         expense_details : 
         [
             {
-                reason : 'saamy',
-                amount : '35.0'
-            },
-            {
-                reason : 'new bies',
-                amount : '120'
-            },
-            {
-                reason : 'Bolts',
-                amount : '40'
-            },
+                reason : '',
+                amount : '0'
+            }
         ],
         rto_details : 
         [
@@ -97,21 +75,21 @@ function MemoStepComponent() {
                 amount : '0'
             }
         ],
-        trip_duration : '5',
-        total_diesel_amount : '30000',
-        total_commission : '10000',
-        total_loading : '2500',
-        total_unloading : '2500',
-        total_expense : '6000',
-        driver_salary : '8400',
-        cleaner_salary : '3250',
+        trip_duration : '0',
+        total_diesel_amount : '0',
+        total_commission : '0',
+        total_loading : '0',
+        total_unloading : '0',
+        total_expense : '0',
+        driver_salary : '0',
+        cleaner_salary : '0',
         pathayam : '0',
         workshop : '0',
-        total_rto : '8000',
-        toll_gate : '8970',
-        total_rent : '105500',
+        total_rto : '0',
+        toll_gate : '0',
+        total_rent : '0',
         bill_padi : '0',
-        trip_expense : '49000',
+        trip_expense : '0',
         
         final_balance : 
         {

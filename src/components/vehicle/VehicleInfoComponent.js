@@ -36,8 +36,8 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
     total_due_amount: yup.string()
       .matches(/^[0-9]*$/, "Must be digit")
       .required("Required").nullable(),
-    due_interest : yup.string()
-      .matches(/^[0-9]*$/, "Must be digit")
+    due_interest : yup
+    .string().matches(/^[0-9]*\.?[0-9]*$/, "Interest in Number")
       .required("Required").nullable(),
     total_months : yup.string()
     .matches(/^[0-9]*$/, "Must be digit")
