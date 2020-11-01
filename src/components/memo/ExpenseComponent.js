@@ -49,17 +49,30 @@ function ExpenseComponent({formdata, setFormdata, nextStep, prevStep}) {
     const totalExpense=(ev, handleBlur, values, setFieldValue)=>{
         handleBlur(ev)
         let fullExpense = 0
+        // Calculating total expense
         for (let i = 0; i < values.expense_details.length; i++)
-            fullExpense += parseInt(values.expense_details[i].amount);
+            fullExpense += parseInt(values.expense_details[i].amount)
+        // Adding New tyre and old tyre
+        if(parseInt(values.new_tyre) > parseInt(values.old_tyre))
+            fullExpense += (parseInt(values.new_tyre) - parseInt(values.old_tyre))
+        else
+            fullExpense -= (parseInt(values.old_tyre) - parseInt(values.new_tyre))
+        // Setting totalexpense value to the field
         if(!isNaN(fullExpense))
             setFieldValue('total_expense', String(fullExpense))
     }
 
     const OnRemoveArray=( values, setFieldValue) => {
         let fullExpense = 0
+        // Calculating total expense
         for (let i = 0; i < values.expense_details.length-1 ; i++)
-            fullExpense += parseInt(values.expense_details[i].amount);
-
+            fullExpense += parseInt(values.expense_details[i].amount)
+        // Adding New tyre and old tyre
+        if(parseInt(values.new_tyre) > parseInt(values.old_tyre))
+            fullExpense += (parseInt(values.new_tyre) - parseInt(values.old_tyre))
+        else
+            fullExpense -= (parseInt(values.old_tyre) - parseInt(values.new_tyre))
+        // Setting totalexpense value to the field
         if(!isNaN(fullExpense))
             setFieldValue('total_expense', String(fullExpense))
     }

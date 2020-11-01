@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = [{title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}, {title : ''}]
 function MemoStepComponent() {
-    const [step, setStep] = useState(7)
+    const [step, setStep] = useState(5)
     const [formdata, setFormdata] = useState({
         vehicle_no : '',
         from : '',
