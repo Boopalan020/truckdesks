@@ -80,7 +80,7 @@ vehicleRoute.post('/savevehicle', (req, res) => {
                         })
                         .catch(err => {
                             console.log(err)
-                            sres.send(err)
+                            res.send(err)
                         })
                     }
                 })
