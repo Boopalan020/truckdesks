@@ -2,9 +2,34 @@ const vehicleRoute = require('express').Router()
 const vehicle = require('../model/vehicle_model')
 const driver = require("../model/driver_model")
 const yearly = require('../model/yearly_model')
+const due = require('../model/due_model')
 const bodyparser = require('body-parser')
 
 vehicleRoute.use(bodyparser.json())
+
+vehicleRoute.get('/getvehicles', (req, res) => {
+    vehicle.find({})
+    .then(fvres => {
+        // console.log(fvres)
+        res.status(200).send(fvres);
+    })
+    .catch(err => {
+        console.log("Error while fetching vehicle details : ",err)
+    })
+})
+
+vehicleRoute.get('/getbyid/:id', (req, res) => {
+    const id = req.params.id
+    vehicle.findOne({_id : id})
+    .then(vres => {
+        console.log("Found : ",vres)
+        res.status(200).send(vres)
+    })
+    .catch(err => {
+        console.log(`Erro in fetching vehicle id : ${id}`,err)
+        res.send(err)
+    })
+})
 
 vehicleRoute.get('/fetchnumbers', (req, res) => {
     vehicle.find({},{ vehicle_no : 1, _id : 0 })
@@ -43,10 +68,6 @@ vehicleRoute.post('/savevehicle', (req, res) => {
                         chasis_no  : req.body.chasis_no,
                         vehicle_model : req.body.vehicle_model,
                         engine_no : req.body.engine_no,
-                        total_due_amount : req.body.total_due_amount,
-                        due_interest : req.body.due_interest,
-                        total_months : req.body.total_months,
-                        completed_month : req.body.completed_month
                     }
                 }).save()
 
@@ -75,23 +96,70 @@ vehicleRoute.post('/savevehicle', (req, res) => {
                             if(sres)
                             {
                                 console.log("Yearly Details added successfully")
-                                res.status(200).send({flag : "new", msg :"Saved Successfully"})
+
+                                const temp_due_obj = [];
+
+                                var dates = new Date(req.body.due_date)
+                                
+                                // Calculting Due per month 
+                                const due_per_month = (parseInt(req.body.total_due_amount) / parseInt(req.body.total_months)).toFixed(2)
+
+                                var i = 0;
+                                if(req.body.completed_month > 0)
+                                {
+                                    for ( i = 0 ; i < req.body.completed_month ; i++)
+                                    {
+                                        dates.setMonth(dates.getMonth() + 1)
+                                        temp_due_obj.push({
+                                            due_date : dates.toLocaleDateString(),
+                                            avl_due_amnt :  String((parseInt(req.body.total_due_amount) - ((i+1)*due_per_month)).toFixed(2)),
+                                            status : true
+                                        })
+                                    }
+                                }
+                                for( var j = i ; j < req.body.total_months ; j++)
+                                {
+                                    dates.setMonth(dates.getMonth() + 1)
+                                    temp_due_obj.push({
+                                        due_date : dates.toLocaleDateString(),
+                                        avl_due_amnt : String((parseInt(req.body.total_due_amount) - ((j+1)*due_per_month)).toFixed(2)),
+                                        status : false
+                                    })
+                                }
+                                console.log(temp_due_obj)
+                                // Saving due data to DB collection
+                                new due({
+                                    vehicle_id : ress._id,
+                                    total_due_amount : req.body.total_due_amount,
+                                    due_interest : req.body.due_interest,
+                                    total_months : req.body.total_months,
+                                    completed_month : req.body.completed_month,
+                                    dues : temp_due_obj
+                                }).save()
+                                .then(dueRes => {
+                                    res.status(200).send({flag : "new", msg :"Saved Successfully"})
+                                })
+                                .catch(err => {
+                                    console.log('Error while saving due collection',err)
+                                    res.send(err)
+                                })
+                                // res.status(200).send({flag : "new", msg :"Saved Successfully"})
                             }
                         })
                         .catch(err => {
-                            console.log(err)
+                            console.log('Error while saving yearly collections',err)
                             res.send(err)
                         })
                     }
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.log('Error while saving vehicle collections',err)
                     res.send(err)
                 })
             }
         })
         .catch(err => {
-            console.log(err);
+            console.log('Error while finding similar vehicle numbers in DB',err);
             res.send(err)
         })
 

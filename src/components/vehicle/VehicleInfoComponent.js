@@ -27,6 +27,8 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
       .required("Required"),
     reg_date : yup
       .string().required('Required'),
+    due_date : yup
+    .string().required('Required'),
     chasis_no: yup
       .string()
       .length(17, "Length Must be 17")
@@ -198,6 +200,34 @@ function VehicleInfoComponent({formData, setFormData, nextStep}) {
                               {...field}
                               error = {Boolean(meta.touched && meta.error)}
                               helperText = { <ErrorMessage name = "total_due_amount" /> }
+                            />
+                          </FormGroup>
+                        );
+                      }}
+                    </Field>
+                  </Col>
+                </Row>
+
+                <Row style={{ padding: "5px" }}>
+                  <Col md>
+                    <Field name="due_date">
+                      {(props) => {
+                        const { field, meta } = props;
+                        return (
+                          <FormGroup>
+                            <TextField
+                                id="date"
+                                label="Due date"
+                                type="date"
+                                name = "due_date"
+                                variant = "outlined"
+                                size = "small"
+                                error = { Boolean(meta.touched && meta.error) }
+                                helperText = { <ErrorMessage name = "due_date" /> }
+                                {...field}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
                             />
                           </FormGroup>
                         );
