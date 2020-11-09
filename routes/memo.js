@@ -158,8 +158,6 @@ memoRoute.post('/savememo', (req, res) => {
     
     // Find whether the vehicle is present or not 
     // If present store corresponding vehicle ID and Memo
-
-    res.end()
 })
 
 module.exports = memoRoute

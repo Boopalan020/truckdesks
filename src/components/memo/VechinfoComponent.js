@@ -24,8 +24,6 @@ function VechinfoComponent({ formdata, setFormdata, nextStep }) {
     const classes = useStyles();
     const [vech_no, setVech_no] = useState([])
     const [dr_name, setDr_name] = useState([])
-    const depend = 0
-
     useEffect(() => {
         function FetchVehicleNumber() {
             Axios.get(`${apiOrigin}/vehicle/fetchnumbers`)
@@ -38,7 +36,7 @@ function VechinfoComponent({ formdata, setFormdata, nextStep }) {
             })
         }
         FetchVehicleNumber()
-    }, [depend])
+    }, [])
 
     const onSubmit = (values) => {
         setFormdata(values)
