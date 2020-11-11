@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import AddDriverComponent from './AddDriverComponent'
-import { makeStyles } from '@material-ui/core/styles';
-import PersonIcon from '@material-ui/icons/Person';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles } from '@material-ui/core/styles'
+import PersonIcon from '@material-ui/icons/Person'
+import PersonAddIcon from '@material-ui/icons/PersonAdd'
+import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
 import { connect } from 'react-redux'
 import toast from 'toasted-notes' 
 import Alert from '@material-ui/lab/Alert'
 
-import Grid from '@material-ui/core/Grid';
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogTitle from '@material-ui/core/DialogTitle'
+
+import Grid from '@material-ui/core/Grid'
 import Axios from 'axios'
-import { Paper, Button, Container, Card, CardContent, Typography } from '@material-ui/core';
+import { Paper, Button, Container, TextField, Card, CardContent, Typography } from '@material-ui/core'
+
+import { Formik, Form, Field, ErrorMessage } from "formik"
+import { Row, Col, FormGroup } from "react-bootstrap"
+import * as yup from "yup"
 
 import { changeDriverState } from '../../redux/index'
-import { Col, Row } from 'react-bootstrap';
 
-const apiOrigin  = "http://localhost:3001";
+const apiOrigin  = "http://localhost:3001"
 const useStyles = makeStyles({
     root: {
       minWidth: 250,
@@ -68,19 +76,84 @@ function DriverComponent(props) {
     const [drivers, setDrivers] = useState([])
     const [length, setLength] = useState(0)
 
+    // For dialog box
+    const [open, setOpen] = useState(false);
+    const [scroll, setScroll] = useState('paper');
+
+    // formvalues
+    const [form, setForm] = useState({})
+  
+    // To open Dialog box
+    const handleClickOpen = (scrollType)=> {
+      setOpen(true);
+      setScroll(scrollType);
+    };
+  
+    // To cloase dialog box
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    // To fetch driver details
     useEffect(() => {
         function FetchDriver() {
             Axios.get(`${apiOrigin}/drivers`)
             .then(result => {
-                setDrivers(result.data)
-                setLength(result.data.length)
+                console.log(result)
+                if(result.data.length === 0)
+                {
+                    toast.notify(
+                        <Alert size="small" severity="warning">
+                          No drivers found
+                        </Alert>,
+                        {
+                          position : "top",
+                          duration : "4000"
+                        }
+                      )
+                }
+                else{
+                    setDrivers(result.data)
+                    setLength(result.data.length)
+                }
             })
             .catch(err => {
+                toast.notify(
+                    <Alert size="small" severity="error">
+                      No network
+                    </Alert>,
+                    {
+                      position : "top",
+                      duration : "4000"
+                    }
+                  )
                 console.log(err)
             })
         }
         FetchDriver()
     }, [props.showview, length])
+
+    const editDriver = (e, id) => {
+        console.log(id)
+        Axios.get(`${apiOrigin}/drivers/editdriver/${id}`)
+        .then(res => {
+            // console.log(res.data)
+            setForm(res.data)
+            handleClickOpen('paper')
+        })
+        .catch(err => {
+            toast.notify(
+                <Alert size="small" severity="error">
+                  No network
+                </Alert>,
+                {
+                  position : "top",
+                  duration : "4000"
+                }
+              )
+            console.log(err)
+        })
+    }
 
     const deletItem = (e) => {
         console.log(e.target.id);
@@ -176,7 +249,16 @@ function DriverComponent(props) {
                                                                 type="button" 
                                                                 style={{background:"none", border:"none", cursor:"pointer"}} 
                                                                 value="Edit" 
+                                                                onClick = { e => editDriver(e, driver._id) }
                                                                 id = {driver.license} 
+                                                            />
+                                                            
+                                                            {/* Dialog box */}
+                                                            <MaterialDialog 
+                                                                open = { open }
+                                                                scroll = { scroll }
+                                                                handleClose = { handleClose }
+                                                                driver = { form }
                                                             />
                                                         </Col>
                                                         <Col sm = {6}>
@@ -207,7 +289,6 @@ function DriverComponent(props) {
                                 >
                                 New driver
                             </Button>
-                        
                         </div >
                     </Container>
                 )
@@ -222,6 +303,174 @@ function DriverComponent(props) {
         </div>
     )
 }
+
+function MaterialDialog(props) {
+
+    //FORM VALIDATION USING YUP PACKAGE
+    const validationSchema = yup.object({
+        address: yup.string().required("Required"),
+        phone: yup
+        .string()
+        .matches(/^\d{10}$/i, "10 - Digit Number")
+        .required("Required"),
+        insure_no : yup.string().required("Required")
+    });
+
+    const onSubmit = (values) => {
+        // console.log(values)
+        Axios.post(`${apiOrigin}/drivers/updatedriver`, values)
+        .then(response => {
+            console.log(response)
+            if(response.status === 200)
+            {
+                toast.notify(
+                    <Alert size="small" severity="success">
+                        {response.data.msg }
+                    </Alert>,
+                    {
+                        position : "top",
+                        duration : "4000"
+                    }
+                )
+                props.handleClose()
+            }
+            else toast.notify(
+                <Alert size="small" severity="warning">
+                    Something went wrong
+                </Alert>,
+                {
+                    position : "top",
+                    duration : "4000"
+                }
+            )
+        })
+        .catch(err => {
+            toast.notify(
+                <Alert size="small" severity="error">
+                    Network error
+                </Alert>,
+                {
+                    position : "top",
+                    duration : "4000"
+                }
+            )
+            console.log(err)
+        })
+    }
+
+    return (
+        <Dialog
+            open={props.open}
+            onClose={props.handleClose}
+            scroll={props.scroll}
+            aria-labelledby="scroll-dialog-title"
+            aria-describedby="scroll-dialog-description"
+        >
+            <DialogTitle id="scroll-dialog-title"> Edit </DialogTitle>
+            <DialogContent dividers={props.scroll === 'paper'}>
+                <Formik
+                    initialValues = { props.driver }
+                    validationSchema = { validationSchema }
+                    onSubmit = { onSubmit }
+                >
+                    <Form noValidate>
+                        {/* Driver Address */}
+                        <Row style={{padding:"10px"}}>
+                            <Col sm >
+                                <FormGroup>
+                                    <Field name="address">
+                                    {(fprops) => {
+                                        const { field, meta} = fprops
+                                        return ( 
+                                        <FormGroup>
+                                            <TextField 
+                                                name="address" 
+                                                size="small" 
+                                                label="Address" 
+                                                variant="outlined" {...field} 
+                                                error = {Boolean(meta.touched && meta.error)} 
+                                                helperText ={<ErrorMessage name = "address"></ErrorMessage>} 
+                                            />
+                                        </FormGroup>)
+                                    }}
+                                    </Field>    
+                                </FormGroup>
+                            </Col>
+                        </Row>
+
+                        {/* Driver Phone number */}
+                        <Row style={{padding:"10px"}}>
+                            <Col sm >
+                                <Field name="phone">
+                                {
+                                    (props)=>{
+                                        const {field, meta} = props
+                                        return (
+                                        <FormGroup>
+                                            <TextField 
+                                                name="phone" 
+                                                size="small" 
+                                                label="Phone.no" 
+                                                variant="outlined" {...field} 
+                                                error = {Boolean(meta.touched && meta.error)} 
+                                                helperText ={<ErrorMessage name = "phone"></ErrorMessage>} 
+                                            />
+                                        </FormGroup>
+                                        )
+                                    }
+                                }
+                                </Field>
+                            </Col>
+                        </Row>
+
+                        {/* Driver Insuranse number */}
+                        <Row style = {{padding : "10px"}}>
+                            <Col sm>
+                                <Field name = "insure_no">
+                                {
+                                    (props) => {
+                                        const { field, meta } = props
+                                        return (
+                                            <FormGroup>
+                                                <TextField 
+                                                    label = "Driver Insurance"
+                                                    variant = "outlined" 
+                                                    name = "insure_no"
+                                                    size = "small" {...field}
+                                                    error = {Boolean(meta.touched && meta.error)} 
+                                                    helperText ={<ErrorMessage name = "insure_no" />} 
+                                                />
+                                            </FormGroup>
+                                        )
+                                    }
+                                }
+                                </Field>
+                            </Col>
+                        </Row>
+
+                        <Row style={{padding:"10px"}}>
+                            <Col >
+                                <Button 
+                                    type = "submit" 
+                                    variant="outlined" 
+                                    color="primary"
+                                    >
+                                    Save
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Form>
+                </Formik>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={props.handleClose} color="primary">
+                    Cancel
+                </Button>
+            </DialogActions>
+        </Dialog>
+    )
+}
+
 const mapStateToProps = (state) => {
     return {
         showview : state.driver.showview,

@@ -58,7 +58,7 @@ function AddDriverComponent(props) {
       .then(response => {
           if(response)
           {
-            console.log(response)
+            // console.log(response)
             if(response.data.flag === "exist")
             {
                 toast.notify(
@@ -265,27 +265,27 @@ function AddDriverComponent(props) {
                     </Row>
 
                     <Row style = {{padding : "10px"}}>
-                            <Col sm>
-                                <Field name = "insure_no">
-                                {
-                                    (props) => {
-                                        const { field, meta } = props
-                                        return (
-                                            <FormGroup>
-                                                <TextField 
-                                                    label = "Driver Insurance"
-                                                    variant = "outlined" 
-                                                    name = "insure_no"
-                                                    size = "small" {...field}
-                                                    error = {Boolean(meta.touched && meta.error)} 
-                                                    helperText ={<ErrorMessage name = "insure_no" />} 
-                                                />
-                                            </FormGroup>
-                                        )
-                                    }
+                        <Col sm>
+                            <Field name = "insure_no">
+                            {
+                                (props) => {
+                                    const { field, meta } = props
+                                    return (
+                                        <FormGroup>
+                                            <TextField 
+                                                label = "Driver Insurance"
+                                                variant = "outlined" 
+                                                name = "insure_no"
+                                                size = "small" {...field}
+                                                error = {Boolean(meta.touched && meta.error)} 
+                                                helperText ={<ErrorMessage name = "insure_no" />} 
+                                            />
+                                        </FormGroup>
+                                    )
                                 }
-                                </Field>
-                            </Col>
+                            }
+                            </Field>
+                        </Col>
                     </Row>
 
                     <Row style={{padding:"10px"}}>

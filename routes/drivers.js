@@ -14,6 +14,40 @@ driverRoute.get('/', (req, res) => {
         console.log(err)
     })
 })
+// Getting driver by ID
+driverRoute.get('/editdriver/:id', (req, res) => {
+    const id = req.params.id
+    driver.findOne({_id : id})
+    .then(dres => {
+        if(dres)
+        {
+            console.log("Driver details ",dres)
+            res.status(200).send(dres)
+        }
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+// Updating diver details
+driverRoute.post('/updatedriver', (req, res) => {
+    const id = req.body._id
+    driver.updateOne({ _id : id }, {
+        $set : {
+            address : req.body.address,
+            phone : req.body.phone,
+            insure_no  : req.body.insure_no,
+        }
+    })
+    .then(dres => {
+        // console.log(dres)
+        res.status(200).send({msg : "Details Updated"})
+    })
+    .catch(err => {
+        console.log(err)
+        res.send(err)
+    })
+})
 // Deleting driver from DB
 driverRoute.delete('/deletedriver', (req, res) => {
     console.log(req.body.id)
