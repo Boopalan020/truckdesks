@@ -18,12 +18,33 @@ vehicleRoute.get('/getvehicles', (req, res) => {
     })
 })
 
+vehicleRoute.post('/saveduetable', (req, res) => {
+    const id = req.body.id
+    const completed_months = req.body.completed_months
+    const dues = req.body.dues
+    // console.log(dues)
+    due.updateOne({ _id : id }, {
+        $set : {
+            completed_month : completed_months,
+            dues : dues
+        }
+    })
+    .then(updated => {
+        console.log("Updated due Table successfully")
+        res.status(200).send({msg : "Due Updated successfully"})
+    })
+    .catch(err => {
+        console.log("Error while saving Due table",err)
+        res.send(err)
+    })
+})
+
 vehicleRoute.get('/getbyid/:id', (req, res) => {
     const id = req.params.id
-    vehicle.findOne({_id : id})
-    .then(vres => {
-        console.log("Found : ",vres)
-        res.status(200).send(vres)
+    due.findOne({vehicle_id : id})
+    .then(dueres => {
+        // console.log("Found : ",dueres)
+        res.status(200).send(dueres)
     })
     .catch(err => {
         console.log(`Erro in fetching vehicle id : ${id}`,err)

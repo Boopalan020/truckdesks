@@ -4,6 +4,7 @@ import NavbarComponent from './NavbarComponent'
 import DriverComponent from './driver/DriverComponent'
 import MultistepComponent from './vehicle/MultistepComponent';
 import MemoStepComponent from './memo/MemoStepComponent';
+import DueComponent from './due/DueComponent';
 
 function MainComponent(props) {
     return (
@@ -16,6 +17,7 @@ function MainComponent(props) {
                     <Route path='/viewdrivers' component = { DriverComponent } ></Route>
                     <Route path='/viewvehicle' component = { MultistepComponent } ></Route>
                     <Route path='/memo' component = { MemoStepComponent } ></Route>
+                    <Route path='/dueOption' component = { DueComponent } ></Route>
                 </Switch>
             </Router>
         </div>
