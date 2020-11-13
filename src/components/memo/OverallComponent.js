@@ -351,32 +351,29 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
       yval = 307;
       for (i = 0; i < memoData.diesel.length; i++) {
         printable = "";
-        if (i === 0) {
-          d = new Date(memoData.diesel[i].filled_date);
-          printable +=
-            d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
-        }
+        d = new Date(memoData.diesel[i].filled_date);
+        printable += d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
         firstPage.drawText(printable, {
           x: 34,
           y: yval,
           size: 10,
         });
-        firstPage.drawText(memoData.diesel[0].litre, {
+        firstPage.drawText(memoData.diesel[i].litre, {
           x: 95,
           y: yval,
           size: 10,
         });
-        firstPage.drawText(memoData.diesel[0].rate, {
+        firstPage.drawText(memoData.diesel[i].rate, {
           x: 156,
           y: yval,
           size: 10,
         });
-        firstPage.drawText(memoData.diesel[0].rate_on_day + "/lit", {
+        firstPage.drawText(memoData.diesel[i].rate_on_day + "/lit", {
           x: 245,
           y: yval,
           size: 10,
         });
-        firstPage.drawText(memoData.diesel[0].place, {
+        firstPage.drawText(memoData.diesel[i].place, {
           x: 368,
           y: yval,
           size: 10,
