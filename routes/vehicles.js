@@ -109,6 +109,7 @@ vehicleRoute.post('/savevehicle', (req, res) => {
                                     fc : req.body.fc,
                                     quarter_tax_date : req.body.quarter_tax_date,
                                     quarter_tax : req.body.quarter_tax,
+                                    year : req.body.year,
                                     status : req.body.status
                                 }
                             ]

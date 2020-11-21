@@ -18,7 +18,7 @@ function MultistepComponent(props) {
     const [formdata, setFormdata] = useState({
       vehicle_no : '',reg_date : '',due_date : '',engine_no : '',chasis_no:'',vehicle_model : '',total_due_amount: '',due_interest : '',
       total_months : '',completed_month: '',national_date : '',national_cost : '',insurance : '',insurance_date : '',
-      fc : '',fc_date : '',quarter_tax_date : '',quarter_tax : '',rto : '',status : ''
+      fc : '',fc_date : '',quarter_tax_date : '',quarter_tax : '',rto : '', year : '',status : ''
     });
     const nextStep = () => setStep(prev => prev + 1);
     const prevStep = () => setStep(prev => prev - 1); 

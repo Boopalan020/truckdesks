@@ -13,6 +13,7 @@ const yearlySchema = new mongoose.Schema({
             fc : Number,
             quarter_tax_date : String,
             quarter_tax : Number,
+            year : String,
             status : String
         }
     ],

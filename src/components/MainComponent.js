@@ -1,10 +1,11 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import NavbarComponent from './NavbarComponent'
 import DriverComponent from './driver/DriverComponent'
-import MultistepComponent from './vehicle/MultistepComponent';
-import MemoStepComponent from './memo/MemoStepComponent';
-import DueComponent from './due/DueComponent';
+import MultistepComponent from './vehicle/MultistepComponent'
+import MemoStepComponent from './memo/MemoStepComponent'
+import DueComponent from './due/DueComponent'
+import DashboardComponent from './dashboard/DashboardComponent'
 
 function MainComponent(props) {
     return (
@@ -13,7 +14,7 @@ function MainComponent(props) {
                 <NavbarComponent/>
                 <Switch>
                     <Route exact path='/profile' ></Route>
-                    <Route path='/dashboard' ></Route>
+                    <Route path='/dashboard' component = { DashboardComponent } ></Route>
                     <Route path='/viewdrivers' component = { DriverComponent } ></Route>
                     <Route path='/viewvehicle' component = { MultistepComponent } ></Route>
                     <Route path='/memo' component = { MemoStepComponent } ></Route>

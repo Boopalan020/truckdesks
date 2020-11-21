@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import { makeStyles } from "@material-ui/core/styles";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 // import { useToasts } from 'react-toast-notifications'
@@ -10,7 +9,9 @@ import * as yup from "yup";
 import Radio from '@material-ui/core/Radio';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Axios from 'axios';
 
+const apiOrigin  = "http://localhost:3001"
 const useStyles = makeStyles((theme) => ({
     alignItemsAndJustifyContent: {
       display: "flex",
@@ -23,9 +24,13 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function YearlyComponent({formData, setFormData, nextStep, prevStep}) {
-    const [direction, setDirection] = useState('back');
+function YearPopComponent({ id }) {
     const classes = useStyles();
+
+    const [formdata, setFormdata] = useState({
+        national_date : '', national_cost : '', insurance_date : '', insurance : '', fc_date : '', fc : '', quarter_tax_date : '',
+        quarter_tax : '', rto : '', year : '', status : ''
+    })
 
     const validationSchema = yup.object({
         national_date : yup.string().required('Required'),
@@ -42,14 +47,20 @@ function YearlyComponent({formData, setFormData, nextStep, prevStep}) {
     });
 
     const onSubmit = (values) => {
-        setFormData(values)
-        direction === 'back' ? prevStep() : nextStep()
+        setFormdata(values)
+        Axios.post(`${apiOrigin}/dashboard/addyear`, {id, values})
+        .then(addres => {
+            console.log(addres)
+        })
+        .catch(err => {
+            console.log(err)
+        })
       };
     return (
         <div>
             <Container maxWidth="md" className={classes.alignItemsAndJustifyContent}>
                 <Formik
-                initialValues={formData}
+                initialValues={formdata}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
                 >
@@ -327,7 +338,7 @@ function YearlyComponent({formData, setFormData, nextStep, prevStep}) {
                                         <div>
                                             <Radio color = "primary" id = "paid" {...field} value = "Paid" checked = { field.value === "Paid" } />Paid
                                             <Radio color = "primary" id = "unpaid" {...field} value = "Unpaid" checked = { field.value === "Unpaid" } />Unpaid
-                                            <FormHelperText error = {meta.touched && meta.error}> { <ErrorMessage name = "status" /> } </FormHelperText>
+                                            <FormHelperText error = {Boolean(meta.touched && meta.error)}> { <ErrorMessage name = "status" /> } </FormHelperText>
                                         </div>
                                     </FormControl>
                                 );
@@ -337,16 +348,6 @@ function YearlyComponent({formData, setFormData, nextStep, prevStep}) {
                         </Row>
 
                         <Row md style={{ padding : "5px" }} >
-                            <Col md = {4} style={{ padding : "5px" }} >
-                                <Button
-                                    variant='outlined'
-                                    color='primary'
-                                    className={classes.button}
-                                    onClick={() => prevStep() }
-                                    >
-                                    Back
-                                </Button>
-                            </Col>
 
                             <Col md = {4} style={{ padding : "5px" }} >
                                 <Button
@@ -354,9 +355,8 @@ function YearlyComponent({formData, setFormData, nextStep, prevStep}) {
                                     variant='contained'
                                     color='primary'
                                     className={classes.button}
-                                    onClick={() => setDirection('forward')}
                                     >
-                                    Continue
+                                    Add
                                 </Button>
                             </Col>
                         </Row>
@@ -370,11 +370,4 @@ function YearlyComponent({formData, setFormData, nextStep, prevStep}) {
     )
 }
 
-export default YearlyComponent
-
-YearlyComponent.propTypes = {
-    formData: PropTypes.object.isRequired,
-    setFormData: PropTypes.func.isRequired,
-    nextStep: PropTypes.func.isRequired,
-    prevStep: PropTypes.func.isRequired
-  };
+export default YearPopComponent

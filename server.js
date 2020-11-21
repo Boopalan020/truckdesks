@@ -7,6 +7,7 @@ const cors = require('cors')
 const driver = require('./routes/drivers')
 const vehicle = require('./routes/vehicles')
 const memo = require('./routes/memo')
+const dashboard = require('./routes/dashboard')
 
 const keys = require('./config/key')
 const port = process.env.PORT || 3001
@@ -22,6 +23,7 @@ app.use(cors({
     origin : "http://localhost:3000"
 }))
 
+app.use('/dashboard', dashboard)
 app.use('/drivers', driver)
 app.use('/vehicle', vehicle)
 app.use('/memo', memo)
