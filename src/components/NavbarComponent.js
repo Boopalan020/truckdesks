@@ -1,33 +1,31 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
+import { connect } from "react-redux"
 
-import { connect } from "react-redux";
-
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+import { makeStyles } from "@material-ui/core/styles"
+import AppBar from "@material-ui/core/AppBar"
+import Toolbar from "@material-ui/core/Toolbar"
+import Typography from "@material-ui/core/Typography"
+import IconButton from "@material-ui/core/IconButton"
+import MenuIcon from "@material-ui/icons/Menu"
 
 // AppBar imports
-import clsx from "clsx";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import clsx from "clsx"
+import Drawer from "@material-ui/core/Drawer"
+import List from "@material-ui/core/List"
+import Divider from "@material-ui/core/Divider"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemIcon from "@material-ui/core/ListItemIcon"
+import ListItemText from "@material-ui/core/ListItemText"
 
 // Material icons
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';   //profile
-import DashboardIcon from '@material-ui/icons/Dashboard';           //Dashboard
-import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';       //Add driver
-import LocalShippingIcon from '@material-ui/icons/LocalShipping';   //Add vehicle
-import MemoryIcon from '@material-ui/icons/Memory';                 // memo Icon
-import UpdateIcon from '@material-ui/icons/Update';                 // Due option
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';           // Logout icon
-import { Link } from "react-router-dom";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'  //profile
+import DashboardIcon from '@material-ui/icons/Dashboard'          //Dashboard
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'      //Add driver
+import LocalShippingIcon from '@material-ui/icons/LocalShipping'  //Add vehicle
+import MemoryIcon from '@material-ui/icons/Memory'                // memo Icon
+import UpdateIcon from '@material-ui/icons/Update'                // Due option
+import { Link } from "react-router-dom"
+import LogoutComponent from "./auths/LogoutComponent"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,8 +62,6 @@ function NavbarComponent(props) {
     setState({ [anchor]: open });
   };
 
-  console.log(props.navItems);
-
   const list = (anchor) => (
     <div
       className={clsx(classes.list, {
@@ -85,7 +81,6 @@ function NavbarComponent(props) {
               {index === 3 && ( <LocalShippingIcon /> )}
               {index === 4 && ( <MemoryIcon /> )}
               {index === 5 && ( <UpdateIcon /> )}
-              {index === 6 && ( <ExitToAppIcon /> )}
             </ListItemIcon>
             {index === 0 && (
                 <Link to='/profile' style={{textDecoration:'none', color:"black"}}>
@@ -151,7 +146,7 @@ function NavbarComponent(props) {
           <Typography variant="h6" className={classes.title}>
             TruckDesk4U
           </Typography>
-          <Button color="inherit" >Login</Button>
+          <LogoutComponent setloggedIn = { props.setloggedIn } />
         </Toolbar>
       </AppBar>
     </div>
@@ -165,4 +160,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(NavbarComponent);
+export default connect(mapStateToProps)(NavbarComponent)

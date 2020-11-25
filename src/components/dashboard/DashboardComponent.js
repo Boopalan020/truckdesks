@@ -190,7 +190,7 @@ function DashboardComponent() {
             setYears([])
             setYearDiv(false)
             setYearData({})
-
+            setUptonow(0)
         }
         setExpanded(isExpanded ? panel : false);
       };
@@ -217,8 +217,8 @@ function DashboardComponent() {
                                     
                                     <Row style = {{ padding : "5px" }}>
                                         <Col md style = {{ textAlign : "right" }} >
-                                            <Typography >
-                                                Upto Last Trip : <b style = { uptonow<0 ? { color : "red" } : { color : "green" } }> { numberFormat(uptonow) } </b>
+                                            <Typography color = "secondary" >
+                                                <b>Upto Last Trip : { numberFormat(uptonow) }</b>
                                             </Typography>
                                         </Col>
                                     </Row>

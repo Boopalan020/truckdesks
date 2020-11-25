@@ -123,7 +123,6 @@ function DueComponent(props) {
             .catch(err => {
                 console.log(err)
             })
-            setExpanded(isExpanded ? panel : false);
         }
         else
         {
@@ -134,6 +133,7 @@ function DueComponent(props) {
             setChecks([])
             setId('')
         }
+        setExpanded(isExpanded ? panel : false)
       };
 
     // Changing Page of the table

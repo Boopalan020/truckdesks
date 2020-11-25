@@ -1,7 +1,7 @@
 import { DRAWER_STATE } from './NavbarTypes';
 
 const initialstate = {
-    navItems : [ 'Profile', 'Dashboard', 'Add Driver', 'Add vehicle', 'Memo', 'Due Options', 'Logout' ]
+    navItems : [ 'Profile', 'Dashboard', 'Add Driver', 'Add vehicle', 'Memo', 'Due Options']
 }
 
 const navReducer = (state = initialstate, action) => {

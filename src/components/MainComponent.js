@@ -11,7 +11,7 @@ function MainComponent(props) {
     return (
         <div>
             <Router >
-                <NavbarComponent/>
+                <NavbarComponent setloggedIn = { props.setloggedIn } />
                 <Switch>
                     <Route exact path='/profile' ></Route>
                     <Route path='/dashboard' component = { DashboardComponent } ></Route>
