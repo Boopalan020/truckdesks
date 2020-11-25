@@ -2,6 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mate
 import React from 'react'
 import { Card, Col, Row } from 'react-bootstrap'
 import YearPopComponent from './YearPopComponent'
+import { numberFormat } from '../moneyFunction'
 // import DeleteIcon from '@material-ui/icons/Delete'
 // import toast from 'toasted-notes' 
 // import Alert from '@material-ui/lab/Alert'
@@ -54,7 +55,7 @@ function MenuComponent(props) {
                 {
                     props.divDecide
                     ? <div> 
-                        <YearPopComponent id = { props.vid } />
+                        <YearPopComponent handleClose = { props.handleClose } id = { props.vid } />
                       </div>
                     : <div> 
                      {
@@ -67,7 +68,7 @@ function MenuComponent(props) {
                                             <b> National Permit </b>
                                         </Col>
                                         <Col sm={6}>
-                                            { new Date(data.national_date).toLocaleDateString('ta') } - <span>&#8377;</span> { data.national_cost }
+                                            { new Date(data.national_date).toLocaleDateString('ta') } - { numberFormat(data.national_cost) }
                                         </Col>
                                     </Row>
 
@@ -76,7 +77,7 @@ function MenuComponent(props) {
                                             <b> Insurance </b>
                                         </Col>
                                         <Col md={6}>
-                                            { new Date(data.insurance_date).toLocaleDateString('ta') } - <span>&#8377;</span> { data.insurance }
+                                            { new Date(data.insurance_date).toLocaleDateString('ta') } - { numberFormat(data.insurance) }
                                         </Col>
                                     </Row>
 
@@ -85,7 +86,7 @@ function MenuComponent(props) {
                                             <b> FC </b>
                                         </Col>
                                         <Col md={6}>
-                                            { new Date(data.fc_date).toLocaleDateString('ta') } - <span>&#8377;</span> { data.fc }
+                                            { new Date(data.fc_date).toLocaleDateString('ta') } - { numberFormat(data.fc) }
                                         </Col>
                                     </Row>
 
@@ -94,7 +95,7 @@ function MenuComponent(props) {
                                             <b> Quarter Tax </b>
                                         </Col>
                                         <Col md={6}>
-                                            { new Date(data.quarter_tax_date).toLocaleDateString('ta') } - <span>&#8377;</span> { data.quarter_tax }
+                                            { new Date(data.quarter_tax_date).toLocaleDateString('ta') } - { numberFormat(data.quarter_tax) }
                                         </Col>
                                     </Row>
 
@@ -103,7 +104,7 @@ function MenuComponent(props) {
                                             <b> RTO </b>
                                         </Col>
                                         <Col md={6}>
-                                        <span>&#8377;</span> { data.rto }
+                                            { numberFormat(data.rto) }
                                         </Col>
                                     </Row>
 

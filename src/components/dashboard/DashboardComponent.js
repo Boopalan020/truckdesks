@@ -20,6 +20,8 @@ import AddIcon from '@material-ui/icons/Add'
 import MenuComponent from "./MenuComponent"
 import FinalCalComponent from './FinalCalComponent'
 
+import { numberFormat } from '../moneyFunction'
+
 const apiOrigin  = "http://localhost:3001"
 const useStyles = makeStyles((theme) => ({
     paperStyle : {
@@ -34,7 +36,11 @@ const useStyles = makeStyles((theme) => ({
         fontSize: theme.typography.pxToRem(15),
         flexBasis: '33.33%',
         flexShrink: 0,
-      },
+    },
+    secondaryHeading: {
+      fontSize: theme.typography.pxToRem(15),
+      color: theme.palette.text.secondary,
+    },
 }))
 function DashboardComponent() {
 
@@ -50,6 +56,7 @@ function DashboardComponent() {
     const [decide, setDecide] = useState()
     const [yearhand, setYearhand] = useState(0)
     const [yearexpense, setYearexpense] = useState(0)
+    const [uptonow, setUptonow] = useState(0)
     
     // For dialog box
     const [open, setOpen] = useState(false);
@@ -57,7 +64,7 @@ function DashboardComponent() {
 
     // States for dialog components
     const [yeardialog, setYeardialog] = useState([])
-
+    
     const initialValues = {
         year : ''
     }
@@ -102,7 +109,7 @@ function DashboardComponent() {
             Axios.get(`${apiOrigin}/vehicle/getvehicles`)
             .then(vehicles => {
                 setVehicles(vehicles.data)
-                console.log(vehicles)
+                // console.log(vehicles)
             })
             .catch(err => {
                 console.log(err)            // Set one error alert (Network error)
@@ -152,6 +159,7 @@ function DashboardComponent() {
         {
             Axios.get(`${apiOrigin}/dashboard/getmonthdata/${vid}`)
             .then(chartRes => {
+                console.log(chartRes.data)
                 if(chartRes.data.flag === true)
                 {
                     setErrordata(chartRes.data.flag)
@@ -169,6 +177,7 @@ function DashboardComponent() {
                     setErrordata(false)
                     setYearhand(chartRes.data.hand_on)
                     setYearexpense(chartRes.data.t_exp)
+                    setUptonow(chartRes.data.tillnowBalance)
                 }
             })
             .catch(err => {
@@ -206,6 +215,14 @@ function DashboardComponent() {
                             <Paper elevation = {3} className = { classes.paperStyle }>
                                 <Grid container spacing={2} alignItems = "center" justify = "center" style={{padding: '5px', minHeight: "100vh"}}>
                                     
+                                    <Row style = {{ padding : "5px" }}>
+                                        <Col md style = {{ textAlign : "right" }} >
+                                            <Typography >
+                                                Upto Last Trip : <b style = { uptonow<0 ? { color : "red" } : { color : "green" } }> { numberFormat(uptonow) } </b>
+                                            </Typography>
+                                        </Col>
+                                    </Row>
+
                                     <Row style ={{ padding : "5px" }} >
                                         <Col md>
                                             {/* Formik year component */}

@@ -1,18 +1,19 @@
 import React from 'react'
 import { Row, Col } from 'react-bootstrap'
+import { numberFormat } from '../moneyFunction'
 
 function YearComponent(props) {
     return (
         <div>
             <Row style ={{ padding : "5px", color : "gray" }} >
                 <Col md >
-                    <b>Permit Date : { new Date(props.yearData.national_date).toLocaleDateString('ta') } - <span>&#8377;</span> { props.yearData.national_cost }</b>
+                    <b>Permit Date : { new Date(props.yearData.national_date).toLocaleDateString('ta') } - { numberFormat(props.yearData.national_cost) }</b>
                 </Col>
             </Row>
 
             <Row style ={{ padding : "5px", color : "gray" }} >
                 <Col md >
-                    Amount : <span>&#8377;</span> { props.yearData.national_cost }
+                    Amount : { numberFormat(props.yearData.national_cost) }
                 </Col>
             </Row>
 
@@ -24,7 +25,7 @@ function YearComponent(props) {
 
             <Row style ={{ padding : "5px", color : "gray" }} >
                 <Col md >
-                    Amount : <span>&#8377;</span> { props.yearData.insurance }
+                    Amount : { numberFormat(props.yearData.insurance) }
                 </Col>
             </Row>
 
@@ -36,7 +37,7 @@ function YearComponent(props) {
 
             <Row style ={{ padding : "5px", color : "gray" }} >
                 <Col md >
-                    Amount : <span>&#8377;</span> { props.yearData.quarter_tax }
+                    Amount : { numberFormat(props.yearData.quarter_tax) }
                 </Col>
             </Row>
 
@@ -48,13 +49,13 @@ function YearComponent(props) {
 
             <Row style ={{ padding : "5px", color : "gray" }} >
                 <Col md >
-                    Amount : <span>&#8377;</span> { props.yearData.fc }
+                    Amount : { numberFormat(props.yearData.fc) }
                 </Col>
             </Row>
 
             <Row style ={{ padding : "5px", color : "gray" }} >
                 <Col md >
-                    <b>RTO Amount : <span>&#8377;</span> { props.yearData.rto }</b>
+                    <b>RTO Amount : { numberFormat(props.yearData.rto) }</b>
                 </Col>
             </Row>
         </div>

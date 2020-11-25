@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
-import { makeStyles } from "@material-ui/core/styles";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { makeStyles } from "@material-ui/core/styles"
+import { Formik, Form, Field, ErrorMessage } from "formik"
 // import { useToasts } from 'react-toast-notifications'
-import { Row, Col, FormGroup } from "react-bootstrap";
-import { TextField, Container, Button, Divider, Typography, FormHelperText } from "@material-ui/core";
-import * as yup from "yup";
+import { Row, Col, FormGroup } from "react-bootstrap"
+import { TextField, Container, Button, Divider, Typography, FormHelperText } from "@material-ui/core"
+import * as yup from "yup"
 
-import Radio from '@material-ui/core/Radio';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import Axios from 'axios';
+import Radio from '@material-ui/core/Radio'
+import FormControl from '@material-ui/core/FormControl'
+import FormLabel from '@material-ui/core/FormLabel'
+import Axios from 'axios'
+import toast from 'toasted-notes' 
+import Alert from '@material-ui/lab/Alert'
 
 const apiOrigin  = "http://localhost:3001"
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function YearPopComponent({ id }) {
+function YearPopComponent({ id, handleClose }) {
     const classes = useStyles();
 
     const [formdata, setFormdata] = useState({
@@ -50,10 +52,29 @@ function YearPopComponent({ id }) {
         setFormdata(values)
         Axios.post(`${apiOrigin}/dashboard/addyear`, {id, values})
         .then(addres => {
-            console.log(addres)
+            // console.log(addres)
+            toast.notify(
+                <Alert size="small" severity="success">
+                  Added successfully
+                </Alert>,
+                {
+                  position : "top",
+                  duration : "4000"
+                }
+              )
+            handleClose()
         })
         .catch(err => {
-            console.log(err)
+            // console.log(err)
+            toast.notify(
+                <Alert size="small" severity="warning">
+                  Error
+                </Alert>,
+                {
+                  position : "top",
+                  duration : "4000"
+                }
+              )
         })
       };
     return (

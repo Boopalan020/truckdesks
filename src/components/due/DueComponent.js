@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Axios from 'axios';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Checkbox from '@material-ui/core/Checkbox'
+import { makeStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TablePagination from '@material-ui/core/TablePagination'
+import TableRow from '@material-ui/core/TableRow'
+import Axios from 'axios'
+import Accordion from '@material-ui/core/Accordion'
+import AccordionDetails from '@material-ui/core/AccordionDetails'
+import AccordionSummary from '@material-ui/core/AccordionSummary'
+import Typography from '@material-ui/core/Typography'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import Button from '@material-ui/core/Button'
 import toast from 'toasted-notes' 
 import Alert from '@material-ui/lab/Alert'
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel'
 
 const useStyles = makeStyles( (theme) =>({
     root: {
@@ -108,21 +108,32 @@ function DueComponent(props) {
 
     // Toggling the Accordion component 
     const handleExpandChange = (panel, vid) => (event, isExpanded) => {
-        Axios.get(`${apiOrigin}/vehicle/getbyid/${vid}`)
-        .then(due => {
-            setDue(due.data.total_due_amount)
-            setMonth(due.data.total_months)
-            setPaid(parseInt(due.data.completed_month))
-            setUnpaid(due.data.dues.length - due.data.completed_month)
-            setChecks(due.data.dues)
-            setId(due.data._id)
-            setPage(0)
-            // console.log(due.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-        setExpanded(isExpanded ? panel : false);
+        if(isExpanded === true)
+        {
+            Axios.get(`${apiOrigin}/vehicle/getbyid/${vid}`)
+            .then(due => {
+                setDue(due.data.total_due_amount)
+                setMonth(due.data.total_months)
+                setPaid(parseInt(due.data.completed_month))
+                setUnpaid(due.data.dues.length - due.data.completed_month)
+                setChecks(due.data.dues)
+                setId(due.data._id)
+                // console.log(due.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            setExpanded(isExpanded ? panel : false);
+        }
+        else
+        {
+            setDue(0)
+            setMonth(0)
+            setPaid(0)
+            setUnpaid(0)
+            setChecks([])
+            setId('')
+        }
       };
 
     // Changing Page of the table

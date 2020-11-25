@@ -11,7 +11,10 @@ vehicleRoute.get('/getvehicles', (req, res) => {
     vehicle.find({})
     .then(fvres => {
         // console.log(fvres)
-        res.status(200).send(fvres);
+        if(fvres)
+            res.status(200).send(fvres)
+        else
+            res.send({flag : true, msg : "No Vehicles Found"})
     })
     .catch(err => {
         console.log("Error while fetching vehicle details : ",err)

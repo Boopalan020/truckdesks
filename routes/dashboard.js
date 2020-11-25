@@ -120,6 +120,7 @@ dashRoute.get('/getmonthdata/:id', (req, res) => {
         var sendObj = []
         var yearArray = []
         var handson = 0
+        var tillnow = 0
         var exp = 0
         var yearObj = null
 
@@ -130,11 +131,12 @@ dashRoute.get('/getmonthdata/:id', (req, res) => {
             for (let i = 0; i < dres.Memo.length; i++) {
                 const obj = dres.Memo[i];
 
+                tillnow += obj.final_balance.hands_on
                 // console.log(obj.final_balance)
                 if(year === new Date(obj.calc_date).getFullYear())
                 {
                     const sub_array = []
-                    sub_array.push(obj.calc_date)                   // To create sub Array
+                    sub_array.push( new Date(obj.calc_date).toLocaleDateString('ta'))                   // To create sub Array
                     sub_array.push(obj.final_balance.hands_on)
                     sendObj.push(sub_array)
 
@@ -155,6 +157,8 @@ dashRoute.get('/getmonthdata/:id', (req, res) => {
                     for (let i = 0; i < yres.yearly_Det.length ; i++) {
                         const obj = yres.yearly_Det[i];
                         
+                        tillnow -= ( obj.national_cost + obj.insurance + obj.fc + obj.quarter_tax + obj.rto )
+                        // console.log(" Yearly details ----> ", tillnow)
                         yearArray.push(obj.year)
                         if(year === parseInt(obj.year))
                         {
@@ -166,7 +170,7 @@ dashRoute.get('/getmonthdata/:id', (req, res) => {
                 
                     res.send({memoarray : sendObj, years : yearArray, 
                         yeardata : yearObj, hand_on : handson, t_exp : exp,
-                        msg : "Memo found"})
+                        tillnowBalance : tillnow ,msg : "Memo found"})
                 }
                 else{
                     console.log("error is on year api")
