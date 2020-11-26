@@ -9,14 +9,13 @@ const clientId = '253103175843-00vv27nslcgtncskq0n55uif09n9aoho.apps.googleuserc
 function LoginComponent({ setloggedIn }) {
 
     const onSuccess = (res) => {
-        console.log('Login Success: currentUser:', res.profileObj);
+        console.log('Login Success: currentUser:', res.profileObj)
         setloggedIn(true)
-        refreshTokenSetup(res);
+        refreshTokenSetup(res)
       };
     
       const onFailure = (res) => {
-        console.log('Login failed: res:', res);
-        
+        console.log('Login failed: res:', res)
       };
     
       const { signIn } = useGoogleLogin({
@@ -27,12 +26,10 @@ function LoginComponent({ setloggedIn }) {
         accessType: 'offline',
         // responseType: 'code',
         // prompt: 'consent',
-      });
+      })
     
     return (
-        <div>
-            <GoogleButton type="dark" onClick = {signIn} />
-        </div>
+        <GoogleButton type="dark" onClick = {signIn} />
     )
 }
 export default LoginComponent

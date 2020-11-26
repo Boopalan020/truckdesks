@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.text.secondary,
     },
 }))
-function DashboardComponent() {
+function DashboardComponent(props) {
 
     const classes = useStyles()
     const [expanded, setExpanded] = React.useState(false);

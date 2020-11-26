@@ -6,6 +6,7 @@ import MultistepComponent from './vehicle/MultistepComponent'
 import MemoStepComponent from './memo/MemoStepComponent'
 import DueComponent from './due/DueComponent'
 import DashboardComponent from './dashboard/DashboardComponent'
+import ProfileComponent from './profile/ProfileComponent'
 
 function MainComponent(props) {
     return (
@@ -13,7 +14,7 @@ function MainComponent(props) {
             <Router >
                 <NavbarComponent setloggedIn = { props.setloggedIn } />
                 <Switch>
-                    <Route exact path='/profile' ></Route>
+                    <Route exact path='/' component = { ProfileComponent } ></Route>
                     <Route path='/dashboard' component = { DashboardComponent } ></Route>
                     <Route path='/viewdrivers' component = { DriverComponent } ></Route>
                     <Route path='/viewvehicle' component = { MultistepComponent } ></Route>

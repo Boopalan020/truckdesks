@@ -83,7 +83,9 @@ function NavbarComponent(props) {
               {index === 5 && ( <UpdateIcon /> )}
             </ListItemIcon>
             {index === 0 && (
-                <Link to='/profile' style={{textDecoration:'none', color:"black"}}>
+                <Link to='/profile' onClick = { () => {
+                  console.log(props)
+                }} style={{textDecoration:'none', color:"black"}}>
                     <ListItemText primary={text} />
                 </Link>
             )}
