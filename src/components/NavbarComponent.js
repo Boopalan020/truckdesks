@@ -18,7 +18,6 @@ import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 
 // Material icons
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'  //profile
 import DashboardIcon from '@material-ui/icons/Dashboard'          //Dashboard
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople'      //Add driver
 import LocalShippingIcon from '@material-ui/icons/LocalShipping'  //Add vehicle
@@ -26,6 +25,7 @@ import MemoryIcon from '@material-ui/icons/Memory'                // memo Icon
 import UpdateIcon from '@material-ui/icons/Update'                // Due option
 import { Link } from "react-router-dom"
 import LogoutComponent from "./auths/LogoutComponent"
+import ProfileComponent from "./profile/ProfileComponent"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -75,22 +75,15 @@ function NavbarComponent(props) {
         {props.navItems.map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
-              {index === 0 && ( <AccountCircleIcon /> )}
+              {index === 0 && ( <ProfileComponent /> )}
               {index === 1 && ( <DashboardIcon /> )}
               {index === 2 && ( <EmojiPeopleIcon /> )}
               {index === 3 && ( <LocalShippingIcon /> )}
               {index === 4 && ( <MemoryIcon /> )}
               {index === 5 && ( <UpdateIcon /> )}
             </ListItemIcon>
-            {index === 0 && (
-                <Link to='/profile' onClick = { () => {
-                  console.log(props)
-                }} style={{textDecoration:'none', color:"black"}}>
-                    <ListItemText primary={text} />
-                </Link>
-            )}
             {index === 1 && (
-                <Link to='/dashboard' style={{textDecoration:'none', color:"black"}}>
+                <Link to='/' style={{textDecoration:'none', color:"black"}}>
                     <ListItemText primary={text} />
                 </Link>
             )}
@@ -158,7 +151,8 @@ function NavbarComponent(props) {
 const mapStateToProps = (state) => {
   return {
     navItems: state.navbar.navItems,
-    left : state.navbar.left
+    left : state.navbar.left,
+    profiledata : state.profiledata
   };
 };
 

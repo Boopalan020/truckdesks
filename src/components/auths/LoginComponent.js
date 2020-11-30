@@ -1,4 +1,7 @@
 import React from 'react'
+import { connect } from "react-redux"
+
+import { profileaction } from '../../redux/index'
 
 import { useGoogleLogin } from 'react-google-login'
 import { refreshTokenSetup } from '../refreshToken'
@@ -6,11 +9,12 @@ import GoogleButton from 'react-google-button'
 
 const clientId = '253103175843-00vv27nslcgtncskq0n55uif09n9aoho.apps.googleusercontent.com'
 
-function LoginComponent({ setloggedIn }) {
+function LoginComponent({ setloggedIn, changePrState }) {
 
     const onSuccess = (res) => {
         console.log('Login Success: currentUser:', res.profileObj)
         setloggedIn(true)
+        changePrState(res.profileObj)
         refreshTokenSetup(res)
       };
     
@@ -32,4 +36,16 @@ function LoginComponent({ setloggedIn }) {
         <GoogleButton type="dark" onClick = {signIn} />
     )
 }
-export default LoginComponent
+
+const mapStateToProps = (state) => {
+  return {
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      changePrState : (data) => dispatch(profileaction(data))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginComponent)
