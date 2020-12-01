@@ -24,8 +24,8 @@ app.use(express.static(path.join(__dirname, './build')))    //Important line for
 app.use(morgan('dev'))
 app.use(cors({
     // origin : "http://localhost:3000"
-    origin : "http://localhost:3001"
-    // origin : "https://truckdesks.herokuapp.com/"
+    // origin : "http://localhost:3001"
+    origin : "https://truckdesks.herokuapp.com/"
 }))
 
 app.use('/dashboard', dashboard)
