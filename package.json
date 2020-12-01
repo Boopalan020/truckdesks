@@ -26,6 +26,7 @@
     "mongoose-double": "0.0.1",
     "morgan": "^1.10.0",
     "node-sass": "^4.14.1",
+    "path": "^0.12.7",
     "pdf-lib": "^1.11.1",
     "react": "^16.13.1",
     "react-avatar": "^3.9.7",
@@ -50,14 +51,13 @@
     "yup": "^0.29.2"
   },
   "scripts": {
+    "start" : "node server.js",
     "client": "react-scripts start",
     "server": "node server.js",
     "spa": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "start": "concurrently \"node server.js\" \"npm run spa\"",
-    "dev": "concurrently \"node server.js\" \"npm run spa\""
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
