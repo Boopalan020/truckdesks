@@ -21,7 +21,7 @@ mongoose.connect(keys.mongodb.dbURI, {useNewUrlParser: true, useUnifiedTopology:
         console.log('Database server connected Successfully' )
 })
 app.use(express.static(path.join(__dirname, './build')))    //Important line for serving build files
-app.use(morgan())
+app.use(morgan('dev'))
 app.use(cors({
     // origin : "http://localhost:3000"
     origin : "http://localhost:3001"

@@ -16,7 +16,7 @@ function FormSubmitionComponent({ formData, setFormData, prevStep, firstStep }) 
       .then(response => {
           if(response)
           {
-            console.log(response)
+            // console.log(response)
             if(response.data.flag === "exist")
             {
                 toast.notify(
@@ -50,7 +50,7 @@ function FormSubmitionComponent({ formData, setFormData, prevStep, firstStep }) 
           }
       })
       .catch(err => {
-          console.log(err)
+          // console.log(err)
           toast.notify(
             <Alert size="small" severity="info">
               Try again later

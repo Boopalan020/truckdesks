@@ -41,7 +41,7 @@ function VechinfoComponent({ formdata, setFormdata, nextStep }) {
 
     const onSubmit = (values) => {
         setFormdata(values)
-        console.log(values)
+        // console.log(values)
         nextStep()
     };
 

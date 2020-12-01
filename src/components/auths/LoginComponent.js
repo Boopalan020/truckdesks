@@ -12,7 +12,8 @@ const clientId = '253103175843-00vv27nslcgtncskq0n55uif09n9aoho.apps.googleuserc
 function LoginComponent({ setloggedIn, changePrState }) {
 
     const onSuccess = (res) => {
-        console.log('Login Success: currentUser:', res.profileObj)
+        console.log("Login Successfull")
+        // console.log('Login Success: currentUser:', res.profileObj)
         setloggedIn(true)
         changePrState(res.profileObj)
         refreshTokenSetup(res)

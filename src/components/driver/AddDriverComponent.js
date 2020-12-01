@@ -54,7 +54,7 @@ function AddDriverComponent(props) {
       .required("Required"),
   });
   const onSubmit = (values, onSubmitProps) => {
-      console.log(values)
+    //   console.log(values)
       Axios.post(`${apiOrigin}/drivers/adddriver`, values)
       .then(response => {
           if(response)

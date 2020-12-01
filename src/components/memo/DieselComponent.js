@@ -35,7 +35,7 @@ function DieselComponent({formdata, setFormdata, nextStep, prevStep}) {
 
     const onSubmit = (values) => {
         setFormdata(values)
-        console.log(values)
+        // console.log(values)
         nextStep()
     }; 
     const validationSchema = yup.object({
@@ -56,7 +56,7 @@ function DieselComponent({formdata, setFormdata, nextStep, prevStep}) {
         for (let i = 0; i < values.diesel.length; i++) {
             fullLitres += parseInt(values.diesel[i].litre)
         }
-        console.log(fullLitres)
+        // console.log(fullLitres)
         if(!isNaN(fullLitres))
             setFieldValue('total_diesel_litre', String(fullLitres))
     }

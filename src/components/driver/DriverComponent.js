@@ -100,7 +100,7 @@ function DriverComponent(props) {
         function FetchDriver() {
             Axios.get(`${apiOrigin}/drivers`)
             .then(result => {
-                console.log(result)
+                // console.log(result)
                 if(result.data.length === 0)
                 {
                     toast.notify(
@@ -135,7 +135,7 @@ function DriverComponent(props) {
     }, [props.showview, length])
 
     const editDriver = (e, id) => {
-        console.log(id)
+        // console.log(id)
         Axios.get(`${apiOrigin}/drivers/editdriver/${id}`)
         .then(res => {
             // console.log(res.data)
@@ -157,7 +157,7 @@ function DriverComponent(props) {
     }
 
     const deletItem = (e) => {
-        console.log(e.target.id);
+        // console.log(e.target.id);
         Axios.delete(`${apiOrigin}/drivers/deletedriver`, {data : {id : e.target.id}})
         .then(response => {
             if(response)
@@ -321,7 +321,7 @@ function MaterialDialog(props) {
         // console.log(values)
         Axios.post(`${apiOrigin}/drivers/updatedriver`, values)
         .then(response => {
-            console.log(response)
+            // console.log(response)
             if(response.status === 200)
             {
                 toast.notify(

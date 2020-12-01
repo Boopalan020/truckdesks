@@ -77,7 +77,7 @@ function DashboardComponent(props) {
 
         Axios.get(`${apiOrigin}/dashboard/get/${vid}/${values.year}`)
         .then(yeares => {
-            console.log(yeares)
+            // console.log(yeares)
 
             if(yeares.data.memos.length === 0)
             {
@@ -160,7 +160,7 @@ function DashboardComponent(props) {
         {
             Axios.get(`${apiOrigin}/dashboard/getmonthdata/${vid}`)
             .then(chartRes => {
-                console.log(chartRes.data)
+                // console.log(chartRes.data)
                 if(chartRes.data.flag === true)
                 {
                     setErrordata(chartRes.data.flag)
@@ -171,7 +171,7 @@ function DashboardComponent(props) {
                 }
                 else
                 {
-                    console.log(chartRes.data.memoarray)
+                    // console.log(chartRes.data.memoarray)
                     setChartdata(chartRes.data.memoarray)
                     setYears(chartRes.data.years)
                     if(chartRes.data.yeardata)

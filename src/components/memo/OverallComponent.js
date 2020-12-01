@@ -244,7 +244,7 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
       var yval = 470;
       var printable = "";
       for (i = 0; i < memoData.loads.length; i++) {
-        console.log("i-Value", memoData.loads.length);
+        // console.log("i-Value", memoData.loads.length);
         xval = 34;
         for (var col = 1; col <= 8; col++) {
           printable = "";
@@ -533,7 +533,7 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
       var blob = new Blob([pdfBytes], {
         type: "application/pdf;charset=utf-8",
       });
-      console.log(blob);
+      // console.log(blob);
       saveAs(blob, calc_dates + ".pdf");
     });
   };

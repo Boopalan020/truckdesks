@@ -19,6 +19,7 @@ function LogoutComponent({ setloggedIn }) {
               duration : "4000"
             }
           )
+        console.log("Logout successful")
       }
     
       const onFailure = () => {
