@@ -163,6 +163,10 @@ function DashboardComponent(props) {
                 if(chartRes.data.flag === true)
                 {
                     setErrordata(chartRes.data.flag)
+                    setYearDiv(false)
+                    setYearhand(0)
+                    setYearexpense(0)
+                    setYears([])
                 }
                 else
                 {

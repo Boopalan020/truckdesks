@@ -28,9 +28,7 @@ function App() {
           {
             loggedIn ?
             <MainComponent setloggedIn = { setLoggedIn } /> : 
-            <div className={classes.root} style = {{
-              
-            }} >
+            <div className={classes.root} >
               <CssBaseline />
               <HeaderComponent setLoggedIn = { setLoggedIn } />
             </div>
