@@ -8,8 +8,8 @@ import { Typography } from '@material-ui/core'
 import toast from 'toasted-notes' 
 import Alert from '@material-ui/lab/Alert'
 
-// const apiOrigin = "https://truckdesks.herokuapp.com"
-const apiOrigin = "http://localhost:3001"
+const apiOrigin = "https://truckdesks.herokuapp.com"
+// const apiOrigin = "http://localhost:3001"
 function FormSubmitionComponent({ formData, setFormData, prevStep, firstStep }) {
     const saveDataToServer = () => {
         Axios.post(`${apiOrigin}/vehicle/savevehicle`, formData)
