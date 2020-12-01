@@ -33,8 +33,8 @@ app.use('/drivers', driver)
 app.use('/vehicle', vehicle)
 app.use('/memo', memo)
 
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, './build', 'index.html'))
-})
+// app.get('/*', (req, res) => {
+//     res.sendFile(path.join(__dirname, './build', 'index.html'))
+// })
 
 app.listen(port, () => console.log("Server is running at PORT ===" + port))

@@ -13,6 +13,8 @@ import Axios from 'axios'
 import toast from 'toasted-notes' 
 import Alert from '@material-ui/lab/Alert'
 
+// const apiOrigin = "https://truckdesks.herokuapp.com"
+const apiOrigin = "https://localhost:3001"
 const useStyles = makeStyles((theme) => ({
   alignItemsAndJustifyContent: {
     display: "flex",
@@ -39,7 +41,7 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
   const [previewstate, setPreviewstate] = useState('true')
   const onSubmit = (values) => {
     setFormdata(values);
-    Axios.post("http://localhost:3001/memo/savememo", {data : values})
+    Axios.post(`${apiOrigin}/memo/savememo`, {data : values})
     .then(res => {
       if(res.status === 200 && res.data.flags === true)
       {
@@ -130,7 +132,7 @@ function OverallComponent({ formdata, setFormdata, prevStep, firstStep }) {
   // Generating PDF function
   const getPDFfunction = (memoData) => {
     var buf;
-    Axios.get("http://localhost:3001/memo/getpdf", {
+    Axios.get(`${apiOrigin}/memo/getpdf`, {
       responseType: "arraybuffer",
       headers: {
         Accept: "application/pdf",
