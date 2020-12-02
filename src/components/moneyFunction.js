@@ -4,3 +4,9 @@ export const numberFormat = (value) =>
     style: 'currency',
     currency: 'INR'
   }).format(value);
+
+// CORS server API
+
+// export const apiOrigin = "https://localhost:3000"
+export const apiOrigin = "https://truckdesks.herokuapp.com"
+// export const apiOrigin  = "http://localhost:3001"

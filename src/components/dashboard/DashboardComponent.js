@@ -20,9 +20,9 @@ import AddIcon from '@material-ui/icons/Add'
 import MenuComponent from "./MenuComponent"
 import FinalCalComponent from './FinalCalComponent'
 
-import { numberFormat } from '../moneyFunction'
+import { numberFormat, apiOrigin } from '../moneyFunction'
 
-const apiOrigin = "https://truckdesks.herokuapp.com"
+// const apiOrigin = "https://truckdesks.herokuapp.com"
 // const apiOrigin  = "http://localhost:3001"
 const useStyles = makeStyles((theme) => ({
     paperStyle : {

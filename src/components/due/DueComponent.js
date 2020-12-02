@@ -19,6 +19,7 @@ import Button from '@material-ui/core/Button'
 import toast from 'toasted-notes' 
 import Alert from '@material-ui/lab/Alert'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
+import { apiOrigin } from '../moneyFunction'
 
 const useStyles = makeStyles( (theme) =>({
     root: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles( (theme) =>({
       },
   }));
 
-const apiOrigin = "https://truckdesks.herokuapp.com"
+// const apiOrigin = "https://truckdesks.herokuapp.com"
 // const apiOrigin  = "http://localhost:3001"
 function DueComponent(props) {
     const classes = useStyles();
