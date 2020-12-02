@@ -4,7 +4,7 @@ import './index.css'
 import App from './App'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-// import * as serviceWorker from './serviceWorker';
+import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <>
@@ -13,4 +13,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// serviceWorker.unregister();  Mainly for PROGRESSIVE WEB APPLICATION
+serviceWorker.register(); // Mainly for PROGRESSIVE WEB APPLICATION
