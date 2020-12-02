@@ -25,7 +25,7 @@ app.use(morgan('dev'))
 app.use(cors({
     // origin : "http://localhost:3000"
     // origin : "http://localhost:3001"
-    origin : "https://truckdesks.herokuapp.com/"
+    origin : ["https://truckdesks.herokuapp.com/", "http://truckdesks.herokuapp.com/", "http://localhost:3001", "http://localhost:3000"]
 }))
 
 app.use('/dashboard', dashboard)
