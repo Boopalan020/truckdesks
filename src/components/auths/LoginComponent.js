@@ -7,7 +7,7 @@ import { useGoogleLogin } from 'react-google-login'
 import { refreshTokenSetup } from '../refreshToken'
 import GoogleButton from 'react-google-button'
 
-const clientId = '253103175843-00vv27nslcgtncskq0n55uif09n9aoho.apps.googleusercontent.com'
+const clientId = '253103175843-7h59jaldkki0r87rtefnlf7n0992qa8s.apps.googleusercontent.com'
 
 function LoginComponent({ setloggedIn, changePrState }) {
 
